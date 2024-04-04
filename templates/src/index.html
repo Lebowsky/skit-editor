@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/prev.css">
+  <link rel="stylesheet" href="./css/top-menu.css">
+  <link rel="stylesheet" href="./css/tabs.css">
+  <link rel="stylesheet" href="./css/side-menu.css">
+  <link rel="stylesheet" href="./css/media.css">
+  <script src="https://use.fontawesome.com/9edb5c641c.js"></script>
+  <title>Hello, esbuild!</title>
+</head>
+<body>
+  <div id="root"></div>
+  <div class="top-menu">
+    <a href="#" class="logo">Simple UI</a>
+    <nav>
+      <ul>
+        <li><a href="#">File</a>
+          <ul>
+            <li><a href="#">New</a></li>
+            <li><a href="#">Open</a></li>
+            <li><a href="#">Save</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Tools</a>
+          <ul>
+            <li><a href="#">SQL Query</a></li>
+            <li><a href="#">Preview</a></li>
+            <li><a href="#">Serarch</a></li>
+            <li><a href="#">QR-Settings</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Configuration</a>
+          <ul>
+            <li><a href="#">Common</a></li>
+            <li><a href="#">Properties</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main" data-id="9">
+    <div class="side-menu">
+      <ul>
+        <li><a href="#" class="icon main-menu">Main menu</a></li>
+        <li><a href="#" class="icon styles">Styles</a></li>
+        <li><a href="#" class="icon start-screen">StartScreen</a></li>
+        <li><a href="#" class="icon folder open">Processes</a>
+          <ul class="side-menu-nested">
+            <li><a href="#" class="icon folder open">Документы</a>
+              <ul class="side-menu-nested">
+                <li><a href="#" class="icon folder open">Экраны</a>
+                  <ul class="side-menu-nested">
+                    <li><a href="#" class="icon folder">Документы</a></li>
+                    <li><a href="#" class="icon folder">Список товаров</a></li>
+                    <li><a href="#" class="icon folder">Товар выбор</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">Shedulers</a></li>
+        <li><a href="#">Common handlers</a></li>
+        <li><a href="#">Python files</a></li>
+        <li><a href="#">MediaFiles</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="tabs">
+        <div class="tab"><span>Документы</span></div>
+        <div class="tab active"><span>Список товаров</span></div>
+      </div>
+      <div class="params-wrapper">
+        <div class="params">
+          <div class="main-params">
+            <label class="w" for="Name">
+              <span>Name</span>
+              <input type="text" name="Name" id="Name" data-param-name="Name" value="Документы" title="">
+            </label>
+            <label for="Timer">
+              <input type="checkbox" name="Timer" id="Timer" data-param-name="Timer" title="">
+              <span>Screen handler on timer</span>
+            </label>
+            <label for="hideToolBarScreen">
+              <input type="checkbox" name="hideToolBarScreen" id="hideToolBarScreen" data-param-name="hideToolBarScreen" title="">
+              <span>Hide top bar</span>
+            </label>
+            <label for="hideBottomBarScreen">
+              <input type="checkbox" name="hideBottomBarScreen" id="hideBottomBarScreen" data-param-name="hideBottomBarScreen" title="">
+              <span>Hide top bar</span>
+            </label>
+            <label for="noScroll">
+              <input type="checkbox" name="noScroll" id="noScroll" data-param-name="noScroll" title="">
+              <span>Hide top bar</span>
+            </label>
+            <label for="handleKeyUp">
+              <input type="checkbox" name="handleKeyUp" id="handleKeyUp" data-param-name="handleKeyUp" title="">
+              <span>Hide top bar</span>
+            </label>
+            <label for="noConfirmation">
+              <input type="checkbox" name="noConfirmation" id="noConfirmation" data-param-name="noConfirmation" title="">
+              <span>Hide top bar</span>
+            </label>
+            <div class="btn-wrap">
+              <button class="btn color save-element">Save</button>
+            </div>
+          </div>
+          <div class="elements">
+            <div class="list-wrapper">
+              <h3 class="list-header">Elements (<span class="cnt">2</span>)<i class="fa fa-chevron-up" aria-hidden="true"></i></h3>
+              <div class="btn-wrap">
+                <button class="btn color add-element">Add</button>
+                <button class="btn color paste-element">Paste</button>
+              </div>
+              <ul class="list">
+                <li><a href="#">LinearLayout</a></li>
+                <li><a href="#">barcode</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="handlers">
+            <div class="list-wrapper">
+              <h3 class="list-header">Handlers (<span class="cnt">2</span>)<i class="fa fa-chevron-up" aria-hidden="true"></i></h3>
+              <div class="btn-wrap">
+                <button class="btn color add-element">Add</button>
+                <button class="btn color paste-element">Paste</button>
+              </div>
+              <ul class="list">
+                <li><a href="#">onStart</a><i class="info">docs_on_start</i></li>
+                <li><a href="#">onInput</a><i class="info">docs_on_select</i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="prev-wrap">
+          <div id="prev" class="ui-resizable">
+            <div class="prev-content">
+              <div class="preload">Project preview</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

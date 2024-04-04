@@ -1,0 +1,9 @@
+@media (max-width: 1250px) {
+    .params {
+        flex-direction: column;
+    }
+    .content .params > div {
+        width: 96%;
+        margin: 0 2% 20px 2% !important;
+    }
+}
