@@ -1,0 +1,48 @@
+.side-menu {
+    height: 100%;
+    width: 15%;
+    background: #a9a9a9;
+    padding: 20px;
+    overflow: auto;
+}
+.side-menu a {
+    font-size: 16px;
+    display: flex;
+    color: #fff;
+    margin-bottom: 10px;
+    align-items: center;
+    position: relative;
+    margin-left: 15px;
+}
+ul.side-menu-nested li {
+    padding-left: 1rem;
+}
+.icon:before {
+    content: "\f114";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    right: 100%;
+    margin-right: 5px;
+    color: #bb074b;
+    width: 15px;
+    font-size: 10pt;
+}
+.icon.main-menu:before {
+    content: "\f015";
+}
+.icon.styles:before {
+    content: "\f1fc";
+}
+.icon.start-screen:before {
+    content: "\f005";
+}
+.icon.folder:before {
+    content: "\f07b";
+}
+.icon.folder.open:before {
+    content: "\f07c";
+}

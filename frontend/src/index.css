@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    list-style: none;
+    text-decoration: none;
+}
+a,
+a:visited {
+    color: #000;
+}
+input[type=text] {
+    padding: 10px;
+    border: 1px #c7c7c7 solid;
+    border-radius: 5px;
+    outline: none;
+}
+.btn {
+    background: #999;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 300px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0 2px;
+}
+.btn.color {
+    background: linear-gradient(-45deg, #21B9E1, #E71F53, #FBAF2E);
+    color: #fff;
+}
+.btn-wrap {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.list-wrapper {
+    width: 100%;
+}
+.list-header {
+    font-size: 12pt;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.list-header i {
+    color: orange;
+    margin-left: 10px;
+    font-size: 9pt;
+}
+.list li {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+.list li > * {
+    width: 50%;
+}
+.list li:hover {
+    background: #a9a9a9;
+}
+.list li:hover a {
+    cursor: pointer;
+    color: #fff;
+}
+.list li:hover .info {
+    color: #fff;
+    cursor: default;
+}
+
