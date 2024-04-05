@@ -1,6 +1,6 @@
 .side-menu {
     height: 100%;
-    width: 15%;
+    width: 250px;
     background: #a9a9a9;
     padding: 20px;
     overflow: auto;
@@ -46,3 +46,17 @@ ul.side-menu-nested li {
 .icon.folder.open:before {
     content: "\f07c";
 }
+.icon.mediafiles:before {
+    content: "\f1c5";
+}
+.icon.pythonfiles:before {
+    content: "\f1c9";
+}
+.icon.common-handlers:before {
+    content: "\f022";
+}
+.icon.shedulers:before {
+    content: "\f017";
+}
+
+

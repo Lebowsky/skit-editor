@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import './Content.css'
 import Preview from './Preview/Preview.jsx'
 import Tabs from './Tabs/Tabs.jsx'

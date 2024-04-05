@@ -1,0 +1,13 @@
+.btn {
+    background: #999;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 300px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0 2px;
+}
+.btn.color {
+    background: linear-gradient(-45deg, #21B9E1, #E71F53, #FBAF2E);
+    color: #fff;
+}
