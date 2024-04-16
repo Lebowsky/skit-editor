@@ -101,7 +101,7 @@ export function SimpleUIContextProvider({ children }) {
 
   return (
     <SimpleUIContext.Provider
-      value={{ configuration, sideMenu, tabs, currentState, addTab, removeTab, setCurrentTab }}>
+      value={{ configuration, sideMenu, tabs, currentState, addTab, removeTab, setCurrentTab, setCurrentDetails}}>
       {children}
     </SimpleUIContext.Provider>
   )

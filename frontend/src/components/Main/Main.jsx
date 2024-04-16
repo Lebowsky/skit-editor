@@ -1,6 +1,7 @@
 import SideMenu from './SideMenu/SideMenu.jsx'
 import Content from './Content/Content.jsx'
 import { useSimpleUI } from '../../context/context.jsx'
+import ParamsDetails from '../forms/ParamsDetails.jsx'
 
 
 export default function Main() {
@@ -13,8 +14,9 @@ export default function Main() {
   }
   return (
     <div style={style}>
+     {currentDetails && <ParamsDetails data={currentDetails}></ParamsDetails>}
       <SideMenu sideMenu={sideMenu}/>
-      <Content tabs={tabs} currentTab={currentTab}/>
+      <Content tabs={tabs} currentTab={currentTab} currentContent={currentContent}/>
     </div>
   )
 }

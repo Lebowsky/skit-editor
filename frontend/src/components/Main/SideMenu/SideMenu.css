@@ -58,5 +58,12 @@ ul.side-menu-nested li {
 .icon.shedulers:before {
     content: "\f017";
 }
-
-
+.icon.process:before {
+    content: "\f1b2";
+}
+.icon.processes:before {
+    content: "\f1b3";
+}
+.icon.operation:before {
+    content: "\f108";
+}

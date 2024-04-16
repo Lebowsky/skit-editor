@@ -14,7 +14,7 @@ a,
 a:visited {
     color: #000;
 }
-input[type=text] {
+/* input[type=text] {
     padding: 10px;
     border: 1px #c7c7c7 solid;
     border-radius: 5px;
@@ -59,5 +59,5 @@ input[type=text] {
 .list li:hover .info {
     color: #fff;
     cursor: default;
-}
+} */
 
