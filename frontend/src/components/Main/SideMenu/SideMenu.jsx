@@ -1,39 +1,54 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './SideMenu.css'
+import { useState } from 'react'
+import { useSimpleUI } from '../../../context/context'
 
-export default function SideMenu() {
+const icons = {
+  'MainMenu': 'icon main-menu',
+  'StyleTemplates': 'icon styles',
+  'StartScreen': 'icon start-screen',
+  'Processes': 'icon processes',
+  'Process': 'icon process',
+  'Operation': 'icon operation',
+  'Mediafile': 'icon mediafiles',
+  'PyFiles': 'icon pythonfiles',
+  'CommonHandlers': 'icon common-handlers',
+  'Shedulers': 'icon shedulers',
+}
+
+export default function SideMenu({ sideMenu }) {
   return (
     <div className="side-menu">
       <ul>
-        <Element className='main-menu' name='Main menu'></Element>
-        <Element className='styles' name='Styles'></Element>
-        <Element className='start-screen' name='StartScreen'></Element>
-        <Element className='folder' name='Processes (10)'>
-        {/* <ul className="side-menu-nested">
-            <li><a href="#" className="icon folder open">Документы</a>
-              <ul className="side-menu-nested">
-                <li><a href="#" className="icon folder open">Экраны</a>
-                  <ul className="side-menu-nested">
-                    <li><a href="#" className="icon folder">Документы</a></li>
-                    <li><a href="#" className="icon folder">Список товаров</a></li>
-                    <li><a href="#" className="icon folder">Товар выбор</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul> */}
-        </Element>
-        <Element className='shedulers' name='Shedulers'></Element>
-        <Element className='common-handlers' name='Common handlers'></Element>
-        <Element className='pythonfiles' name='Python files'></Element>
-        <Element className='mediafiles' name='Media Files'></Element>
+        {sideMenu.map((item, idx) => <MenuItem {...item} key={idx}> </MenuItem>)}
       </ul>
     </div>
   )
 }
 
-function Element({className, name}){
+function MenuItem(item) {
+  const { addTab } = useSimpleUI()
+  const [isOpened, setIsOpened] = useState(false)
+
+  function handleItem(item) {
+    setIsOpened((prev) => !prev)
+    item.id !== undefined && addTab({id: item.id, title: item.title, type: item.type})
+  }
+
+  const className = isOpened ? `${icons[item.type]} open` : `${icons[item.type]}`
   return (
-    <li><a href="#" className={`icon ${className}`}>{name}</a></li>
+    <>
+      <li key={item.id}>
+        <a href="#" className={className} onClick={(() => handleItem(item))}>
+          {item.title}
+        </a>
+        {isOpened && item.nestedItems &&
+          <ul className="side-menu-nested">
+            {item.nestedItems.map((el) =>
+              <MenuItem {...el} key={el.id}  > </MenuItem>)
+            }
+          </ul>}
+      </li>
+    </>
   )
 }
