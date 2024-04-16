@@ -1,4 +1,3 @@
-import './App.css';
 import TopMenu from './components/TopMenu/TopMenu.jsx'
 import Main from './components/Main/Main.jsx'
 
