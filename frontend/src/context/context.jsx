@@ -58,11 +58,22 @@ export function SimpleUIContextProvider({ children }) {
     return newContent
   }
 
-  function setCurrentTab(tabId, type) {
+  function updateCurrentContent(data) {
+    console.log(data)
     setCurrentState((prev) => {
       const newContent = { ...prev }
-      newContent.currentTab = tabId ? tabId : null
-      newContent.currentContent = type ? getCurrentContent(tabId, type) : null
+      newContent.currentContent.content = data
+      return newContent
+    })
+  }
+
+  function setCurrentTab(tabId, type) {
+    setCurrentState((prev) => {
+      const newContent = {
+        ...prev,
+        currentTab: tabId ? tabId : null,
+        currentContent: type ? getCurrentContent(tabId, type) : null
+      }
       setCurrentDetails(null)
       return newContent
     })
@@ -91,7 +102,6 @@ export function SimpleUIContextProvider({ children }) {
       const isActive = currentState.currentTab === tabId
       const newTabs = prev.filter(el => el.id !== tabId)
       const currentTab = (newTabs.length && isActive) ? (newTabs[tabIdx - 1] || newTabs[newTabs.length - 1]) : undefined
-
       currentTab && setCurrentTab(currentTab.id, currentTab.type)
       newTabs.length === 0 && setCurrentTab(null, null)
 
@@ -99,9 +109,24 @@ export function SimpleUIContextProvider({ children }) {
     })
   }
 
+  function updateConfigElement(data) {
+    console.log(data)
+  }
+
   return (
     <SimpleUIContext.Provider
-      value={{ configuration, sideMenu, tabs, currentState, addTab, removeTab, setCurrentTab, setCurrentDetails}}>
+      value={{
+        configuration,
+        sideMenu,
+        tabs,
+        currentState,
+        addTab,
+        removeTab,
+        setCurrentTab,
+        setCurrentDetails,
+        updateCurrentContent,
+        updateConfigElement
+      }}>
       {children}
     </SimpleUIContext.Provider>
   )
