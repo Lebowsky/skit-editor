@@ -1,6 +1,6 @@
 
 
-export default function Selector({ title, options, defaultValue }) {
+export default function Selector({ title, name, options, defaultValue }) {
 
   return (
     <div style={{
@@ -21,7 +21,8 @@ export default function Selector({ title, options, defaultValue }) {
         {title}
       </label>
       <select 
-        defaultValue={defaultValue} 
+        defaultValue={defaultValue}
+        name={name} 
         style={{ 
           padding: '8px', 
           width: '100%', 

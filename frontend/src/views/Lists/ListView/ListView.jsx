@@ -4,8 +4,7 @@ import { useSimpleUI } from "../../../context/context"
 export default function ListView({ data, listKeys, onClickItem, selectedItemId }) {
   const { setCurrentDetails } = useSimpleUI()
   function handleDoubleClick(id){
-    console.log(id)
-    setCurrentDetails({})
+    setCurrentDetails(data.filter(el => el.id === id)?.[0])
   }
   return (
     <ul className="list">

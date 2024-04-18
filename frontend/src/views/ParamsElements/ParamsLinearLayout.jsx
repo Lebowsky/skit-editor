@@ -1,11 +1,22 @@
 import { ParamInput, ParamsBlockTitle } from "../../components/forms/MainParamsForm";
+import { useSimpleUI } from "../../context/context";
 
 export default function ParamsLinearLayout({ data }) {
+  const {updateConfigItem} = useSimpleUI()
   const fields = [
     { name: 'Variable', type: 'text', title: 'Variable'},
-    { name: 'orientation', type: 'select', title: 'Orientation', options: {}},
-    { name: 'height', type: 'select', title: 'Height', options: {}},
-    { name: 'width', type: 'select', title: 'Width', options: {}},
+    { name: 'orientation', type: 'select', title: 'Orientation', options: {
+      horizontal: 'horizontal',
+      vertical: 'vertical',
+    }},
+    { name: 'height', type: 'select', title: 'Height', options: {
+      match_parent: 'match_parent',
+      wrap_content: 'wrap_content',
+    }},
+    { name: 'width', type: 'select', title: 'Width', options: {
+      match_parent: 'match_parent',
+      wrap_content: 'wrap_content',
+    }},
     { name: 'weight', type: 'text', title: 'Weight'},
     { name: 'BackgroundColor', type: 'text', title: 'Background color'},
     { name: 'StrokeWidth', type: 'text', title: 'Stroke width'},
@@ -15,15 +26,18 @@ export default function ParamsLinearLayout({ data }) {
   function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
+    // console.log(form['height'].value)
     
 
-    // const newContent = Object.fromEntries(fields.map(el => {
-    //   return [el.name, getParamValue(form[el.name])]
-    // }))
+    const newContent = Object.fromEntries(fields.map(el => {
+      return [el.name, getParamValue(form[el.name])]
+    }))
+    console.log(newContent)
+    updateConfigItem(data.id, data.content.type, newContent)
     // updateCurrentContent({ ...data, ...newContent })
   }
   return (
-    <ModalParamsForm data={data} fields={fields} onSubmit={handleSubmit} title={data.type}></ModalParamsForm>
+    <ModalParamsForm data={data} fields={fields} onSubmit={handleSubmit} title={data.content.type}></ModalParamsForm>
   )
 }
 
@@ -61,6 +75,6 @@ export function getParamValue(param) {
     case 'checkbox':
       return param.checked
     default:
-      return null
+      return param.value
   }
 }

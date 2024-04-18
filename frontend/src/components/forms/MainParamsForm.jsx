@@ -30,12 +30,12 @@ export function ParamsBlockTitle({ children, onClick }) {
     </div>
   )
 }
-export function ParamInput({ type, value, name, title }) {
+export function ParamInput({ type, value, name, title, options }) {
   return (
     <>
       {type === 'text' && <TextView key={Math.random()} value={value} name={name} title={title}></TextView>}
       {type === 'checkbox' && <CheckBox title={title} name={name} isChecked={value}></CheckBox>}
-      {type === 'select' && <Selector title={title} name={name} defaultValue={value}></Selector>}
+      {type === 'select' && <Selector title={title} name={name} options={options} defaultValue={value}></Selector>}
     </>
   )
 }
@@ -46,6 +46,6 @@ export function getParamValue(param) {
     case 'checkbox':
       return param.checked
     default:
-      return null
+      return param.value
   }
 }

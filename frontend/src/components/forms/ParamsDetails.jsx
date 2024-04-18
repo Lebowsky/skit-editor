@@ -6,7 +6,7 @@ export default function ParamsDetails({ data }) {
   return (
     <Modal isOpen={true}>
       <Params data={data}>
-        <ParamsLinearLayout data={data}></ParamsLinearLayout>
+        {data.content.type === "LinearLayout" && <ParamsLinearLayout data={data}></ParamsLinearLayout>}
       </Params>
     </Modal>
   )

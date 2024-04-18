@@ -6,7 +6,6 @@ import ListView from '../ListView/ListView';
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export default function ElementsList({ data, title='Elements' }) {
-  const { setCurrentDetails } = useSimpleUI()
   const [selectedItemId, setSelectedItemId] = useState()
 
   function onClickItem(id){

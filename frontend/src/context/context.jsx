@@ -108,8 +108,8 @@ export function SimpleUIContextProvider({ children }) {
     })
   }
 
-  function updateConfigElement(data) {
-    console.log(data)
+  function updateConfigItem(id, type, content) {
+    console.log(id, type, content)
   }
 
   return (
@@ -124,7 +124,7 @@ export function SimpleUIContextProvider({ children }) {
         setCurrentTab,
         setCurrentDetails,
         updateCurrentContent,
-        updateConfigElement
+        updateConfigItem
       }}>
       {children}
     </SimpleUIContext.Provider>
