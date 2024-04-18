@@ -14,6 +14,7 @@ export default function Modal ({ isOpen, onClose, children }){
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        zIndex: 1
       }}
     >
       <div

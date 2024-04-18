@@ -9,13 +9,16 @@ export default function Content({ tabs, currentTab, currentContent }) {
     <div style={{ width: '85%', overflow: 'auto' }}>
       <Tabs tabsData={tabs} currentTab={currentTab} />
       <ContentWrapper>
-        <Params data={currentContent}></Params>
+        <Params data={currentContent}>
+          {currentContent && currentContent.content.type === 'Process' && <ParamsProcess content={currentContent.content}></ParamsProcess>}
+          {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation {...currentContent}></ParamsOperation>}
+        </Params>
       </ContentWrapper>
     </div>
   )
 }
 
-function ContentWrapper({ children }) {
+export function ContentWrapper({ children }) {
   const style = {
     display: 'flex',
     justifyContent: 'space-around',
@@ -27,20 +30,17 @@ function ContentWrapper({ children }) {
   )
 }
 
-function Params({ data }) {
-  const style = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'start',
-    width: '100%',
-    maxWidth: '700px',
-    flexDirection: 'column',
-
-  }
+export function Params({ data, children }) {
   return (
-    <div style={style}>
-      {data && data.content.type === 'Process' && <ParamsProcess content={data.content}></ParamsProcess>}
-      {data && data.content.type === 'Operation' && <ParamsOperation {...data}></ParamsOperation>}
+    <div style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'start',
+      width: '100%',
+      maxWidth: '700px',
+      flexDirection: 'column',
+    }}>
+      {children}
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import Button, { ButtonGroup } from "../Inputs/Button/Button";
 import CheckBox from "../Inputs/CheckBox/CheckBox";
+import Selector from "../Inputs/Selector";
 import TextView from "../Inputs/TextView/TextView";
 import ParamsFormWrapper from "./ParamsFormWrapper";
 
@@ -11,7 +12,7 @@ export default function MainParamsForm({ data, fields, onSubmit, title }) {
     </ParamsFormWrapper>
   )
 }
-function ParamsBlockTitle({ children, onClick }) {
+export function ParamsBlockTitle({ children, onClick }) {
   return (
     <div
       style={{
@@ -29,11 +30,12 @@ function ParamsBlockTitle({ children, onClick }) {
     </div>
   )
 }
-function ParamInput({ type, value, name, title }) {
+export function ParamInput({ type, value, name, title }) {
   return (
     <>
       {type === 'text' && <TextView key={Math.random()} value={value} name={name} title={title}></TextView>}
       {type === 'checkbox' && <CheckBox title={title} name={name} isChecked={value}></CheckBox>}
+      {type === 'select' && <Selector title={title} name={name} defaultValue={value}></Selector>}
     </>
   )
 }
