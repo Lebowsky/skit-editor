@@ -1,4 +1,4 @@
-export default function Button({ children, onClick }) {
+export default function Button({ children, onClick, type }) {
   const style = {
     background: "linear-gradient(-45deg, #21B9E1, #E71F53, #FBAF2E)",
     border: "none",
@@ -11,7 +11,7 @@ export default function Button({ children, onClick }) {
   }
 
   return (
-    <button style={style} onClick={onClick}>
+    <button style={style} onClick={onClick} type={type}>
       {children}
     </button>
   )

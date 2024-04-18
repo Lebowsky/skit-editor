@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import ParamsProcess from '../../../views/MainParams/MainParamsProcess/MainParamsProcess.jsx'
+import MainParamsProcess from '../../../views/MainParams/MainParamsProcess/MainParamsProcess.jsx'
 import './Content.css'
 import Tabs from './Tabs/Tabs.jsx'
 
@@ -38,7 +38,7 @@ function Params({ data }) {
   }
   return (
     <div style={style}>
-      {data && data.content.type === 'Process' && <ParamsProcess data={data.content}></ParamsProcess>}
+      {data && data.content.type === 'Process' && <MainParamsProcess data={data.content}></MainParamsProcess>}
       {/* {data && data.content.type === 'Operation' && <OperationContent {...data}></OperationContent>} */}
     </div>
   )

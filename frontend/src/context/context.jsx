@@ -59,7 +59,6 @@ export function SimpleUIContextProvider({ children }) {
   }
 
   function updateCurrentContent(data) {
-    console.log(data)
     setCurrentState((prev) => {
       const newContent = { ...prev }
       newContent.currentContent.content = data

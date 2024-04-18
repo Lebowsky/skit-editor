@@ -1,41 +1,43 @@
-import Button, { ButtonGroup } from "../../../components/Inputs/Button/Button"
-import CheckBox from "../../../components/Inputs/CheckBox/CheckBox"
-import TextView from "../../../components/Inputs/TextView/TextView"
-import ParamsBlockWrapper from "../../../components/forms/ParamsBlockWrapper"
+import MainParamsForm, {getParamValue} from "../../../components/forms/MainParamsForm"
+import { useSimpleUI } from "../../../context/context"
 
 
-export default function ParamsProcess({ data }) {
+export default function MainParamsProcess({ data }) {
+  const { updateCurrentContent } = useSimpleUI()
+  const fields = [
+    {
+      name: 'ProcessName',
+      type: 'text',
+      title: 'Name'
+    },
+    {
+      name: 'DefineOnBackPressed',
+      type: 'checkbox',
+      title: 'Override back button (ON_BACK_PRESSED input event)'
+    },
+    {
+      name: 'hidden',
+      type: 'checkbox',
+      title: 'Do not display in Menu'
+    },
+    {
+      name: 'login_screen',
+      type: 'checkbox',
+      title: 'Run at startup'
+    },
+  ]
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+
+    const newContent = Object.fromEntries(fields.map(el => {
+      return [el.name, getParamValue(form[el.name])]
+    }))
+    updateCurrentContent({...data, ...newContent})
+  }
   return (
-    <ParamsBlockWrapper>
-      <ParamsBlockTitle onClick={() => ({})}>{`Process: ${data.ProcessName}`}</ParamsBlockTitle>
-      <TextView
-        value={data.ProcessName}
-        key={Math.random()}
-        name={'ProcessName'}
-        variable='name'
-        title='Name'
-      ></TextView>
-      <CheckBox title='Override back button (ON_BACK_PRESSED input event)' isChecked={data.DefineOnBackPressed}></CheckBox>
-      <CheckBox title='Do not display in Menu' isChecked={data.hidden}></CheckBox>
-      <CheckBox title='Run at startup' isChecked={data.login_screen}></CheckBox>
-    </ParamsBlockWrapper>
+    <MainParamsForm data={data} fields={fields} onSubmit={handleSubmit}></MainParamsForm>
   )
 }
-function ParamsBlockTitle({ children, onClick }) {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid',
-        marginBottom: '10px',
-        width: '100%',
-        alignItems: 'baseline'
-      }}>
-      <h3 className="list-header">{children}</h3>
-      <ButtonGroup>
-        <Button onClick={onClick}>Apply</Button>
-      </ButtonGroup>
-    </div>
-  )
-}
+
