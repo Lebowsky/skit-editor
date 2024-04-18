@@ -1,6 +1,12 @@
 import { useState } from "react"
+import { useSimpleUI } from "../../../context/context"
 
-export default function ListView({ data, listKeys }) {
+export default function ListView({ data, listKeys, onClickItem, selectedItemId }) {
+  const { setCurrentDetails } = useSimpleUI()
+  function handleDoubleClick(id){
+    console.log(id)
+    setCurrentDetails({})
+  }
   return (
     <ul className="list">
       {data.map(({ id, content, nestedElements }, idx) => (
@@ -8,11 +14,17 @@ export default function ListView({ data, listKeys }) {
           key={idx} 
           data={listKeys.map(key => content[key])} 
           hasNested={nestedElements && nestedElements.length > 0}
+          onClick={() => onClickItem(id)}
+          onDoubleClick={() => handleDoubleClick(id)}
+          isSelected={id === selectedItemId}
         >
           {nestedElements && 
             <ListView 
-              data={nestedElements} 
+              data={nestedElements}
               listKeys={listKeys}
+              selectedItemId={selectedItemId} 
+              onClickItem={onClickItem}
+              
             >
             </ListView>
           }
@@ -21,11 +33,21 @@ export default function ListView({ data, listKeys }) {
     </ul>
   )
 }
-function ListRow({ data, children, hasNested }) {
+function ListRow({ data, children, hasNested, onClick, isSelected, onDoubleClick }) {
   const [isOpened, setIsOpened] = useState(false)
-  const [isSelected, setIsSelected] = useState(false)
+  const [isHover, setIsHover] = useState(false)
   const iconClassName = isOpened ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
   
+  function getBackground(){
+    switch (true) {
+      case isSelected:
+        return 'rgba(169, 169, 169)'
+      case isHover:
+        return 'rgba(169, 169, 169, .5)'
+      default:
+        return '#fff'
+    }
+  }
   return (
     <li 
       style={{
@@ -33,13 +55,17 @@ function ListRow({ data, children, hasNested }) {
         borderRadius: '5px',
         marginLeft: '5px',
       }}
-      onClick={() => {setIsSelected((prev) => !prev)}}
     >
       <div 
         style={{ 
           display: 'flex', 
           padding: 10,
+          background: getBackground()
         }}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
       >
         {hasNested && <i className={iconClassName} aria-hidden="true" onClick={() => setIsOpened((prev) => !prev)}></i>}
         {/* <div style={{background: isSelected ?  '#a9a9a9' : '#fff' }}> */}
