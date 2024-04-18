@@ -5,26 +5,10 @@ import { useSimpleUI } from "../../../context/context"
 export default function MainParamsProcess({ data }) {
   const { updateCurrentContent } = useSimpleUI()
   const fields = [
-    {
-      name: 'ProcessName',
-      type: 'text',
-      title: 'Name'
-    },
-    {
-      name: 'DefineOnBackPressed',
-      type: 'checkbox',
-      title: 'Override back button (ON_BACK_PRESSED input event)'
-    },
-    {
-      name: 'hidden',
-      type: 'checkbox',
-      title: 'Do not display in Menu'
-    },
-    {
-      name: 'login_screen',
-      type: 'checkbox',
-      title: 'Run at startup'
-    },
+    {name: 'ProcessName', type: 'text', title: 'Name'},
+    {name: 'DefineOnBackPressed', type: 'checkbox', title: 'Override back button (ON_BACK_PRESSED input event)'},
+    {name: 'hidden', type: 'checkbox', title: 'Do not display in Menu'},
+    {name: 'login_screen', type: 'checkbox', title: 'Run at startup'},
   ]
 
   function handleSubmit(e) {
@@ -37,7 +21,7 @@ export default function MainParamsProcess({ data }) {
     updateCurrentContent({...data, ...newContent})
   }
   return (
-    <MainParamsForm data={data} fields={fields} onSubmit={handleSubmit}></MainParamsForm>
+    <MainParamsForm data={data} fields={fields} onSubmit={handleSubmit} title={`Process: ${data.ProcessName}`}></MainParamsForm>
   )
 }
 
