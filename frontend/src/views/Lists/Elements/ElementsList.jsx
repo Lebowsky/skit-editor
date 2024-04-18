@@ -1,6 +1,3 @@
-// import ParamsBlockWrapper from "../ParamsBlockWrapper";
-// import Button, { ButtonGroup } from '../../Inputs/Button/Button';
-// import ListView from '../../Inputs/ListView';
 import Button, { ButtonGroup } from '../../../components/Inputs/Button/Button';
 import ParamsBlockWrapper from '../../../components/forms/ParamsBlockWrapper';
 import { useSimpleUI } from '../../../context/context';
@@ -32,7 +29,7 @@ function ParamsBlockTitle({ children, onClick }) {
         width: '100%',
         alignItems: 'baseline'
       }}>
-      <h3 className="list-header">{children}</h3>
+      <h3>{children}</h3>
       <ButtonGroup>
         <Button onClick={onClick}>Add</Button>
         <Button onClick={onClick}>Paste</Button>

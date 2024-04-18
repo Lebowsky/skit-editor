@@ -22,7 +22,7 @@ function ParamsBlockTitle({ children, onClick }) {
         width: '100%',
         alignItems: 'baseline'
       }}>
-      <h3 className="list-header">{children}</h3>
+      <h3>{children}</h3>
       <ButtonGroup>
         <Button onClick={onClick} type='apply'>Apply</Button>
       </ButtonGroup>
