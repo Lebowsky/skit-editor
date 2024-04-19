@@ -25,7 +25,7 @@ const SimpleUIContext = createContext({
 })
 
 export function SimpleUIContextProvider({ children }) {
-  const [configuration, setCofiguration] = useState([])
+  const [configuration, setConfiguration] = useState([])
   const [sideMenu, setSideMenu] = useState([])
   const [tabs, setTabs] = useState([])
   const [currentState, setCurrentState] = useState([])
@@ -35,7 +35,7 @@ export function SimpleUIContextProvider({ children }) {
     async function preload() {
       const { ClientConfiguration: data } = await fetchConfiguration()
       const conf = convertConfiguration(data)
-      setCofiguration(conf)
+      setConfiguration(conf)
       setSideMenu(getSideMenu(conf.Process, conf.Operation))
       setTabs([])
       setCurrentState({
@@ -49,7 +49,9 @@ export function SimpleUIContextProvider({ children }) {
 
   function getCurrentContent(id, type) {
     function getElements(parentId) {
-      return configuration.elements.filter(el => el.parentId === parentId).map(el => ({ ...el, nestedElements: getElements(el.id) }))
+      return configuration.elements
+        .filter(el => el.parentId === parentId)
+        .map(el => ({ ...el, nestedElements: getElements(el.id) }))
     }
 
     const newContent = { ...configuration[type].filter(el => el.id === id)?.[0] }
@@ -80,7 +82,7 @@ export function SimpleUIContextProvider({ children }) {
 
   function setCurrentDetails(data) {
     setCurrentState((prev) => {
-      const newContent = { ...prev }
+      const newContent = { ...prev, currentDetails: {...data} }
       newContent.currentDetails = data
       return newContent
     })
@@ -109,7 +111,20 @@ export function SimpleUIContextProvider({ children }) {
   }
 
   function updateConfigItem(id, type, content) {
-    console.log(id, type, content)
+    setConfiguration(prev => {
+      const item = prev[type].filter(el => el.id === id)?.[0]
+      item.content = content
+      return prev
+    })
+    setCurrentState((prev) => {
+      const item = prev.currentContent[type].filter(el => el.id === id)?.[0]
+      item.content = content
+      const newContent = {
+        ...prev,
+        // currentContent: type ? getCurrentContent(id, type) : null
+      }
+      return newContent
+    })
   }
 
   return (

@@ -64,7 +64,7 @@ const parseProcesses = (data) => {
   const parseElements = (elms, parentId, parentType = 'Elements') => {
     elms.forEach(({ Elements, ...item }) => {
       const id = getId()
-      elements.push({ id: id, parentId: parentId, parentType: parentType, content: item })
+      elements.push({ id: id, parentId: parentId, parentType: parentType, type: 'elements', content: item })
       Elements && parseElements(Elements, id, 'Operations')
     })
   }
@@ -72,7 +72,7 @@ const parseProcesses = (data) => {
   const parseHandlers = (hls, parentId) => {
     hls.forEach((item) => {
       const id = getId()
-      handlers.push({ id: id, parentId: parentId, content: item })
+      handlers.push({ id: id, parentId: parentId, type: 'handlers', content: item })
     })
   }
 

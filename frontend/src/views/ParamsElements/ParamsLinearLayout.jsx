@@ -2,7 +2,7 @@ import { ParamInput, ParamsBlockTitle } from "../../components/forms/MainParamsF
 import { useSimpleUI } from "../../context/context";
 
 export default function ParamsLinearLayout({ data }) {
-  const {updateConfigItem} = useSimpleUI()
+  const {updateConfigItem, setCurrentDetails} = useSimpleUI()
   const fields = [
     { name: 'Variable', type: 'text', title: 'Variable'},
     { name: 'orientation', type: 'select', title: 'Orientation', options: {
@@ -26,15 +26,12 @@ export default function ParamsLinearLayout({ data }) {
   function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    // console.log(form['height'].value)
-    
 
     const newContent = Object.fromEntries(fields.map(el => {
       return [el.name, getParamValue(form[el.name])]
     }))
-    console.log(newContent)
-    updateConfigItem(data.id, data.content.type, newContent)
-    // updateCurrentContent({ ...data, ...newContent })
+    setCurrentDetails(null)
+    updateConfigItem(data.id, data.type, {...newContent, type: data.content.type})
   }
   return (
     <ModalParamsForm data={data} fields={fields} onSubmit={handleSubmit} title={data.content.type}></ModalParamsForm>
@@ -45,7 +42,7 @@ export function ModalParamsForm({ data, fields, onSubmit, title }) {
   return (
     <ParamsFormWrapper onSubmit={onSubmit}>
       <ParamsBlockTitle>{title}</ParamsBlockTitle>
-      {fields.map((el, idx) => (<ParamInput {...el} value={data[el.name]} key={idx} />))}
+      {fields.map((el, idx) => (<ParamInput {...el} value={data.content[el.name]} key={idx} />))}
     </ParamsFormWrapper>
   )
 }
@@ -54,7 +51,6 @@ export function ParamsFormWrapper({ onSubmit, children }) {
   return (
     <form
       style={{
-        padding: '20px',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
