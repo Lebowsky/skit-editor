@@ -1,5 +1,5 @@
 import SideMenu from './SideMenu/SideMenu.jsx'
-import Content from './Content/Content.jsx'
+import Content from './Content.jsx'
 import { useSimpleUI } from '../../context/context.jsx'
 import ParamsDetails from '../forms/ParamsDetails.jsx'
 
