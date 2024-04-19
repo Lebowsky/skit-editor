@@ -94,3 +94,41 @@ const parseProcesses = (data) => {
 
   return [processes, operations, elements, handlers]
 }
+
+export const saveConfigurationJson = (confData) => {
+  const confJson = {'ClientConfiguration' : {}}
+
+  function getElements(parentId){
+    return confData.elements
+      .filter(item => item.parentId === parentId)
+      .map(item => {
+        const elements = getElements(item.id)
+        if (elements.length) return {...item.content, Elements: getElements(item.id)}
+        else return item.content
+      })
+  }
+
+  function getOperations(parentId){
+    return confData.Operation
+      .filter(item => item.parentId === parentId)
+      .map(item => ({...item.content, Elements: getElements(item.id)}))
+  }
+
+  function getProcesses(){
+    return confData.Process.map(item => ({...item.content, Operations: getOperations(item.id)}))
+  }
+
+  confJson.ClientConfiguration = {
+    ...confData.root,
+    ConfigurationSettings: confData.configurationSettings,
+    MainMenu: confData.mainMenu,
+    Mediafile: confData.mediaFiles,
+    PyTimerTask: [],
+    PyFiles: confData.pyFiles,
+    StyleTemplates: [],
+    CommonHandlers: confData.commonHandlers,
+    Processes: getProcesses(),
+  }
+
+  return confJson
+}
