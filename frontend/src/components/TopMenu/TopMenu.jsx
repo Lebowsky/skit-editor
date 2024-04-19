@@ -1,6 +1,6 @@
 import { useSimpleUI } from '../../context/context'
 import { saveConfigurationJson } from '../../utils'
-import { fetchPostConfiguration } from '../../api'  
+import { fetchPostConfiguration } from '../../api'
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './TopMenu.css'
@@ -10,45 +10,53 @@ export default function TopMenu() {
   const [configurationJson, setConfigurationJson] = useState()
 
   useEffect(() => {
-    // console.log(configurationJson)
-    async function sendConig(){
+    async function sendConig() {
       const result = await fetchPostConfiguration(configurationJson)
       console.log(result)
     }
     if (configurationJson) sendConig()
   }, [configurationJson])
-
-  function saveConfiguration(){
+  function saveConfiguration() {
     setConfigurationJson(saveConfigurationJson(configuration))
   }
   return (
     <div className="top-menu">
       <a href="#" className="logo">Simple UI</a>
       <nav>
-      <ul>
-        <li><a href="#">File</a>
-          <ul>
-            <li><a href="#">New</a></li>
-            <li><a href="#">Open</a></li>
-            <li><a href="#" onClick={saveConfiguration}>Save</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Tools</a>
-          <ul>
-            <li><a href="#">SQL Query</a></li>
-            <li><a href="#">Preview</a></li>
-            <li><a href="#">Serarch</a></li>
-            <li><a href="#">QR-Settings</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Configuration</a>
-          <ul>
-            <li><a href="#">Common</a></li>
-            <li><a href="#">Properties</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
+        <ul>
+          <MenuSection title='File'>
+            <MenuItem title='New'></MenuItem>
+            <MenuItem title='Open'></MenuItem>
+            <MenuItem title='Save' onClick={saveConfiguration}></MenuItem>
+            <MenuItem title='Settings'></MenuItem>
+          </MenuSection>
+          <MenuSection title='Tools'>
+            <MenuItem title='SQL Query'></MenuItem>
+            <MenuItem title='Preview'></MenuItem>
+            <MenuItem title='Search'></MenuItem>
+          </MenuSection>
+          <MenuSection title='Configuration'>
+            <MenuItem title='Common'></MenuItem>
+            <MenuItem title='Properties'></MenuItem>
+          </MenuSection>
+        </ul>
+      </nav>
     </div>
+  )
+}
+function MenuSection({ title, children }) {
+  return (
+    <li><a href="#">{title}</a>
+      <ul>
+        {children}
+      </ul>
+    </li>
+  )
+}
+function MenuItem({ title, onClick }) {
+  return (
+    <li>
+      <a href="#" onClick={onClick}>{title}</a>
+    </li>
   )
 }
