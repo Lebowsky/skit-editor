@@ -1,4 +1,8 @@
-export function ParamInput({ type, value, name, title, options }) {
+import TextView from "./TextView"
+import CheckBox from "./CheckBox"
+import Selector from "./Selector"
+
+export default function ParamInput({ type, value, name, title, options }) {
   return (
     <>
       {type === 'text' && <TextView key={Math.random()} value={value} name={name} title={title}></TextView>}

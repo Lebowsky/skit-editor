@@ -1,5 +1,5 @@
 import ParamsLinearLayout from "./LinearLayout/ParamsLinearLayout"
-import Modal from "../../components/forms/Modal"
+import Modal from "../../components/layouts/Modal"
 
 export default function ParamsDetails({ data }) {
   return (
