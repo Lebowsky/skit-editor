@@ -1,5 +1,5 @@
-import MainParamsForm, {getParamValue} from "../../../components/forms/MainParamsForm"
-import { useSimpleUI } from "../../../context/context"
+import MainParamsForm, {getParamValue} from "../../components/forms/MainParamsForm"
+import { useSimpleUI } from "../../context/context"
 
 
 export default function MainParamsProcess({ data }) {

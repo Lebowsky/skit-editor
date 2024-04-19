@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSimpleUI } from "../../../context/context"
+import { useSimpleUI } from "../../context/context"
 
 export default function ListView({ data, listKeys, onClickItem, selectedItemId }) {
   const { setCurrentDetails } = useSimpleUI()
@@ -23,7 +23,6 @@ export default function ListView({ data, listKeys, onClickItem, selectedItemId }
               listKeys={listKeys}
               selectedItemId={selectedItemId}
               onClickItem={onClickItem}
-
             >
             </ListView>
           }

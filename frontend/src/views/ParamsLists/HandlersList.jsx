@@ -1,5 +1,5 @@
-import ParamsBlockWrapper from "../../../components/forms/ParamsBlockWrapper";
-import { useSimpleUI } from "../../../context/context";
+// import ParamsBlockWrapper from "../../components/forms/ParamsBlockWrapper";
+import { useSimpleUI } from "../../context/context";
 // import Button, { ButtonGroup } from "../../Inputs/Button/Button";
 // import ListView from "../../Inputs/ListView";
 // import ParamsBlockWrapper from "../ParamsBlockWrapper";
@@ -10,9 +10,9 @@ export default function HandlersList({ data }) {
   function onListClick(itemId) {
     setCurrentDetails(data.filter(el => el.id === itemId)?.[0])
   }
-  return (
-    <ParamsBlockWrapper>
-    </ParamsBlockWrapper>
+  return (<></>
+    // <ParamsBlockWrapper>
+    // </ParamsBlockWrapper>
     // <ParamsBlockWrapper>
     //   <div className="list-wrapper">
     //     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid', marginBottom: '5px' }}>

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import ParamsOperation from '../../views/ParamsOperation.jsx'
 import ParamsProcess from '../../views/ParamsProcess.jsx'
-import Tabs from './Tabs/Tabs.jsx'
+import Tabs from './Tabs.jsx'
 
 export default function Content({ tabs, currentTab, currentContent }) {
   return (

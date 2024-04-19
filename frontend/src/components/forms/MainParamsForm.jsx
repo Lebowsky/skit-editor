@@ -1,8 +1,7 @@
-import Button, { ButtonGroup } from "../Inputs/Button/Button";
-import CheckBox from "../Inputs/CheckBox/CheckBox";
+import Button, { ButtonGroup } from "../Inputs/Button";
+import CheckBox from "../Inputs/CheckBox";
 import Selector from "../Inputs/Selector";
-import TextView from "../Inputs/TextView/TextView";
-import ParamsFormWrapper from "./ParamsFormWrapper";
+import TextView from "../Inputs/TextView";
 
 export default function MainParamsForm({ data, fields, onSubmit, title }) {
   return (
@@ -10,6 +9,27 @@ export default function MainParamsForm({ data, fields, onSubmit, title }) {
       <ParamsBlockTitle>{title}</ParamsBlockTitle>
       {fields.map((el, idx) => (<ParamInput {...el} value={data[el.name]} key={idx} />))}
     </ParamsFormWrapper>
+  )
+}
+function ParamsFormWrapper({ onSubmit, children }) {
+  return (
+    <form
+      style={{
+        margin: '0 1% 20px 1%',
+        width: '100%',
+        minWidth: '500px',
+        padding: '20px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        marginBottom: '20px',
+        borderRadius: '5px',
+        boxShadow: '0 0 10px #33333326',
+      }}
+      onSubmit={onSubmit}>
+      {children}
+    </form>
   )
 }
 export function ParamsBlockTitle({ children, onClick }) {

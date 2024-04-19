@@ -1,5 +1,5 @@
-import { ParamInput, ParamsBlockTitle } from "../../components/forms/MainParamsForm";
-import { useSimpleUI } from "../../context/context";
+import { ParamInput, ParamsBlockTitle, getParamValue } from "../../../components/forms/MainParamsForm";
+import { useSimpleUI } from "../../../context/context";
 
 export default function ParamsLinearLayout({ data }) {
   const {updateConfigItem, setCurrentDetails} = useSimpleUI()
@@ -62,15 +62,4 @@ export function ParamsFormWrapper({ onSubmit, children }) {
       {children}
     </form>
   )
-}
-
-export function getParamValue(param) {
-  switch (param.type) {
-    case 'text':
-      return param.value
-    case 'checkbox':
-      return param.checked
-    default:
-      return param.value
-  }
 }
