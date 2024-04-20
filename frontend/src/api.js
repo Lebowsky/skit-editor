@@ -16,9 +16,6 @@ export const fetchConfiguration = async () => {
   })
     .then((responseJson) => {
       return responseJson
-    })
-    .catch((error) => {
-      console.log(error)
     });
 }
 

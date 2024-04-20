@@ -29,11 +29,24 @@ export function SimpleUIContextProvider({ children }) {
   const [sideMenu, setSideMenu] = useState([])
   const [tabs, setTabs] = useState([])
   const [currentState, setCurrentState] = useState([])
-
+  const [loading, setLoading] = useState(false)
+  const [loadingFail, setLoadingFail] = useState(false)
 
   useEffect(() => {
     async function preload() {
-      const { ClientConfiguration: data } = await fetchConfiguration()
+      setLoading(true)
+      let result = null
+      try{
+        result = await fetchConfiguration()
+      } catch (e){
+        console.log(e)
+        setLoadingFail(true)
+        setLoading(false)
+        return
+      }
+        
+      const { ClientConfiguration: data } = result
+
       const conf = convertConfiguration(data)
       setConfiguration(conf)
       setSideMenu(getSideMenu(conf.Process, conf.Operation))
@@ -43,6 +56,7 @@ export function SimpleUIContextProvider({ children }) {
         currentContent: null,
         currentDetails: null
       })
+      setLoading(false)
     }
     preload()
   }, [])
@@ -130,6 +144,8 @@ export function SimpleUIContextProvider({ children }) {
   return (
     <SimpleUIContext.Provider
       value={{
+        loading,
+        loadingFail,
         configuration,
         sideMenu,
         tabs,

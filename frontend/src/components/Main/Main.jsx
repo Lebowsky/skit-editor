@@ -2,10 +2,11 @@ import SideMenu from './SideMenu/SideMenu.jsx'
 import Content from './Content.jsx'
 import { useSimpleUI } from '../../context/context.jsx'
 import ParamsDetails from '../../views/ParamsDetails/ParamsDetails.jsx'
+import Modal from '../layouts/Modal.jsx'
 
 
 export default function Main() {
-  const { currentState: {currentTab, currentContent, currentDetails}, sideMenu, tabs} = useSimpleUI()
+  const { loading, loadingFail, currentState: {currentTab, currentContent, currentDetails}, sideMenu, tabs} = useSimpleUI()
   const style = {
     marginTop: 50,
     height: 'calc(100vh - 50px)',
@@ -14,6 +15,8 @@ export default function Main() {
   }
   return (
     <div style={style}>
+      {loading && <Modal isOpen={true}><p>Loading...</p></Modal>}
+      {loadingFail && <Modal isOpen={true}><p>Loading error</p></Modal>}
      {currentDetails && <ParamsDetails data={currentDetails}></ParamsDetails>}
       <SideMenu sideMenu={sideMenu}/>
       <Content tabs={tabs} currentTab={currentTab} currentContent={currentContent}/>
