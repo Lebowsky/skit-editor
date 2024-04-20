@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import ParamsOperation from '../../views/ParamsOperation.jsx'
 import ParamsProcess from '../../views/ParamsProcess.jsx'
+import ParamsCVOperation from '../../views/ParamsCVOperation.jsx'
+import ParamsCVFrame from '../../views/ParamsCVFrame.jsx'
 import Tabs from './Tabs.jsx'
 
 export default function Content({ tabs, currentTab, currentContent }) {
@@ -11,6 +13,8 @@ export default function Content({ tabs, currentTab, currentContent }) {
       <ParamsWrapper>
         {currentContent && currentContent.content.type === 'Process' && <ParamsProcess content={currentContent.content}></ParamsProcess>}
         {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation {...currentContent}></ParamsOperation>}
+        {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation {...currentContent}></ParamsCVOperation>}
+        {currentContent && currentContent.content.type === 'CVFrame' && <ParamsCVFrame {...currentContent}></ParamsCVFrame>}
       </ParamsWrapper>
     </div>
   )
