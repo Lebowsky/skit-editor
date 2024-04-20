@@ -6,20 +6,25 @@ export const convertConfiguration = (data) => {
     Mediafile,
     MainMenu,
     ConfigurationSettings,
+    PyTimerTask,
+    StyleTemplates,
     ...root
   } = data
 
   const [processes, operations, elements, handlers] = parseProcesses(Processes)
+
   return {
     root: root,
     Process: processes,
     Operation: operations,
     elements: elements,
     handlers: handlers,
-    pyFiles: [],
-    commonHandlers: [],
-    mediaFiles: [],
-    mainMenu: [],
+    pyFiles: PyFiles || [],
+    timers: PyTimerTask || [],
+    commonHandlers: CommonHandlers || [],
+    mediaFiles: Mediafile || [],
+    mainMenu: MainMenu || [],
+    styleTemplates: StyleTemplates || [],
     configurationSettings: ConfigurationSettings
   }
 }
@@ -37,8 +42,8 @@ export const getSideMenu = (processes, operations) => {
     { type: 'Mediafile', title: 'Media files' },
   ]
 
-  // const sideMenuData = []
-  processes.forEach(({ content: { ProcessName: title, type }, id }) => {
+  processes.forEach(({ content: { ProcessName, CVOperationName, type }, id }) => {
+    const title = ProcessName || CVOperationName
     nestedItems.push({
       title: title,
       type: type,
@@ -85,11 +90,19 @@ const parseProcesses = (data) => {
     })
   }
 
+  const parseCVFrames = (frames, parentId) => {
+    frames.forEach(({ Handlers, ...item }) => {
+      const id = getId()
+      operations.push({ id: id, parentId: parentId, content: item })
+      Handlers && parseHandlers(Handlers, id)
+    })
+  }
 
-  data.forEach(({ Operations, ...item }) => {
+  data.forEach(({ Operations, CVFrames, ...item }) => {
     const id = getId()
     processes.push({ id: id, content: item })
     Operations && parseOperations(Operations, id)
+    CVFrames && parseCVFrames(CVFrames, id)
   });
 
   return [processes, operations, elements, handlers]
@@ -97,13 +110,22 @@ const parseProcesses = (data) => {
 
 export const saveConfigurationJson = (confData) => {
   const confJson = {'ClientConfiguration' : {}}
+  
+  function getHandlers(parentId){
+    return confData.handlers
+      .filter(item => item.parentId === parentId)
+      .map(item => item.content)
+  }
 
   function getElements(parentId){
     return confData.elements
       .filter(item => item.parentId === parentId)
       .map(item => {
         const elements = getElements(item.id)
-        if (elements.length) return {...item.content, Elements: getElements(item.id)}
+        const handlers = getHandlers(item.id)
+
+        if (elements.length) return {...item.content, Elements: elements}
+        if (handlers.length) return {...item.content, Handlers: handlers}
         else return item.content
       })
   }
@@ -111,7 +133,7 @@ export const saveConfigurationJson = (confData) => {
   function getOperations(parentId){
     return confData.Operation
       .filter(item => item.parentId === parentId)
-      .map(item => ({...item.content, Elements: getElements(item.id)}))
+      .map(item => ({...item.content, Elements: getElements(item.id), Handlers: getHandlers(item.id)}))
   }
 
   function getProcesses(){
@@ -123,9 +145,9 @@ export const saveConfigurationJson = (confData) => {
     ConfigurationSettings: confData.configurationSettings,
     MainMenu: confData.mainMenu,
     Mediafile: confData.mediaFiles,
-    PyTimerTask: [],
+    PyTimerTask: confData.timers,
     PyFiles: confData.pyFiles,
-    StyleTemplates: [],
+    StyleTemplates: confData.styleTemplates,
     CommonHandlers: confData.commonHandlers,
     Processes: getProcesses(),
   }
