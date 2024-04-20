@@ -3,10 +3,10 @@ import { useSimpleUI } from "../../context/context"
 
 
 export default function MainParamsCVOperation({ data }) {
-  const { updateCurrentContent } = useSimpleUI()
+  const { updateCurrentContent, updateConfigItem } = useSimpleUI()
   const fields = [
     { name: 'Name', type: 'text', title: 'Name' },
-    { name: 'hidden', type: 'checkbox', title: 'Do not display in Menu'} ,
+    { name: 'CVOnline', type: 'checkbox', title: 'Online mode'},
     { name: 'CVDetector', type: 'select', title: 'Detector', options: {
       Barcode: 'Barcodes',
       OCR: 'Optical text recognition (OCR)',

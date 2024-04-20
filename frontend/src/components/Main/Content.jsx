@@ -6,7 +6,6 @@ import ParamsCVFrame from '../../views/ParamsCVFrame.jsx'
 import Tabs from './Tabs.jsx'
 
 export default function Content({ tabs, currentTab, currentContent }) {
-  console.log(currentContent)
   return (
     <div style={{ width: '85%', overflow: 'auto' }}>
       <Tabs tabsData={tabs} currentTab={currentTab} />

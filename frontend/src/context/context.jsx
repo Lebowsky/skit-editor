@@ -67,7 +67,6 @@ export function SimpleUIContextProvider({ children }) {
         default:
           return type
       }
-
     }
 
     setCurrentState((prev) => {

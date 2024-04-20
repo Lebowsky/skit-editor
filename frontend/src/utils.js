@@ -137,7 +137,13 @@ export const saveConfigurationJson = (confData) => {
   }
 
   function getProcesses(){
-    return confData.Process.map(item => ({...item.content, Operations: getOperations(item.id)}))
+    return confData.Process.map(item => {
+      const nestedItems = {[{Process: 'Operations', CVOperation: 'CVFrames'}[item.content.type]]: getOperations(item.id)}
+      return {
+        ...item.content, 
+        ...nestedItems
+      }
+    })
   }
 
   confJson.ClientConfiguration = {
@@ -151,6 +157,5 @@ export const saveConfigurationJson = (confData) => {
     CommonHandlers: confData.commonHandlers,
     Processes: getProcesses(),
   }
-
   return confJson
 }
