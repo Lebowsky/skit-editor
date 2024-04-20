@@ -41,8 +41,8 @@ export default function MainParamsCVOperation({ data }) {
     }},
     { name: 'CVAction', type: 'text', title: 'Action' },
     { name: 'CVActionButtons', type: 'text', title: 'Action buttons' },
-    { name: 'CVInfo', type: 'text', title: 'Info' },
-    { name: 'CVMask', type: 'text', title: 'Mask' },
+    { name: 'CVInfo', type: 'text', title: 'Info', required: false },
+    { name: 'CVMask', type: 'text', title: 'Mask', required: false },
   ]
 
   function handleSubmit(e) {

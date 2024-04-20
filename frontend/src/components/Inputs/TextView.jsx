@@ -30,14 +30,16 @@ export default function TextView({ value = '', variable, title, name, required =
           name={name}
           style={{
             padding: '10px',
-            border: `${required && value.trim().length ? '1px #c7c7c7 solid' : '1px solid red'}`,
+            border: `${(required && !inputContent.trim().length) ? '1px solid red' : '1px #c7c7c7 solid'}`,
             borderRadius: '5px',
             outline: 'none',
             width: '100%',
             marginTop: '10px'
           }}
           title={title}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            setContent(e.target.value)
+          }}
         />
       </label>
     </div>
