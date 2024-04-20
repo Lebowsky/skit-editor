@@ -1,5 +1,6 @@
-import { ParamInput, ParamsBlockTitle } from "../../components/forms/MainParamsForm";
-import { useSimpleUI } from "../../context/context";
+import {getValue} from "../../../components/Inputs/ParamInput";
+import ModalParamsForm from "../../../components/forms/ModalParamsForm";
+import { useSimpleUI } from "../../../context/context";
 
 export default function ParamsLinearLayout({ data }) {
   const {updateConfigItem, setCurrentDetails} = useSimpleUI()
@@ -28,7 +29,7 @@ export default function ParamsLinearLayout({ data }) {
     const form = e.target;
 
     const newContent = Object.fromEntries(fields.map(el => {
-      return [el.name, getParamValue(form[el.name])]
+      return [el.name, getValue(form[el.name])]
     }))
     setCurrentDetails(null)
     updateConfigItem(data.id, data.type, {...newContent, type: data.content.type})
@@ -36,41 +37,4 @@ export default function ParamsLinearLayout({ data }) {
   return (
     <ModalParamsForm data={data} fields={fields} onSubmit={handleSubmit} title={data.content.type}></ModalParamsForm>
   )
-}
-
-export function ModalParamsForm({ data, fields, onSubmit, title }) {
-  return (
-    <ParamsFormWrapper onSubmit={onSubmit}>
-      <ParamsBlockTitle>{title}</ParamsBlockTitle>
-      {fields.map((el, idx) => (<ParamInput {...el} value={data.content[el.name]} key={idx} />))}
-    </ParamsFormWrapper>
-  )
-}
-
-export function ParamsFormWrapper({ onSubmit, children }) {
-  return (
-    <form
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        marginBottom: '20px',
-        borderRadius: '5px',
-      }}
-      onSubmit={onSubmit}>
-      {children}
-    </form>
-  )
-}
-
-export function getParamValue(param) {
-  switch (param.type) {
-    case 'text':
-      return param.value
-    case 'checkbox':
-      return param.checked
-    default:
-      return param.value
-  }
 }

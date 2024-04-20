@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-import { useSimpleUI } from '../../../../context/context'
+import { useSimpleUI } from '../../context/context'
 
 export default function Tabs({ tabsData, currentTab }) {
   const style = {

@@ -1,4 +1,4 @@
-import MainParamsProcess from "./MainParams/MainParamsProcess/MainParamsProcess";
+import MainParamsProcess from "./MainParams/MainParamsProcess";
 
 export default function ParamsProcess({ content }) {
   return (

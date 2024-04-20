@@ -1,7 +1,7 @@
 import SideMenu from './SideMenu/SideMenu.jsx'
-import Content from './Content/Content.jsx'
+import Content from './Content.jsx'
 import { useSimpleUI } from '../../context/context.jsx'
-import ParamsDetails from '../forms/ParamsDetails.jsx'
+import ParamsDetails from '../../views/ParamsDetails/ParamsDetails.jsx'
 
 
 export default function Main() {

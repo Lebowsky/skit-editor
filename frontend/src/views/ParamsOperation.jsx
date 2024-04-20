@@ -1,6 +1,6 @@
-import ElementsList from "./Lists/Elements/ElementsList"
-import HandlersList from "./Lists/Handlers/HandlersList"
-import MainParamsOperation from "./MainParams/MainParamsOperation/MainParamsOperation"
+import ElementsList from "./ParamsLists/ElementsList"
+import HandlersList from "./ParamsLists/HandlersList"
+import MainParamsOperation from "./MainParams/MainParamsOperation"
 
 export default function ParamsOperation({ content, elements, handlers }) {
   return (
