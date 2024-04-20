@@ -9,6 +9,8 @@ const icons = {
   'StartScreen': 'icon start-screen',
   'Processes': 'icon processes',
   'Process': 'icon process',
+  'CVOperation': 'icon cvo',
+  'CVFrame': 'icon frame',
   'Operation': 'icon operation',
   'Mediafile': 'icon mediafiles',
   'PyFiles': 'icon pythonfiles',

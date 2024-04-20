@@ -67,3 +67,31 @@ ul.side-menu-nested li {
 .icon.operation:before {
     content: "\f108";
 }
+
+.icon.cvo:before {
+    content: 'cv';
+    font-size: 9px;
+    vertical-align: middle;
+    font-weight: 600;
+    display: inline-block;
+    background: #333;
+    border-radius: 4px;
+    color: #a9a9a9;
+    padding: 1px 2px;
+    padding-right: 1px;
+    text-transform: uppercase;
+}
+
+.icon.frame:before {
+    content: 'fr';
+    font-size: 9px;
+    vertical-align: middle;
+    font-weight: 600;
+    display: inline-block;
+    background: #333;
+    border-radius: 4px;
+    color: #a9a9a9;
+    padding: 1px 2px;
+    padding-right: 0px;
+    text-transform: uppercase;
+}

@@ -5,18 +5,7 @@ import { convertConfiguration, getSideMenu } from '../utils'
 const SimpleUIContext = createContext({
   sideMenu: [],
   tabs: [],
-  configuration: {
-    root: [],
-    Process: [],
-    Operation: [],
-    elements: [],
-    handlers: [],
-    pyFiles: [],
-    commonHandlers: [],
-    mediaFiles: [],
-    mainMenu: [],
-    configurationSettings: {}
-  },
+  configuration: {},
   currentState: {
     currentTab: null,
     currentContent: null,
@@ -68,7 +57,7 @@ export function SimpleUIContextProvider({ children }) {
         .map(el => ({ ...el, nestedElements: getElements(el.id) }))
     }
 
-    const newContent = { ...configuration[type].filter(el => el.id === id)?.[0] }
+    const newContent = { ...configuration[type]?.filter(el => el.id === id)?.[0] }
     newContent['elements'] = getElements(id)
     newContent['handlers'] = configuration.handlers.filter(el => el.parentId === id)
     return newContent
@@ -83,11 +72,22 @@ export function SimpleUIContextProvider({ children }) {
   }
 
   function setCurrentTab(tabId, type) {
+    function getContentType(type){
+      switch (type){
+        case 'CVOperation':
+          return 'Process'
+        case 'CVFrame':
+          return 'Operation'
+        default:
+          return type
+      }
+    }
+
     setCurrentState((prev) => {
       const newContent = {
         ...prev,
         currentTab: tabId ? tabId : null,
-        currentContent: type ? getCurrentContent(tabId, type) : null
+        currentContent: type ? getCurrentContent(tabId, getContentType(type)) : null
       }
       setCurrentDetails(null)
       return newContent
