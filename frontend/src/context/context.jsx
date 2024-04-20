@@ -22,6 +22,7 @@ export function SimpleUIContextProvider({ children }) {
   const [loadingFail, setLoadingFail] = useState(false)
 
   useEffect(() => {
+  useEffect(() => {setSideMenu
     async function preload() {
       setLoading(true)
       let result = null
