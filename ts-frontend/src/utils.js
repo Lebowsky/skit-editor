@@ -17,15 +17,15 @@ export const convertConfiguration = (data) => {
     root: root,
     Process: processes,
     Operation: operations,
-    elements: elements,
-    handlers: handlers,
-    pyFiles: PyFiles || [],
-    timers: PyTimerTask || [],
-    commonHandlers: CommonHandlers || [],
-    mediaFiles: Mediafile || [],
-    mainMenu: MainMenu || [],
-    styleTemplates: StyleTemplates || [],
-    configurationSettings: ConfigurationSettings
+    // elements: elements,
+    // handlers: handlers,
+    // pyFiles: PyFiles || [],
+    // timers: PyTimerTask || [],
+    // commonHandlers: CommonHandlers || [],
+    // mediaFiles: Mediafile || [],
+    // mainMenu: MainMenu || [],
+    // styleTemplates: StyleTemplates || [],
+    // configurationSettings: ConfigurationSettings
   }
 }
 

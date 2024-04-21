@@ -1,9 +1,6 @@
-export default function Modal ({ isOpen, onClose, children }){
-  if (!isOpen) return null;
-  
+export default function Modal ({ children }){
   return (
     <div
-      onClick={onClose}
       style={{
         position: "fixed",
         top: 0,
