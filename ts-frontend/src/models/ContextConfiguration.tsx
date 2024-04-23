@@ -1,10 +1,10 @@
 
-export interface IContextConfiguration {
+export interface IConfigurationContext {
   root: {}
-  Process: [IProcess]
-  Operation: [IOperations]
-  // elements: []
-  // handlers: []
+  processes: IListItem[]
+  operations: IListItem[]
+  elements: IListItem[]
+  handlers: IListItem[]
   // pyFiles: []
   // timers: []
   // commonHandlers: []
@@ -12,6 +12,20 @@ export interface IContextConfiguration {
   // mainMenu: []
   // styleTemplates: []
   // configurationSettings: {}
+}
+
+export interface IListItem {
+  id: number
+  parentId: number
+  contextType: contextTypes
+  content: { [key: string]: string }
+}
+
+export enum contextTypes{
+  processes='processes',
+  operations='operations',
+  handlers='handlers',
+  elements='elements'
 }
 
 export interface IProcess {
