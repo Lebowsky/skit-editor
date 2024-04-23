@@ -1,0 +1,2 @@
+class SaveConfigurationFileError(Exception):
+    pass

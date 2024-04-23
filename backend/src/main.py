@@ -9,7 +9,7 @@ def start_ui():
 
 
 def start_api():
-    server = run_server(settings)
+    server = run_server(settings.app_server_host, settings.app_server_port)
     with server.run_in_thread():
         start_ui()
 
