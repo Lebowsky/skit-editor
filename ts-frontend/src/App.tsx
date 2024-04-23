@@ -5,9 +5,8 @@ import Main from './components/Main';
 function App() {
   return (
     <SimpleUIContextProvider>
-      <></>
-      {/* <TopMenu /> */}
-      {/* <Main /> */}
+      <TopMenu />
+      <Main />
     </SimpleUIContextProvider>
   );
 }

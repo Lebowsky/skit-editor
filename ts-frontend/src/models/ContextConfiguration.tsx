@@ -1,3 +1,4 @@
+import { ISideMenuItem } from "./SideMenu"
 
 export interface IConfigurationContext {
   root: {}
@@ -41,4 +42,9 @@ export interface IOperations{
   hideBottomBarScreen: boolean
   noScroll: boolean
   noConfirmation: boolean
+}
+export interface IContextProviderData {
+  loading: boolean;
+  loadingError: string | unknown;
+  sideMenu: ISideMenuItem[] | undefined;
 }

@@ -1,6 +1,6 @@
 import { useSimpleUI } from '../../context/context'
-import { saveConfigurationJson } from '../../utils'
-import { fetchPostConfiguration } from '../../api'
+// import { saveConfigurationJson } from '../../utils'
+// import { fetchPostConfiguration } from '../../api'
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './TopMenu.css'
@@ -11,13 +11,13 @@ export default function TopMenu() {
 
   useEffect(() => {
     async function sendConig() {
-      const result = await fetchPostConfiguration(configurationJson)
-      console.log(result)
+      // const result = await fetchPostConfiguration(configurationJson)
+      // console.log(result)
     }
     if (configurationJson) sendConig()
   }, [configurationJson])
   function saveConfiguration() {
-    setConfigurationJson(saveConfigurationJson(configuration))
+    // setConfigurationJson(saveConfigurationJson(configuration))
   }
   return (
     <div className="top-menu">

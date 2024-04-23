@@ -7,8 +7,6 @@ import SideMenu from './SideMenu/SideMenu.jsx'
 
 export default function Main() {
 const { sideMenu }: any = useSimpleUI()
-  // const { x, y, ...rest }: { x: number, y: number, [key: string]: number } = { x: 1, y: 2, z: 3, q: 4 };
-
   return (
     <div style={{
       marginTop: 50,
@@ -18,7 +16,7 @@ const { sideMenu }: any = useSimpleUI()
     }}>
       <ModalView></ModalView>
       {/* {currentDetails && <ParamsDetails data={currentDetails}></ParamsDetails>} */}
-      <SideMenu sideMenu={sideMenu} />
+      {/* <SideMenu sideMenu={sideMenu} /> */}
       {/* <Content tabs={tabs} currentTab={currentTab} currentContent={currentContent}/> */}
     </div>
   )
