@@ -1,12 +1,14 @@
 import { useSimpleUI } from '../context/context'
+import { IContextProviderData } from '../models/ContextConfiguration'
+import { ISideMenuItem } from '../models/SideMenu'
 import ModalView from '../views/ModalView'
-import SideMenu from './SideMenu/SideMenu.jsx'
+import SideMenu from './SideMenu/SideMenu'
 // import Content from './Content.jsx'
 // import ParamsDetails from '../../views/ParamsDetails/ParamsDetails.jsx'
 
 
 export default function Main() {
-const { sideMenu }: any = useSimpleUI()
+const { sideMenu } = useSimpleUI() as IContextProviderData
   return (
     <div style={{
       marginTop: 50,
@@ -16,7 +18,7 @@ const { sideMenu }: any = useSimpleUI()
     }}>
       <ModalView></ModalView>
       {/* {currentDetails && <ParamsDetails data={currentDetails}></ParamsDetails>} */}
-      {/* <SideMenu sideMenu={sideMenu} /> */}
+      {sideMenu && <SideMenu sideMenu={sideMenu} />}
       {/* <Content tabs={tabs} currentTab={currentTab} currentContent={currentContent}/> */}
     </div>
   )

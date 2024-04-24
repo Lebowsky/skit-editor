@@ -15,7 +15,7 @@ const SimpleUIContext = createContext<IContextProviderData | null>(null)
 export function SimpleUIContextProvider({ children }: ContextProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingError, setLoadingError] = useState<string | unknown>('')
-  const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>()
+  const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>([])
 
   useEffect(() => {
     async function preload() {
