@@ -39,6 +39,10 @@ export class ConfigurationService {
     }
   }
 
+  public getConfigurationJson(): {[key: string]: any}{
+    return {}
+  }
+
   private parseProcesses(Processes: JsonItem[]): void {
     Processes.forEach(({ Operations, CVFrames, ...item }) => {
       const id = this.getId()

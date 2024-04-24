@@ -1,23 +1,16 @@
-import { useSimpleUI } from '../../context/context'
-// import { saveConfigurationJson } from '../../utils'
-// import { fetchPostConfiguration } from '../../api'
-
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './TopMenu.css'
-import { useEffect, useState } from 'react'
-export default function TopMenu() {
-  const { configuration } = useSimpleUI()
-  const [configurationJson, setConfigurationJson] = useState()
+import { useSimpleUI } from '../../context/context'
+import { IContextProviderData } from '../../models/ContextConfiguration'
+import { fetchPostConfiguration } from '../../api'
 
-  useEffect(() => {
-    async function sendConig() {
-      // const result = await fetchPostConfiguration(configurationJson)
-      // console.log(result)
-    }
-    if (configurationJson) sendConig()
-  }, [configurationJson])
-  function saveConfiguration() {
-    // setConfigurationJson(saveConfigurationJson(configuration))
+
+export default function TopMenu() {
+  const { configurationService } = useSimpleUI() as IContextProviderData
+
+  async function saveConfiguration() {
+    const result = await fetchPostConfiguration(configurationService.getConfigurationJson())
+    console.log(result)
   }
   return (
     <div className="top-menu">
@@ -44,7 +37,13 @@ export default function TopMenu() {
     </div>
   )
 }
-function MenuSection({ title, children }) {
+
+interface MenuSectionProps{
+  title: string
+  children: React.ReactNode
+}
+
+function MenuSection({ title, children }: MenuSectionProps) {
   return (
     <li><a href="#">{title}</a>
       <ul>
@@ -53,7 +52,13 @@ function MenuSection({ title, children }) {
     </li>
   )
 }
-function MenuItem({ title, onClick }) {
+
+interface MenuItemProps {
+  title: string
+  onClick?(): void
+}
+
+function MenuItem({ title, onClick }: MenuItemProps) {
   return (
     <li>
       <a href="#" onClick={onClick}>{title}</a>

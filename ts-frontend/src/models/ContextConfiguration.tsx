@@ -1,3 +1,4 @@
+import { ConfigurationService } from "../services/configurationService"
 import { ISideMenuItem } from "./SideMenu"
 
 export interface IConfigurationContext {
@@ -47,4 +48,5 @@ export interface IContextProviderData {
   loading: boolean;
   loadingError: string | unknown;
   sideMenu: ISideMenuItem[] | undefined;
+  configurationService: ConfigurationService
 }

@@ -1,4 +1,8 @@
-export default function Modal ({ children }){
+interface ModalProps {
+  children: React.ReactNode
+}
+
+export default function Modal({ children }: ModalProps) {
   return (
     <div
       style={{

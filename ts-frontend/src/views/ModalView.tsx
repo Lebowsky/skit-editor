@@ -1,6 +1,6 @@
-import Modal from '../components/layouts/Modal.jsx'
+import Modal from '../components/layouts/Modal'
 import { useSimpleUI } from '../context/context'
-import { IContextProviderData } from "../models/ContextConfiguration.js"
+import { IContextProviderData } from "../models/ContextConfiguration"
 
 export default function ModalView() {
   const { loading, loadingError } = useSimpleUI() as IContextProviderData

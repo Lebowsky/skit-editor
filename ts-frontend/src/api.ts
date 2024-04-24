@@ -22,24 +22,24 @@ export const fetchConfiguration = async () => {
     });
 }
 
-// export const fetchPostConfiguration = async (configJsonData) => {
-//   const CONF_URL = getUrl('set_conf')
-//   return fetch(
-//     CONF_URL,
-//     {
-//       mode: 'cors',
-//       method: 'POST',
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(configJsonData)
-//     }).then((response) => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw new Error('Something went wrong');
-//     })
-//     .then((responseJson) => {
-//       return responseJson
-//     })
-// }
+export const fetchPostConfiguration = async (configJsonData: {[key: string]: any}) => {
+  const CONF_URL = getUrl('set_conf')
+  return fetch(
+    CONF_URL,
+    {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(configJsonData)
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Something went wrong');
+    })
+    .then((responseJson) => {
+      return responseJson
+    })
+}

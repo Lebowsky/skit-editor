@@ -17,14 +17,15 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [loadingError, setLoadingError] = useState<string | unknown>('')
   const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>([])
 
+  let configurationService = new ConfigurationService({})
+
   useEffect(() => {
     async function preload() {
       setLoading(true)
       try {
-        const result = await fetchConfiguration()
-        const { ClientConfiguration: data }: {[key: string]: any} = result
-        const configurationsService = new ConfigurationService(data)
-        const conf: IConfigurationContext = configurationsService.getConfigurationContext()
+        const { ClientConfiguration: data }: {[key: string]: any} = await fetchConfiguration()
+        configurationService = new ConfigurationService(data)
+        const conf: IConfigurationContext = configurationService.getConfigurationContext()
         setSideMenu(getSideMenu(conf.processes, conf.operations))
 
       } catch (e: unknown) {
@@ -37,8 +38,9 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
     preload()
   }, [])
 
+
   return (
-    <SimpleUIContext.Provider value={{loading, loadingError, sideMenu}}>
+    <SimpleUIContext.Provider value={{loading, loadingError, sideMenu, configurationService}}>
       {children}
     </SimpleUIContext.Provider>
   )
