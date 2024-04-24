@@ -10,14 +10,14 @@ interface ContextProps {
   children: React.ReactNode
 }
 
+let configurationService = new ConfigurationService({})
+
 const SimpleUIContext = createContext<IContextProviderData | null>(null)
 
 export function SimpleUIContextProvider({ children }: ContextProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingError, setLoadingError] = useState<string | unknown>('')
   const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>([])
-
-  let configurationService = new ConfigurationService({})
 
   useEffect(() => {
     async function preload() {

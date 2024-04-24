@@ -5,6 +5,7 @@ type JsonItem = { [key: string]: any }
 export class ConfigurationService {
   private raw_data: JsonItem
   private id: number
+  private root: {[key: string]: any} = {}
   private processes: IListItem[] = []
   private operations: IListItem[] = []
   private handlers: IListItem[] = []
@@ -13,9 +14,6 @@ export class ConfigurationService {
   constructor(raw_data: JsonItem) {
     this.raw_data = raw_data
     this.id = 0
-  }
-
-  public getConfigurationContext(): IConfigurationContext {
     const {
       Processes,
       PyFiles,
@@ -29,9 +27,12 @@ export class ConfigurationService {
     } = this.raw_data
 
     this.parseProcesses(Processes)
+    this.root = root
+  }
 
+  public getConfigurationContext(): IConfigurationContext {
     return {
-      root: root,
+      root: this.root,
       processes: this.processes,
       operations: this.operations,
       elements: this.elements,
@@ -40,11 +41,60 @@ export class ConfigurationService {
   }
 
   public getConfigurationJson(): {[key: string]: any}{
-    return {}
+    const confJson = {'ClientConfiguration' : {}}
+    confJson.ClientConfiguration = {
+        ...this.raw_data,
+        ...this.root,
+      //     ConfigurationSettings: confData.configurationSettings,
+      //     MainMenu: confData.mainMenu,
+      //     Mediafile: confData.mediaFiles,
+      //     PyTimerTask: confData.timers,
+      //     PyFiles: confData.pyFiles,
+      //     StyleTemplates: confData.styleTemplates,
+      //     CommonHandlers: confData.commonHandlers,
+          Processes: this.getProcesses(),
+      }
+    return confJson
+  }
+
+  private getProcesses(): {[key: string]: any}[]{
+    return this.processes.map(item => {
+      const nestedKeys: {[key: string]: string} = { Process: 'Operations', CVOperation: 'CVFrames' }
+      const nestedItems = { [nestedKeys[item.content.type]]: this.getOperations(item.id) }
+      return {
+        ...item.content,
+        ...nestedItems
+      }
+    })
+  }
+
+  private getOperations(parentId: number): {[key: string]: any}[]{
+    return this.operations
+      .filter(item => item.parentId === parentId)
+      .map(item => ({...item.content, Elements: this.getElements(item.id), Handlers: this.getHandlers(item.id)}))
+  }
+
+  private getHandlers(parentId: number): {[key: string]: any}[]{
+    return this.handlers
+      .filter(item => item.parentId === parentId)
+      .map(item => item.content)
+  }
+
+  private getElements(parentId: number): {[key: string]: any}[]{
+    return this.elements
+      .filter(item => item.parentId === parentId)
+      .map(item => {
+        const elements = this.getElements(item.id)
+        const handlers = this.getHandlers(item.id)
+
+        if (elements.length) return {...item.content, Elements: elements}
+        if (handlers.length) return {...item.content, Handlers: handlers}
+        else return item.content
+      })
   }
 
   private parseProcesses(Processes: JsonItem[]): void {
-    Processes.forEach(({ Operations, CVFrames, ...item }) => {
+    Processes && Processes.forEach(({ Operations, CVFrames, ...item }) => {
       const id = this.getId()
       this.processes.push({
         id: id,
