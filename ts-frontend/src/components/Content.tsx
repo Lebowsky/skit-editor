@@ -1,17 +1,50 @@
-import { ITabData } from "../models/SideMenu"
+import { useSimpleUI } from "../context/context"
+import { IContextProviderData } from "../models/ContextConfiguration"
 import Tabs from "./Tabs"
 
-interface ContentProps {
-	tabs: ITabData[]
-  currentTabId: number
-}
-export default function Content( {tabs, currentTabId }: ContentProps ) {
-	return (
-		<div style={{
-			width: '85%',
-			overflow: 'auto'
-		}}>
+
+export default function Content() {
+  const { tabs, currentTabId, currentContent } = useSimpleUI() as IContextProviderData
+  return (
+    <div style={{
+      width: '85%',
+      overflow: 'auto'
+    }}>
       <Tabs tabsData={tabs} currentTabId={currentTabId} />
-		</div>
-	)
+      <ParamsWrapper>
+        <></>
+        {/* {currentContent && currentContent.content.type === 'Process' && <ParamsProcess content={currentContent.content}></ParamsProcess>} */}
+        {/* {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation {...currentContent}></ParamsOperation>} */}
+        {/* {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation {...currentContent}></ParamsCVOperation>} */}
+        {/* {currentContent && currentContent.content.type === 'CVFrame' && <ParamsCVFrame {...currentContent}></ParamsCVFrame>} */}
+      </ParamsWrapper>
+    </div>
+  )
+}
+
+interface ParamsWrapperProps{
+  children: React.ReactNode
+}
+function ParamsWrapper({ children }: ParamsWrapperProps) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'start',
+        marginTop: '60px'
+      }}
+    >
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'start',
+        width: '100%',
+        maxWidth: '700px',
+        flexDirection: 'column',
+      }}>
+        {children}
+      </div>
+    </div>
+  )
 }

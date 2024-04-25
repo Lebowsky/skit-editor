@@ -1,6 +1,6 @@
 import { useSimpleUI } from '../context/context'
 import { IContextProviderData } from '../models/ContextConfiguration'
-import { ITabData } from '../models/SideMenu'
+import { ITabData, ITabType } from '../models/SideMenu'
 
 interface TabsProps {
   tabsData: ITabData[]
@@ -37,7 +37,7 @@ interface TabProps{
   tabId: number
   children: React.ReactNode
   isActive: boolean
-  tabType: 'Process' | 'Operation'
+  tabType: ITabType
 }
 
 function Tab({ tabId, children, isActive, tabType }: TabProps){
@@ -84,12 +84,14 @@ function Tab({ tabId, children, isActive, tabType }: TabProps){
 }
 
 interface IconTypeProrps {
-  iconType: 'Process' | 'Operation'
+  iconType: ITabType
 }
 function IconType({ iconType }: IconTypeProrps) {
   const iconClass: string = {
     'Process': 'fa fa-cube',
-    'Operation': 'fa fa-television'
+    'Operation': 'fa fa-television',
+    'CVOperation': '',
+    'CVFrame': '',
   }[iconType]
   return (
     <i 

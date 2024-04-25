@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { ConfigurationService } from "../services/configurationService"
 import { ISideMenuItem, ITabData } from "./SideMenu"
+import { IContent } from "./Content"
 
 export interface IConfigurationContext {
   root: {}
@@ -55,4 +56,5 @@ export interface IContextProviderData {
   removeTab(tabId: number): void
   tabs: ITabData[]
   currentTabId: number
+  currentContent: IContent
 }

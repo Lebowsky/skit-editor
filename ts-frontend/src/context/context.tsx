@@ -5,6 +5,7 @@ import { ConfigurationService } from '../services/configurationService'
 import { getSideMenu } from '../utils'
 import { ISideMenuItem, ITabData } from "../models/SideMenu";
 import { IContextProviderData } from "../models/ContextConfiguration";
+import { IContent } from "../models/Content";
 
 interface ContextProps {
   children: React.ReactNode
@@ -20,6 +21,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>([])
   const [tabs, setTabs] = useState<ITabData[]>([])
   const [currentTabId, setCurrentTabId] = useState<number>(0)
+  const [currentContent, setCurrentContent] = useState<IContent>({content: {type: ''}})
 
   useEffect(() => {
     async function preload() {
@@ -50,29 +52,17 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   }
 
   function setCurrentTab(tabId: number, type: string): void {
-
-    function getContentType(type: string){
-      switch (type){
-        case 'CVOperation':
-          return 'Process'
-        case 'CVFrame':
-          return 'Operation'
-        default:
-          return type
-      }
-    }
-    
     setCurrentTabId(tabId)
 
-    // setCurrentState((prev) => {
-    //   const newContent = {
-    //     ...prev,
-    //     currentTab: tabId ? tabId : null,
-    //     currentContent: type ? getCurrentContent(tabId, getContentType(type)) : null
-    //   }
-    //   setCurrentDetails(null)
-    //   return newContent
-    // })
+    setCurrentContent(prev => {
+      const newContent = {
+        ...prev,
+        content: type ? configurationService.getItemContent(tabId, type) : {type: ''}
+      }
+      console.log(newContent)
+      // setCurrentDetails(null)
+      return prev
+    })
   }
 
   function removeTab(tabId: number) {
@@ -99,7 +89,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         removeTab,
         currentTabId, 
         setCurrentTab, 
-        configurationService
+        configurationService,
+        currentContent
       }}>
       {children}
     </SimpleUIContext.Provider>

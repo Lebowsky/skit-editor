@@ -57,6 +57,32 @@ export class ConfigurationService {
     return confJson
   }
 
+  public getItemContent(id: number, type: string){
+    console.log(id, type)
+    
+    // function getElements(parentId) {
+    //   return configuration.elements
+    //     .filter(el => el.parentId === parentId)
+    //     .map(el => ({ ...el, nestedElements: getElements(el.id) }))
+    // }
+
+    // const newContent = { ...configuration[type]?.filter(el => el.id === id)?.[0] }
+    // newContent['elements'] = getElements(id)
+    // newContent['handlers'] = configuration.handlers.filter(el => el.parentId === id)
+    // return newContent
+  }
+
+  private getContentType(type: string){
+    switch (type){
+      case 'CVOperation':
+        return 'Process'
+      case 'CVFrame':
+        return 'Operation'
+      default:
+        return type
+    }
+  }
+
   private getProcesses(): {[key: string]: any}[]{
     return this.processes.map(item => {
       const nestedKeys: {[key: string]: string} = { Process: 'Operations', CVOperation: 'CVFrames' }

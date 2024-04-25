@@ -1,11 +1,13 @@
 export interface ISideMenuItem {
-  id?: number
+  id: number
   type: string
   title: string
   nestedItems?: ISideMenuItem[]
 }
 export interface ITabData{
   id: number
-  type: 'Process' | 'Operation' | string
+  type: string
   title: string
 }
+
+export type ITabType = 'Process' | 'Operation' | 'CVOperation' | 'CVFrame'
