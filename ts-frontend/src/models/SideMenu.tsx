@@ -4,3 +4,8 @@ export interface ISideMenuItem {
   title: string
   nestedItems?: ISideMenuItem[]
 }
+export interface ITabData{
+  id: number
+  type: 'Process' | 'Operation' | string
+  title: string
+}

@@ -1,5 +1,6 @@
+import { Dispatch, SetStateAction } from "react"
 import { ConfigurationService } from "../services/configurationService"
-import { ISideMenuItem } from "./SideMenu"
+import { ISideMenuItem, ITabData } from "./SideMenu"
 
 export interface IConfigurationContext {
   root: {}
@@ -48,5 +49,10 @@ export interface IContextProviderData {
   loading: boolean;
   loadingError: string | unknown;
   sideMenu: ISideMenuItem[] | undefined;
-  configurationService: ConfigurationService
+  configurationService: ConfigurationService;
+  setCurrentTab(tabId: number, type: string): void;
+  addTab(newTab: ITabData): void
+  removeTab(tabId: number): void
+  tabs: ITabData[]
+  currentTabId: number
 }

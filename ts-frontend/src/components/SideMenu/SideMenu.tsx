@@ -35,12 +35,12 @@ export default function SideMenu({ sideMenu }: SideMenuProps) {
 }
 
 function MenuItem(item: ISideMenuItem ) {
-  // const { addTab } = useSimpleUI() as IContextProviderData
+  const { addTab } = useSimpleUI() as IContextProviderData
   const [isOpened, setIsOpened] = useState(false)
 
   function handleItem(item: ISideMenuItem) {
     setIsOpened((prev) => !prev)
-    // item.id !== undefined && addTab({id: item.id, title: item.title, type: item.type})
+    item.id !== undefined && addTab({id: item.id, title: item.title, type: item.type})
   }
 
   const className = isOpened ? `${icons[item.type]} open` : `${icons[item.type]}`
