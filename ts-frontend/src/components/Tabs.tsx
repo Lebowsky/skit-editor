@@ -1,5 +1,5 @@
 import { useSimpleUI } from '../context/context'
-import { IContextProviderData } from '../models/ContextConfiguration'
+import { IContextProviderData, contextTypes } from '../models/ContextConfiguration'
 import { ITabData, ITabType } from '../models/SideMenu'
 
 interface TabsProps {
@@ -25,8 +25,7 @@ export default function Tabs({ tabsData, currentTabId }: TabsProps) {
         <Tab 
           isActive={currentTabId === item.id} 
           key={item.id} 
-          tabId={item.id} 
-          tabType={item.type}>
+          {...item}>
         {item.title}
       </Tab>)}
     </div>
@@ -34,13 +33,14 @@ export default function Tabs({ tabsData, currentTabId }: TabsProps) {
 }
 
 interface TabProps{
-  tabId: number
+  id: number
   children: React.ReactNode
   isActive: boolean
-  tabType: ITabType
+  type: string
+  contextType: contextTypes
 }
 
-function Tab({ tabId, children, isActive, tabType }: TabProps){
+function Tab({ id, children, isActive, type, contextType }: TabProps){
   const { setCurrentTab, removeTab } = useSimpleUI() as IContextProviderData
 
   const tabStyle = {
@@ -60,16 +60,16 @@ function Tab({ tabId, children, isActive, tabType }: TabProps){
   }
 
   function handleClick(): void {
-    setCurrentTab(tabId, tabType)
+    setCurrentTab(id, contextType)
   }
 
   function handleClose(): void {
-    removeTab(tabId)
+    removeTab(id)
   }
 
   return (
     <div style={isActive ? activeTabStyle : tabStyle}>
-      <IconType iconType={tabType} />
+      <IconType iconType={type} />
       <span 
         onClick={handleClick} 
         style={{ 
@@ -84,10 +84,10 @@ function Tab({ tabId, children, isActive, tabType }: TabProps){
 }
 
 interface IconTypeProrps {
-  iconType: ITabType
+  iconType: string
 }
 function IconType({ iconType }: IconTypeProrps) {
-  const iconClass: string = {
+  const iconClass: string | undefined = {
     'Process': 'fa fa-cube',
     'Operation': 'fa fa-television',
     'CVOperation': '',

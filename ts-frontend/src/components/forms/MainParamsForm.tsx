@@ -1,26 +1,28 @@
+import { useSimpleUI } from "../../context/context";
 import { IContent } from "../../models/Content";
-import { ParamInputProps } from "../../models/Inputs";
+import { IContextProviderData } from "../../models/ContextConfiguration";
+import { InputFieldType, ParamInputProps } from "../../models/Inputs";
 import Button, { ButtonGroup } from "../inputs/Button";
 import ParamInput from "../inputs/ParamInput"
 
 
 interface MainParamsFormProps {
-  data: IContent
-  fields: ParamInputProps[]
-  onSubmit(): void
+  fields: InputFieldType[]
+  onSubmit(e: React.FormEvent): void
   title: string
 }
-export default function MainParamsForm({ data, fields, onSubmit, title }: MainParamsFormProps) {
+export default function MainParamsForm({ fields, onSubmit, title }: MainParamsFormProps) {
+  const { currentContent } = useSimpleUI() as IContextProviderData
   return (
     <ParamsFormWrapper onSubmit={onSubmit}>
       <ParamsBlockTitle onClick={()=>{}}>{title}</ParamsBlockTitle>
-      {fields.map((el, idx) => (<ParamInput {...el} value={data.content[el.name]} key={idx} />))}
+      {currentContent && fields.map((el, idx) => (<ParamInput {...el} value={currentContent.content[el.name]} key={idx} />))}
     </ParamsFormWrapper>
   )
 }
 
 interface ParamsFormWrapperProps {
-  onSubmit(): void
+  onSubmit(e: React.FormEvent): void
   children: React.ReactNode
 }
 function ParamsFormWrapper({ onSubmit, children }: ParamsFormWrapperProps) {

@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IConfigurationContext } from '../models/ContextConfiguration'
+import { IConfigurationContext, contextTypes } from '../models/ContextConfiguration'
 import { fetchConfiguration } from '../api';
 import { ConfigurationService } from '../services/configurationService'
-import { getSideMenu } from '../utils'
 import { ISideMenuItem, ITabData } from "../models/SideMenu";
 import { IContextProviderData } from "../models/ContextConfiguration";
 import { IContent } from "../models/Content";
@@ -21,7 +20,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>([])
   const [tabs, setTabs] = useState<ITabData[]>([])
   const [currentTabId, setCurrentTabId] = useState<number>(0)
-  const [currentContent, setCurrentContent] = useState<IContent>({content: {type: ''}})
+  const [currentContent, setCurrentContent] = useState<IContent | null>(null)
 
   useEffect(() => {
     async function preload() {
@@ -30,8 +29,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         const { ClientConfiguration: data }: {[key: string]: any} = await fetchConfiguration()
         configurationService = new ConfigurationService(data)
         const conf: IConfigurationContext = configurationService.getConfigurationContext()
-        setSideMenu(getSideMenu(conf.processes, conf.operations))
-
+        setSideMenu(configurationService.getSideMenu(conf.processes, conf.operations))
       } catch (e: unknown) {
         console.log(e)
         setLoadingError(e)
@@ -48,21 +46,13 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         return [...(prev.map(el => ({ ...el }))), { ...newTab }]
       else return prev
     })
-    setCurrentTab(newTab.id, newTab.type)
+    setCurrentTab(newTab.id, newTab.contextType)
   }
 
-  function setCurrentTab(tabId: number, type: string): void {
+  function setCurrentTab(tabId: number, type: contextTypes): void {
     setCurrentTabId(tabId)
-
-    setCurrentContent(prev => {
-      const newContent = {
-        ...prev,
-        content: type ? configurationService.getItemContent(tabId, type) : {type: ''}
-      }
-      console.log(newContent)
-      // setCurrentDetails(null)
-      return prev
-    })
+    const content = configurationService.getItemContent(tabId, type)
+    content && setCurrentContent(content)
   }
 
   function removeTab(tabId: number) {
@@ -71,8 +61,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
       const isActive = currentTabId === tabId
       const newTabs = prev.filter(el => el.id !== tabId)
       const currentTab = (newTabs.length && isActive) ? (newTabs[tabIdx - 1] || newTabs[newTabs.length - 1]) : undefined
-      currentTab && setCurrentTab(currentTab.id, currentTab.type)
-      newTabs.length === 0 && setCurrentTab(0, '')
+      currentTab && setCurrentTab(currentTab.id, currentTab.contextType)
+      newTabs.length === 0 && setCurrentTabId(0)
 
       return newTabs
     })

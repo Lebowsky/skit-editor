@@ -7,7 +7,7 @@ import SideMenu from './SideMenu/SideMenu'
 
 
 export default function Main() {
-const { sideMenu } = useSimpleUI() as IContextProviderData
+const { sideMenu, currentContent } = useSimpleUI() as IContextProviderData
   return (
     <div style={{
       marginTop: 50,
@@ -18,7 +18,7 @@ const { sideMenu } = useSimpleUI() as IContextProviderData
       <ModalView></ModalView>
       {/* {currentDetails && <ParamsDetails data={currentDetails}></ParamsDetails>} */}
       {sideMenu && <SideMenu sideMenu={sideMenu} />}
-      <Content/>
+      {currentContent && <Content/>}
       {/* <Content tabs={tabs} currentTab={currentTab} currentContent={currentContent}/> */}
     </div>
   )

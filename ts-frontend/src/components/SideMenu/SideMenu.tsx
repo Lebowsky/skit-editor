@@ -40,7 +40,7 @@ function MenuItem(item: ISideMenuItem ) {
 
   function handleItem(item: ISideMenuItem) {
     setIsOpened((prev) => !prev)
-    addTab({id: item.id, title: item.title, type: item.type})
+    addTab({...item})
   }
 
   const className = isOpened ? `${icons[item.type]} open` : `${icons[item.type]}`

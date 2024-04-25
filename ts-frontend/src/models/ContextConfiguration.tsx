@@ -22,14 +22,21 @@ export interface IListItem {
   id: number
   parentId: number
   contextType: contextTypes
-  content: { [key: string]: string }
+  content: {type: string, [key: string]: string }
 }
 
 export enum contextTypes{
   processes='processes',
   operations='operations',
   handlers='handlers',
-  elements='elements'
+  elements='elements',
+  mainMenu='mainMenu',
+  styleTemplates='styleTemplates',
+  startScreen='startScreen',
+  shedulers='shedulers',
+  commonHandlers='commonHandlers',
+  pyFiles='pyFiles',
+  mediafiles='mediafiles'
 }
 
 export interface IProcess {
@@ -56,5 +63,5 @@ export interface IContextProviderData {
   removeTab(tabId: number): void
   tabs: ITabData[]
   currentTabId: number
-  currentContent: IContent
+  currentContent: IContent | null
 }

@@ -1,12 +1,16 @@
-interface InputType {
-  value: string
+export interface InputFieldType {
+  value?: string
   name: string
+  type: string
   title: string
 }
 
-export interface ITextView extends InputType{
+export interface ITextView{
+  value?: string
   variable?: string
+  name: string
   required?: boolean
+  title: string
 }
 
 export interface ICheckBox{
@@ -15,7 +19,7 @@ export interface ICheckBox{
   name: string
 }
 
-export interface ISelector extends InputType{
+export interface ISelector extends InputFieldType{
   options: []
 }
 

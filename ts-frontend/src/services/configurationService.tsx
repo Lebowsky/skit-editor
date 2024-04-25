@@ -1,9 +1,11 @@
+import { IContent } from "../models/Content"
 import { IConfigurationContext, IListItem, contextTypes } from "../models/ContextConfiguration"
+import { ISideMenuItem } from "../models/SideMenu"
 
-type JsonItem = { [key: string]: any }
+type JsonItem = {type: string, [key: string]: any }
 
 export class ConfigurationService {
-  private raw_data: JsonItem
+  private raw_data: {[key: string]: any}
   private id: number
   private root: {[key: string]: any} = {}
   private processes: IListItem[] = []
@@ -11,7 +13,7 @@ export class ConfigurationService {
   private handlers: IListItem[] = []
   private elements: IListItem[] = []
 
-  constructor(raw_data: JsonItem) {
+  constructor(raw_data: {[key: string]: any}) {
     this.raw_data = raw_data
     this.id = 0
     const {
@@ -57,8 +59,57 @@ export class ConfigurationService {
     return confJson
   }
 
-  public getItemContent(id: number, type: string){
-    console.log(id, type)
+  public getSideMenu (processes: IListItem[], operations: IListItem[]): ISideMenuItem[]{
+    const nestedItems: ISideMenuItem[] = []
+    const sideMenuData: ISideMenuItem[] = [
+      { type: 'MainMenu', title: 'Main menu', id: 0, contextType: contextTypes.mainMenu },
+      { type: 'StyleTemplates', title: 'Styles', id: 0, contextType: contextTypes.styleTemplates},
+      { type: 'StartScreen', title: 'Start screen', id: 0, contextType: contextTypes.startScreen },
+      { type: 'Processes', title: 'Processes', nestedItems: nestedItems, id: 0, contextType: contextTypes.processes},
+      { type: 'Shedulers', title: 'Shedulers', id: 0, contextType: contextTypes.shedulers },
+      { type: 'CommonHandlers', title: 'Common handlers', id: 0, contextType: contextTypes.commonHandlers },
+      { type: 'PyFiles', title: 'Python files', id: 0, contextType: contextTypes.pyFiles },
+      { type: 'Mediafile', title: 'Media files', id: 0, contextType: contextTypes.mediafiles },
+    ]
+  
+    processes.forEach(({ content: { ProcessName, CVOperationName, type }, id }) => {
+      const title = ProcessName || CVOperationName
+      nestedItems.push({
+        title: title,
+        type: type,
+        id: id,
+        nestedItems: operations
+          .filter(el => el.parentId === id)
+          .map(({ content, id }) => ({ title: content.Name, type: content.type, id: id, contextType: contextTypes.operations })),
+        contextType: contextTypes.processes
+      })
+    })
+    return sideMenuData
+  }
+
+
+  public getItemContent(id: number, type: contextTypes): IContent{
+    const items = {
+      [contextTypes.processes]: this.processes,
+      [contextTypes.operations]: this.operations,
+      [contextTypes.elements]: this.elements,
+      [contextTypes.handlers]: this.handlers,
+      [contextTypes.mainMenu]: this.processes,
+      [contextTypes.styleTemplates]: this.processes,
+      [contextTypes.startScreen]: this.processes,
+      [contextTypes.shedulers]: this.processes,
+      [contextTypes.commonHandlers]: this.processes,
+      [contextTypes.pyFiles]: this.processes,
+      [contextTypes.mediafiles]: this.processes,
+
+    }[contextTypes[type]]
+
+  //   id: number
+  // parentId: number
+  // contextType: contextTypes
+  // content: {type: string, [key: string]: string}
+  return items.filter(item => item.id === id).map(item => ({...item}))?.[0]
+
     
     // function getElements(parentId) {
     //   return configuration.elements
@@ -82,6 +133,8 @@ export class ConfigurationService {
         return type
     }
   }
+
+  
 
   private getProcesses(): {[key: string]: any}[]{
     return this.processes.map(item => {

@@ -1,8 +1,7 @@
-// import MainParamsProcess from "./MainParams/MainParamsProcess";
+import MainParamsProcess from "./MainParams/MainParamsProcess";
 
 export default function ParamsProcess() {
   return (
-    <></>
-    // <MainParamsProcess data={content}></MainParamsProcess>
+    <MainParamsProcess/>
   )
 }
