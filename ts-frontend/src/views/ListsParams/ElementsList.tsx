@@ -14,6 +14,9 @@ export default function ElementsList() {
   function onClickItem(id: number){
     setSelectedItemId(id)
   }
+  function onDoubleClickItem(id: number){
+    // setSelectedItemId(id)
+  }
 
   return (
     <ParamsBlockWrapper>
@@ -24,6 +27,7 @@ export default function ElementsList() {
         listKeys={['type', 'Variable', 'Value']}
         selectedItemId={selectedItemId}
         onClickItem={onClickItem}
+        onDoubleClickItem={onDoubleClickItem}
       ></ListView>}
     </ParamsBlockWrapper>
   )

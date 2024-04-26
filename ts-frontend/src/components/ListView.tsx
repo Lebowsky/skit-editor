@@ -1,18 +1,16 @@
-import { useState } from "react"
+import CSS from "csstype";
 import { IListContent } from "../models/Content"
+import { useState } from "react";
 
-interface ListViewProps{
+interface ListViewProps {
   listKeys: string[],
   data: IListContent[],
   children?: React.ReactNode,
   onClickItem(id: number): void,
-  selectedItemId: number | null
+  selectedItemId: number | null,
+  onDoubleClickItem(id: number): void
 }
-export default function ListView({ data, listKeys, selectedItemId, onClickItem }: ListViewProps) {
-
-  function handleDoubleClick(id: number) {
-    // setCurrentDetails(data.filter(el => el.id === id)?.[0])
-  }
+export default function ListView({ data, listKeys, selectedItemId, onClickItem, onDoubleClickItem }: ListViewProps) {
   return (
     <ul className="list">
       {data.map(({ id, content, nestedElements }, idx) => (
@@ -21,15 +19,16 @@ export default function ListView({ data, listKeys, selectedItemId, onClickItem }
           data={listKeys.map(key => content[key]?.toString())}
           hasNested={nestedElements && nestedElements.length > 0}
           onClick={() => onClickItem(id)}
-          // onDoubleClick={() => handleDoubleClick(id)}
+          onDoubleClick={() => onDoubleClickItem(id)}
           isSelected={id === selectedItemId}
         >
           {nestedElements &&
-             <ListView
+            <ListView
               data={nestedElements}
               listKeys={listKeys}
               selectedItemId={selectedItemId}
               onClickItem={onClickItem}
+              onDoubleClickItem={onDoubleClickItem}
             >
             </ListView>
           }
@@ -44,14 +43,14 @@ interface ListRowProps {
   children: React.ReactNode
   hasNested: boolean,
   isSelected: boolean,
-  onClick(): void
+  onClick(): void,
+  onDoubleClick?(): void
 }
-// function ListRow({ data, children, hasNested, onClick, isSelected, onDoubleClick }) {
-function ListRow({ data, children, hasNested, isSelected, onClick }: ListRowProps) {
+function ListRow({ data, children, hasNested, isSelected, onClick, onDoubleClick }: ListRowProps) {
   const [isOpened, setIsOpened] = useState(false)
   const [isHover, setIsHover] = useState(false)
   const iconClassName = isOpened ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
-  
+
   function getBackground() {
     switch (true) {
       case isSelected:
@@ -80,9 +79,17 @@ function ListRow({ data, children, hasNested, isSelected, onClick }: ListRowProp
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onClick={onClick}
-        // onDoubleClick={onDoubleClick}
+        onDoubleClick={onDoubleClick}
       >
-        {hasNested && <i className={iconClassName} aria-hidden="true" onClick={() => setIsOpened((prev) => !prev)}></i>}
+        {hasNested &&
+          <i
+            className={iconClassName}
+            aria-hidden="true"
+            style={{
+              paddingRight: 5,
+            }}
+            onClick={() => setIsOpened((prev) => !prev)}
+          />}
         <ListItem data={data}></ListItem>
       </div>
       {isOpened && children}
@@ -90,14 +97,32 @@ function ListRow({ data, children, hasNested, isSelected, onClick }: ListRowProp
   )
 }
 
-interface ListItemProps{
+interface ListItemProps {
   data: string[]
 }
 function ListItem({ data }: ListItemProps) {
-  const width = [20, 50, 30]
+  const styles: CSS.Properties[] = [
+    {
+      width: '20%',
+      marginRight: '1rem',
+      userSelect: 'none'
+    },
+    {
+      width: '50%',
+      marginRight: '1rem',
+      userSelect: 'none'
+    },
+    {
+      width: '30%',
+      marginLeft: '1rem',
+      userSelect: 'none'
+    },
+  ]
+
   return (
     <>
-      {data.map((el, idx) => <i key={idx} style={{ width: `${width[idx]}%` }}>{el}</i>)}
+      {data.map((el, idx) =>
+        <i key={idx} style={styles[idx]}>{el} </i>)}
     </>
   )
 }
