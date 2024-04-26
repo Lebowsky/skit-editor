@@ -1,5 +1,4 @@
-import { IListItem } from "./models/ContextConfiguration"
-import { ISideMenuItem } from "./models/SideMenu"
+import { v4 as uuidv4 } from 'uuid';
 
 export function getUrl(method: string){
   const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -13,4 +12,8 @@ export function getUrl(method: string){
 
 export function getParamValue(formFaram: any): string{
   return '42'
+}
+
+export function uuid(){
+  return uuidv4()
 }

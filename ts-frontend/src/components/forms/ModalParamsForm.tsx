@@ -1,21 +1,27 @@
-import { useSimpleUI } from "../../context/context";
-import { IContextProviderData } from "../../models/ContextConfiguration";
-import { InputFieldType } from "../../models/Inputs";
-import Button, { ButtonGroup } from "../inputs/Button";
+import { useSimpleUI } from "../../context/context"
+import { IContextProviderData } from "../../models/ContextConfiguration"
+import Button, { ButtonGroup } from "../inputs/Button"
 import ParamInput from "../inputs/ParamInput"
 
+interface ParamsFields {
+  name: string
+  type: string
+  title: string
+  options?: {[key: string]: string | boolean}
+}
 
-interface CommonParamsFormProps {
-  fields: InputFieldType[]
+interface ModalParamsFormProps {
+  fields: ParamsFields[],
   onSubmit(e: React.FormEvent): void
   title: string
 }
-export default function CommonParamsForm({ fields, onSubmit, title }: CommonParamsFormProps) {
-  const { currentContent } = useSimpleUI() as IContextProviderData
+export default function ModalParamsForm({ fields, onSubmit, title}: ModalParamsFormProps) {
+  const { currentDetails } = useSimpleUI() as IContextProviderData
+  console.log(currentDetails)
   return (
-    currentContent && <ParamsFormWrapper onSubmit={onSubmit}>
+    currentDetails && <ParamsFormWrapper onSubmit={onSubmit}>
       <ParamsBlockTitle>{title}</ParamsBlockTitle>
-      {fields.map((el, idx) => <ParamInput {...el} value={currentContent.content[el.name]} key={idx} />)}
+      {fields.map((el, idx) => <ParamInput {...el} value={currentDetails.content[el.name] || ''} key={idx} />)}
     </ParamsFormWrapper>
   )
 }
@@ -28,17 +34,12 @@ function ParamsFormWrapper({ onSubmit, children }: ParamsFormWrapperProps) {
   return (
     <form
       style={{
-        margin: '0 1% 20px 1%',
-        width: '100%',
-        minWidth: '500px',
-        padding: '20px',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         marginBottom: '20px',
         borderRadius: '5px',
-        boxShadow: '0 0 10px #33333326',
       }}
       onSubmit={onSubmit}>
       {children}
@@ -62,8 +63,9 @@ function ParamsBlockTitle({ children }: ParamsBlockTitleProps) {
       }}>
       <h3>{children}</h3>
       <ButtonGroup>
-        <Button btnType='apply'>Apply</Button>
+        <Button>Apply</Button>
       </ButtonGroup>
     </div>
   )
 }
+

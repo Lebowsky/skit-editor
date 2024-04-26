@@ -1,7 +1,6 @@
 import { ISelector } from "../../models/Inputs"
 
 export default function Selector({ title, name, options, value }: ISelector) {
-
   return (
     <div style={{
       display: 'flex',

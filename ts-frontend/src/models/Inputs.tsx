@@ -19,8 +19,11 @@ export interface ICheckBox{
   name: string
 }
 
-export interface ISelector extends InputFieldType{
-  options: []
+export interface ISelector{
+  value?: string
+  name: string
+  title: string
+  options: {[key: string]: string | boolean}
 }
 
 export interface IButton {
@@ -32,6 +35,6 @@ export interface ParamInputProps {
   value: string | boolean
   name: string
   title: string
-  options?: []
+  options?: {}
   required?: boolean
 }

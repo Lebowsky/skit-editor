@@ -38,6 +38,7 @@ export default function Modal({ children, allowClose }: ModalProps) {
           borderRadius: "10px",
           boxShadow: "2px solid black",
         }}
+        onClick={e => {e.stopPropagation()}}
       >
         {children}
       </div>

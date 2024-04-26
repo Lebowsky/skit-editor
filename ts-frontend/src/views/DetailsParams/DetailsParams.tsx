@@ -1,27 +1,31 @@
-// import ParamsLinearLayout from "./LinearLayout/ParamsLinearLayout"
-// import Modal from "../../components/layouts/Modal"
+import { useSimpleUI } from "../../context/context"
+import { IContextProviderData } from "../../models/ContextConfiguration"
+import ParamsLinearLayout from "./LinearLayout/ParamsLinearLayout"
 
 export default function DetailsParams() {
-  return (<></>
-//     <Modal isOpen={true}>
-//       <Params data={data}>
-//         {data.content.type === "LinearLayout" && <ParamsLinearLayout data={data}></ParamsLinearLayout>}
-//       </Params>
-//     </Modal>
+  const { currentDetails } = useSimpleUI() as IContextProviderData
+
+  return (
+    <Params>
+      {currentDetails && currentDetails.content.type === "LinearLayout" && <ParamsLinearLayout/>}
+    </Params>
   )
 }
 
-// export function Params({ data, children }) {
-//   return (
-//     <div style={{
-//       display: 'flex',
-//       flexWrap: 'wrap',
-//       alignItems: 'start',
-//       width: '100%',
-//       maxWidth: '550px',
-//       flexDirection: 'column',
-//     }}>
-//       {children}
-//     </div>
-//   )
-// }
+interface ParamsProps {
+  children: React.ReactNode
+}
+export function Params({ children }: ParamsProps) {
+  return (
+    <div style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'start',
+      width: '100%',
+      maxWidth: '550px',
+      flexDirection: 'column',
+    }}>
+      {children}
+    </div>
+  )
+}
