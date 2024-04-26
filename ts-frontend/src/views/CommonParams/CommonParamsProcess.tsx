@@ -24,17 +24,18 @@ export default function CommonParamsProcess() {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       ProcessName: {value: string}
-      DefineOnBackPressed: {value: string}
-      hidden: {value: string}
-      login_screen: {value: string}
+      DefineOnBackPressed: {checked: boolean}
+      hidden: {checked: boolean}
+      login_screen: {checked: boolean}
     }
 
     const newContent = {
       ProcessName: target.ProcessName.value,
-      DefineOnBackPressed: target.DefineOnBackPressed.value,
-      hidden: target.hidden.value,
-      login_screen: target.login_screen.value,
+      DefineOnBackPressed: target.DefineOnBackPressed.checked,
+      hidden: target.hidden.checked,
+      login_screen: target.login_screen.checked,
     }
+    console.log(newContent)
 
     currentContent && updateContent({...currentContent, content: {...currentContent.content, ...newContent}})
   }

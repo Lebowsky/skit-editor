@@ -14,7 +14,7 @@ export default function ParamInput({
 }: ParamInputProps) {
   return (
     <>
-      {type === 'text' && <TextView value={value} name={name} title={title} required={required}></TextView>}
+      {type === 'text' && <TextView value={value.toString()} name={name} title={title} required={required}></TextView>}
       {type === 'checkbox' && <CheckBox title={title} name={name} isChecked={Boolean(value)}></CheckBox>}
       {/* {type === 'select' && <Selector title={title} name={name} options={options} value={value}></Selector>} */}
     </>

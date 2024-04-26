@@ -29,7 +29,7 @@ export interface IButton {
 
 export interface ParamInputProps {
   type: string
-  value: string
+  value: string | boolean
   name: string
   title: string
   options?: []
