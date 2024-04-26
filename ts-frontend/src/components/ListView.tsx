@@ -1,6 +1,7 @@
 import CSS from "csstype";
 import { IListContent } from "../models/Content"
 import { useState } from "react";
+import { contextTypes } from "../models/ContextConfiguration";
 
 interface ListViewProps {
   listKeys: string[],
@@ -8,18 +9,18 @@ interface ListViewProps {
   children?: React.ReactNode,
   onClickItem(id: number): void,
   selectedItemId: number | null,
-  onDoubleClickItem(id: number): void
+  onDoubleClickItem(id: number, contextType: contextTypes): void
 }
 export default function ListView({ data, listKeys, selectedItemId, onClickItem, onDoubleClickItem }: ListViewProps) {
   return (
     <ul className="list">
-      {data.map(({ id, content, nestedElements }, idx) => (
+      {data.map(({ id, content, nestedElements, contextType }, idx) => (
         <ListRow
           key={idx}
           data={listKeys.map(key => content[key]?.toString())}
           hasNested={nestedElements && nestedElements.length > 0}
           onClick={() => onClickItem(id)}
-          onDoubleClick={() => onDoubleClickItem(id)}
+          onDoubleClick={() => onDoubleClickItem(id, contextType)}
           isSelected={id === selectedItemId}
         >
           {nestedElements &&

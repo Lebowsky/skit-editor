@@ -16,3 +16,9 @@ export interface IListContent {
   content: {type: string, [key: string]: string | boolean}
   nestedElements: IListContent[]
 }
+
+export interface IDetailsContent {
+  id: number
+  contextType: contextTypes
+  content: {type: string, [key: string]: string | boolean}
+}

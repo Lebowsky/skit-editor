@@ -4,18 +4,18 @@ import { useState } from "react"
 import ListView from "../../components/ListView"
 import Button, { ButtonGroup } from "../../components/inputs/Button"
 import { useSimpleUI } from "../../context/context"
-import { IContextProviderData } from "../../models/ContextConfiguration"
+import { IContextProviderData, contextTypes } from "../../models/ContextConfiguration"
 
 
 export default function ElementsList() {
   const [selectedItemId, setSelectedItemId] = useState<number|null>(null)
-  const { currentContent } = useSimpleUI() as IContextProviderData
+  const { currentContent, setDetails } = useSimpleUI() as IContextProviderData
 
   function onClickItem(id: number){
     setSelectedItemId(id)
   }
-  function onDoubleClickItem(id: number){
-    // setSelectedItemId(id)
+  function onDoubleClickItem(id: number, contextType: contextTypes){
+    setDetails(id, contextType)
   }
 
   return (

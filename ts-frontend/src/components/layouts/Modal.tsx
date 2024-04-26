@@ -1,8 +1,18 @@
+import { useState } from "react";
+
 interface ModalProps {
   children: React.ReactNode
+  allowClose?: boolean
 }
 
-export default function Modal({ children }: ModalProps) {
+export default function Modal({ children, allowClose }: ModalProps) {
+  const [isOpen, setIsOpen] = useState(true)
+  function closeModal(){
+    allowClose && setIsOpen(false)
+  }
+
+  if (!isOpen) return null;
+
   return (
     <div
       style={{
@@ -17,6 +27,7 @@ export default function Modal({ children }: ModalProps) {
         justifyContent: "center",
         zIndex: 1
       }}
+      onClick={closeModal}
     >
       <div
         style={{

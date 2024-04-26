@@ -4,7 +4,7 @@ import { fetchConfiguration } from '../api';
 import { ConfigurationService } from '../services/configurationService'
 import { ISideMenuItem, ITabData } from "../models/SideMenu";
 import { IContextProviderData } from "../models/ContextConfiguration";
-import { IContent } from "../models/Content";
+import { IContent, IDetailsContent } from "../models/Content";
 
 interface ContextProps {
   children: React.ReactNode
@@ -21,6 +21,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [tabs, setTabs] = useState<ITabData[]>([])
   const [currentTabId, setCurrentTabId] = useState<number>(0)
   const [currentContent, setCurrentContent] = useState<IContent | null>(null)
+  const [currentDetails, setCurrentDetails] = useState<IDetailsContent | null>(null)
 
   useEffect(() => {
     async function preload() {
@@ -73,6 +74,15 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
     configurationService.updateItemContent(newContent)
   }
 
+  function setDetails(id: number, contextType: contextTypes): void{
+    const details = configurationService.getItemContent(id, contextType)
+    updateDetails(details)
+  }
+
+  function updateDetails(newDetails: IDetailsContent){
+    setCurrentDetails(newDetails)
+  }
+
   return (
     <SimpleUIContext.Provider 
       value={{
@@ -86,7 +96,9 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         setCurrentTab, 
         configurationService,
         currentContent,
-        updateContent
+        updateContent,
+        currentDetails,
+        setDetails
       }}>
       {children}
     </SimpleUIContext.Provider>

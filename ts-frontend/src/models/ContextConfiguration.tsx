@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { ConfigurationService } from "../services/configurationService"
 import { ISideMenuItem, ITabData } from "./SideMenu"
-import { IContent } from "./Content"
+import { IContent, IDetailsContent } from "./Content"
 
 export interface IConfigurationContext {
   root: {}
@@ -64,5 +64,7 @@ export interface IContextProviderData {
   tabs: ITabData[]
   currentTabId: number
   currentContent: IContent | null
-  updateContent(newContent: IContent): void
+  updateContent(newContent: IContent): void,
+  currentDetails: IDetailsContent | null
+  setDetails(id: number, contextType: contextTypes): void
 }
