@@ -66,5 +66,6 @@ export interface IContextProviderData {
   currentContent: IContent | null
   updateContent(newContent: IContent): void,
   currentDetails: IDetailsContent | null
-  setDetails(id: number, contextType: contextTypes): void
+  setDetails(id: number, contextType: contextTypes): void,
+  updateDetails(newDetails: IDetailsContent | null): void
 }

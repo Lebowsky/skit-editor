@@ -5,10 +5,23 @@ import { uuid } from '../utils'
 import DetailsParams from './DetailsParams/DetailsParams'
 
 export default function ModalView() {
-  const { loading, loadingError, currentDetails } = useSimpleUI() as IContextProviderData
+  const { loading, loadingError, currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
+  function canCloseDetails(): boolean{
+    if (window.confirm("Dont save?")){
+      updateDetails(null)
+      return true
+    }
+    return false
+  }
   return (
     <>
-      {currentDetails && <Modal allowClose={true} key={uuid()}><DetailsParams/></Modal>}
+      {currentDetails && 
+        <Modal 
+          allowClose={canCloseDetails} 
+          key={uuid()}
+        >
+          <DetailsParams/>
+        </Modal>}
       {loading && <Modal><p>Loading...</p></Modal>}
       {loadingError && <Modal><p>{`Loading error: ${loadingError}`}</p></Modal>}
     </>

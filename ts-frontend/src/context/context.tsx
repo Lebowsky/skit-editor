@@ -98,7 +98,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         currentContent,
         updateContent,
         currentDetails,
-        setDetails
+        setDetails,
+        updateDetails
       }}>
       {children}
     </SimpleUIContext.Provider>

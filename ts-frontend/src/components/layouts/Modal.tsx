@@ -2,13 +2,13 @@ import { useState } from "react";
 
 interface ModalProps {
   children: React.ReactNode
-  allowClose?: boolean
+  allowClose?(): boolean
 }
 
 export default function Modal({ children, allowClose }: ModalProps) {
   const [isOpen, setIsOpen] = useState(true)
   function closeModal(){
-    allowClose && setIsOpen(false)
+    allowClose && allowClose() && setIsOpen(false)
   }
 
   if (!isOpen) return null;
