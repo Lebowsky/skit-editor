@@ -1,22 +1,21 @@
 import { useSimpleUI } from "../../context/context";
-import { IContent } from "../../models/Content";
 import { IContextProviderData } from "../../models/ContextConfiguration";
-import { InputFieldType, ParamInputProps } from "../../models/Inputs";
+import { InputFieldType } from "../../models/Inputs";
 import Button, { ButtonGroup } from "../inputs/Button";
 import ParamInput from "../inputs/ParamInput"
 
 
-interface MainParamsFormProps {
+interface CommonParamsFormProps {
   fields: InputFieldType[]
   onSubmit(e: React.FormEvent): void
   title: string
 }
-export default function MainParamsForm({ fields, onSubmit, title }: MainParamsFormProps) {
+export default function CommonParamsForm({ fields, onSubmit, title }: CommonParamsFormProps) {
   const { currentContent } = useSimpleUI() as IContextProviderData
   return (
-    <ParamsFormWrapper onSubmit={onSubmit}>
-      <ParamsBlockTitle onClick={()=>{}}>{title}</ParamsBlockTitle>
-      {currentContent && fields.map((el, idx) => (<ParamInput {...el} value={currentContent.content[el.name]} key={idx} />))}
+    currentContent && <ParamsFormWrapper onSubmit={onSubmit}>
+      <ParamsBlockTitle>{title}</ParamsBlockTitle>
+      {fields.map((el, idx) => <ParamInput {...el} value={currentContent.content[el.name]} key={idx} />)}
     </ParamsFormWrapper>
   )
 }
@@ -49,9 +48,8 @@ function ParamsFormWrapper({ onSubmit, children }: ParamsFormWrapperProps) {
 
 interface ParamsBlockTitleProps {
   children: React.ReactNode
-  onClick(): void
 }
-function ParamsBlockTitle({ children, onClick }: ParamsBlockTitleProps) {
+function ParamsBlockTitle({ children }: ParamsBlockTitleProps) {
   return (
     <div
       style={{
@@ -64,7 +62,7 @@ function ParamsBlockTitle({ children, onClick }: ParamsBlockTitleProps) {
       }}>
       <h3>{children}</h3>
       <ButtonGroup>
-        <Button onClick={onClick} btnType='apply'>Apply</Button>
+        <Button btnType='apply'>Apply</Button>
       </ButtonGroup>
     </div>
   )

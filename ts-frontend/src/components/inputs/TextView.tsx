@@ -17,6 +17,7 @@ export default function TextView({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
+      padding: 10
     }}>
       <label style={{
         cursor: 'pointer',
@@ -43,7 +44,6 @@ export default function TextView({
             borderRadius: '5px',
             outline: 'none',
             width: '100%',
-            marginTop: '10px'
           }}
           title={title}
           onChange={(e) => {

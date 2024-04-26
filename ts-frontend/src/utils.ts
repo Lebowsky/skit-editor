@@ -10,3 +10,7 @@ export function getUrl(method: string){
   }
   throw new Error("BASE_URL not specified")
 }
+
+export function getParamValue(formFaram: any): string{
+  return '42'
+}

@@ -5,7 +5,10 @@ export default function CheckBox({ title = "", isChecked, name }: ICheckBox) {
   const [checked, setChecked] = useState(isChecked);
 
   return (
-    <label style={{ width: '100%', marginBottom: '10px', paddingBottom: '10px' }}>
+    <label style={{ 
+      width: '100%', 
+      padding: 10
+    }}>
       <input
         name={name}
         type="checkbox"

@@ -1,7 +1,7 @@
-import MainParamsProcess from "./MainParams/MainParamsProcess";
+import CommonParamsProcess from "./MainParams/CommonParamsProcess";
 
 export default function ParamsProcess() {
   return (
-    <MainParamsProcess/>
+    <CommonParamsProcess/>
   )
 }

@@ -1,6 +1,6 @@
 interface ButtonParams {
   children: React.ReactNode
-  onClick(): void
+  onClick?(): void
   btnType: string
 }
 
