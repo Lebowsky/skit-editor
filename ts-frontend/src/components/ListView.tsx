@@ -74,7 +74,7 @@ function ListRow({ data, children, hasNested, isSelected, onClick, onDoubleClick
           display: 'flex',
           padding: 10,
           background: getBackground(),
-          borderBottom: '1px solid #ccc'
+          borderBottom: '1px solid #ccc',
         }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
@@ -103,18 +103,17 @@ interface ListItemProps {
 function ListItem({ data }: ListItemProps) {
   const styles: CSS.Properties[] = [
     {
-      width: '20%',
-      marginRight: '1rem',
+      width: '30%',
+      // marginRight: '1rem',
       userSelect: 'none'
     },
     {
-      width: '50%',
+      width: '40%',
       marginRight: '1rem',
       userSelect: 'none'
     },
     {
       width: '30%',
-      marginLeft: '1rem',
       userSelect: 'none'
     },
   ]
