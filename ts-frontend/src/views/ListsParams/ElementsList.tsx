@@ -1,22 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
+import { useState } from "react"
 import ListView from "../../components/ListView"
 import Button, { ButtonGroup } from "../../components/inputs/Button"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData } from "../../models/ContextConfiguration"
 
-// import { useState } from 'react';
-// import Button, { ButtonGroup } from '../../components/Inputs/Button';
-// import ListView from '../../components/ListView/ListView';
 
 export default function ElementsList() {
-  //   const [selectedItemId, setSelectedItemId] = useState()
+  const [selectedItemId, setSelectedItemId] = useState<number|null>(null)
   const { currentContent } = useSimpleUI() as IContextProviderData
-  console.log(currentContent)
 
-  //   function onClickItem(id){
-  //     setSelectedItemId(id)
-  //   }
+  function onClickItem(id: number){
+    setSelectedItemId(id)
+  }
+
   return (
     <ParamsBlockWrapper>
       <ParamsBlockTitle>{'Elements'}</ParamsBlockTitle>
@@ -24,8 +22,8 @@ export default function ElementsList() {
       <ListView
         data={currentContent.elements}
         listKeys={['type', 'Variable', 'Value']}
-        // selectedItemId={selectedItemId}
-        // onClickItem={onClickItem}
+        selectedItemId={selectedItemId}
+        onClickItem={onClickItem}
       ></ListView>}
     </ParamsBlockWrapper>
   )

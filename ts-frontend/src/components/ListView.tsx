@@ -1,16 +1,15 @@
-// import { useState } from "react"
-// import { useSimpleUI } from "../../context/context"
-
 import { useState } from "react"
-import { IContent, IListContent } from "../models/Content"
+import { IListContent } from "../models/Content"
 
 interface ListViewProps{
   listKeys: string[],
   data: IListContent[],
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  onClickItem(id: number): void,
+  selectedItemId: number | null
 }
-export default function ListView({ data, listKeys, children }: ListViewProps) {
-  // const { setCurrentDetails } = useSimpleUI()
+export default function ListView({ data, listKeys, selectedItemId, onClickItem }: ListViewProps) {
+
   function handleDoubleClick(id: number) {
     // setCurrentDetails(data.filter(el => el.id === id)?.[0])
   }
@@ -21,16 +20,16 @@ export default function ListView({ data, listKeys, children }: ListViewProps) {
           key={idx}
           data={listKeys.map(key => content[key]?.toString())}
           hasNested={nestedElements && nestedElements.length > 0}
-          // onClick={() => onClickItem(id)}
+          onClick={() => onClickItem(id)}
           // onDoubleClick={() => handleDoubleClick(id)}
-          // isSelected={id === selectedItemId}
+          isSelected={id === selectedItemId}
         >
           {nestedElements &&
              <ListView
-               data={nestedElements}
-               listKeys={listKeys}
-              //  selectedItemId={selectedItemId}
-              // onClickItem={onClickItem}
+              data={nestedElements}
+              listKeys={listKeys}
+              selectedItemId={selectedItemId}
+              onClickItem={onClickItem}
             >
             </ListView>
           }
@@ -43,18 +42,20 @@ export default function ListView({ data, listKeys, children }: ListViewProps) {
 interface ListRowProps {
   data: string[]
   children: React.ReactNode
-  hasNested: boolean
+  hasNested: boolean,
+  isSelected: boolean,
+  onClick(): void
 }
 // function ListRow({ data, children, hasNested, onClick, isSelected, onDoubleClick }) {
-function ListRow({ data, children, hasNested }: ListRowProps) {
+function ListRow({ data, children, hasNested, isSelected, onClick }: ListRowProps) {
   const [isOpened, setIsOpened] = useState(false)
   const [isHover, setIsHover] = useState(false)
   const iconClassName = isOpened ? 'fa fa-chevron-up' : 'fa fa-chevron-down'
-
+  
   function getBackground() {
     switch (true) {
-      // case isSelected:
-      //   return 'rgba(169, 169, 169)'
+      case isSelected:
+        return 'rgba(169, 169, 169)'
       case isHover:
         return 'rgba(169, 169, 169, .5)'
       default:
@@ -73,11 +74,12 @@ function ListRow({ data, children, hasNested }: ListRowProps) {
         style={{
           display: 'flex',
           padding: 10,
-          background: getBackground()
+          background: getBackground(),
+          borderBottom: '1px solid #ccc'
         }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        // onClick={onClick}
+        onClick={onClick}
         // onDoubleClick={onDoubleClick}
       >
         {hasNested && <i className={iconClassName} aria-hidden="true" onClick={() => setIsOpened((prev) => !prev)}></i>}
