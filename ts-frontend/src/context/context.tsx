@@ -68,6 +68,11 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
     })
   }
 
+  function updateContent(newContent: IContent){
+    setCurrentContent(newContent)
+    configurationService.updateItemContent(newContent)
+  }
+
   return (
     <SimpleUIContext.Provider 
       value={{
@@ -80,7 +85,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         currentTabId, 
         setCurrentTab, 
         configurationService,
-        currentContent
+        currentContent,
+        updateContent
       }}>
       {children}
     </SimpleUIContext.Provider>

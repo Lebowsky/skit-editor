@@ -64,4 +64,5 @@ export interface IContextProviderData {
   tabs: ITabData[]
   currentTabId: number
   currentContent: IContent | null
+  updateContent(newContent: IContent): void
 }

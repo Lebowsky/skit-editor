@@ -31,7 +31,6 @@ export class ConfigurationService {
     this.parseProcesses(Processes)
     this.root = root
   }
-
   public getConfigurationContext(): IConfigurationContext {
     return {
       root: this.root,
@@ -41,7 +40,6 @@ export class ConfigurationService {
       handlers: this.handlers
     }
   }
-
   public getConfigurationJson(): {[key: string]: any}{
     const confJson = {'ClientConfiguration' : {}}
     confJson.ClientConfiguration = {
@@ -54,11 +52,10 @@ export class ConfigurationService {
       //     PyFiles: confData.pyFiles,
       //     StyleTemplates: confData.styleTemplates,
       //     CommonHandlers: confData.commonHandlers,
-          Processes: this.getProcesses(),
+        Processes: this.getProcesses(),
       }
     return confJson
   }
-
   public getSideMenu (processes: IListItem[], operations: IListItem[]): ISideMenuItem[]{
     const nestedItems: ISideMenuItem[] = []
     const sideMenuData: ISideMenuItem[] = [
@@ -86,31 +83,9 @@ export class ConfigurationService {
     })
     return sideMenuData
   }
-
-
   public getItemContent(id: number, type: contextTypes): IContent{
-    const items = {
-      [contextTypes.processes]: this.processes,
-      [contextTypes.operations]: this.operations,
-      [contextTypes.elements]: this.elements,
-      [contextTypes.handlers]: this.handlers,
-      [contextTypes.mainMenu]: this.processes,
-      [contextTypes.styleTemplates]: this.processes,
-      [contextTypes.startScreen]: this.processes,
-      [contextTypes.shedulers]: this.processes,
-      [contextTypes.commonHandlers]: this.processes,
-      [contextTypes.pyFiles]: this.processes,
-      [contextTypes.mediafiles]: this.processes,
-
-    }[contextTypes[type]]
-
-  //   id: number
-  // parentId: number
-  // contextType: contextTypes
-  // content: {type: string, [key: string]: string}
-  return items.filter(item => item.id === id).map(item => ({...item}))?.[0]
-
-    
+    const items = this.getContextItems(type)
+    return items.filter(item => item.id === id).map(item => ({...item}))?.[0]
     // function getElements(parentId) {
     //   return configuration.elements
     //     .filter(el => el.parentId === parentId)
@@ -122,7 +97,28 @@ export class ConfigurationService {
     // newContent['handlers'] = configuration.handlers.filter(el => el.parentId === id)
     // return newContent
   }
-
+  public updateItemContent(itemData: IContent): void{
+    const item = this.findItem(itemData.id, itemData.contextType)
+    item.content = {...itemData.content}
+  }
+  private findItem(id: number, contextType: contextTypes): IContent{
+    return this.getContextItems(contextType).filter(item => item.id === id).map(item => (item))?.[0]
+  }
+  private getContextItems(type: contextTypes): IContent[]{
+    return {
+      [contextTypes.processes]: this.processes,
+      [contextTypes.operations]: this.operations,
+      [contextTypes.elements]: this.elements,
+      [contextTypes.handlers]: this.handlers,
+      [contextTypes.mainMenu]: this.processes,
+      [contextTypes.styleTemplates]: this.processes,
+      [contextTypes.startScreen]: this.processes,
+      [contextTypes.shedulers]: this.processes,
+      [contextTypes.commonHandlers]: this.processes,
+      [contextTypes.pyFiles]: this.processes,
+      [contextTypes.mediafiles]: this.processes,
+    }[contextTypes[type]] 
+  }
   private getContentType(type: string){
     switch (type){
       case 'CVOperation':
@@ -133,9 +129,6 @@ export class ConfigurationService {
         return type
     }
   }
-
-  
-
   private getProcesses(): {[key: string]: any}[]{
     return this.processes.map(item => {
       const nestedKeys: {[key: string]: string} = { Process: 'Operations', CVOperation: 'CVFrames' }
@@ -146,19 +139,16 @@ export class ConfigurationService {
       }
     })
   }
-
   private getOperations(parentId: number): {[key: string]: any}[]{
     return this.operations
       .filter(item => item.parentId === parentId)
       .map(item => ({...item.content, Elements: this.getElements(item.id), Handlers: this.getHandlers(item.id)}))
   }
-
   private getHandlers(parentId: number): {[key: string]: any}[]{
     return this.handlers
       .filter(item => item.parentId === parentId)
       .map(item => item.content)
   }
-
   private getElements(parentId: number): {[key: string]: any}[]{
     return this.elements
       .filter(item => item.parentId === parentId)
@@ -171,7 +161,6 @@ export class ConfigurationService {
         else return item.content
       })
   }
-
   private parseProcesses(Processes: JsonItem[]): void {
     Processes && Processes.forEach(({ Operations, CVFrames, ...item }) => {
       const id = this.getId()
@@ -185,7 +174,6 @@ export class ConfigurationService {
       CVFrames && this.parseCVFrames(CVFrames, id)
     });
   }
-
   private parseOperations(Operations: JsonItem[], parentId: number): void {
     Operations.forEach(({ Elements, Handlers, ...item }) => {
       const id = this.getId()
