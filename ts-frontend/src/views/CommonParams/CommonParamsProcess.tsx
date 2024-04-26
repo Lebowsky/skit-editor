@@ -1,8 +1,6 @@
 import CommonParamsForm from "../../components/forms/CommonParamsForm"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData } from "../../models/ContextConfiguration"
-import { getParamValue } from "../../utils"
-// import { useSimpleUI } from "../../context/context"
 
 
 interface ParamsFields {
@@ -35,8 +33,6 @@ export default function CommonParamsProcess() {
       hidden: target.hidden.checked,
       login_screen: target.login_screen.checked,
     }
-    console.log(newContent)
-
     currentContent && updateContent({...currentContent, content: {...currentContent.content, ...newContent}})
   }
   return (

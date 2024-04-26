@@ -1,4 +1,4 @@
-import { IContent } from "../models/Content"
+import { IContent, IListContent } from "../models/Content"
 import { IConfigurationContext, IListItem, contextTypes } from "../models/ContextConfiguration"
 import { ISideMenuItem } from "../models/SideMenu"
 
@@ -84,18 +84,18 @@ export class ConfigurationService {
     return sideMenuData
   }
   public getItemContent(id: number, type: contextTypes): IContent{
-    const items = this.getContextItems(type)
-    return items.filter(item => item.id === id).map(item => ({...item}))?.[0]
-    // function getElements(parentId) {
-    //   return configuration.elements
-    //     .filter(el => el.parentId === parentId)
-    //     .map(el => ({ ...el, nestedElements: getElements(el.id) }))
-    // }
+    const getElements = (parentId: number): IListContent[] => {
+      return this.elements
+        .filter(el => el.parentId === parentId)
+        .map(el => ({ ...el, nestedElements: getElements(el.id) }))
+    }
 
-    // const newContent = { ...configuration[type]?.filter(el => el.id === id)?.[0] }
-    // newContent['elements'] = getElements(id)
-    // newContent['handlers'] = configuration.handlers.filter(el => el.parentId === id)
-    // return newContent
+    const itemContent = this.getContextItems(type).filter(item => item.id === id).map(item => ({...item}))?.[0]
+    if (itemContent){
+      itemContent.elements = getElements(id)
+      itemContent.handlers = this.handlers.filter(el => el.parentId === id)
+    } 
+    return itemContent
   }
   public updateItemContent(itemData: IContent): void{
     const item = this.findItem(itemData.id, itemData.contextType)

@@ -1,7 +1,7 @@
 interface ButtonParams {
   children: React.ReactNode
   onClick?(): void
-  btnType: string
+  btnType?: string
 }
 
 export default function Button({ children, onClick, btnType }: ButtonParams) {
