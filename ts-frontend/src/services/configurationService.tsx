@@ -95,7 +95,6 @@ export class ConfigurationService {
       itemContent.elements = getElements(id)
       itemContent.handlers = this.handlers.filter(el => el.parentId === id).map(el => ({...el, nestedElements: []}))
     } 
-    console.log(itemContent)
     return itemContent
   }
   public updateItemContent(itemData: IContent): void{
