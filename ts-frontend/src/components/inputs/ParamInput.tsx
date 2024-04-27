@@ -10,7 +10,7 @@ export default function ParamInput({
   name, 
   title, 
   options, 
-  required=true 
+  required=false 
 }: ParamInputProps) {
   return (
     <>

@@ -17,7 +17,6 @@ interface ModalParamsFormProps {
 }
 export default function ModalParamsForm({ fields, onSubmit, title}: ModalParamsFormProps) {
   const { currentDetails } = useSimpleUI() as IContextProviderData
-  console.log(currentDetails)
   return (
     currentDetails && <ParamsFormWrapper onSubmit={onSubmit}>
       <ParamsBlockTitle>{title}</ParamsBlockTitle>

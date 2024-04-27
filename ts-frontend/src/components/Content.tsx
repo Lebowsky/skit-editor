@@ -14,7 +14,6 @@ export default function Content() {
     }}>
       <Tabs tabsData={tabs} currentTabId={currentTabId} />
       <ParamsWrapper>
-        <></>
         {currentContent && currentContent.contextType === contextTypes.processes && <ParamsProcess/>}
         {currentContent && currentContent.contextType === contextTypes.operations && <ParamsOperation/>}
         {/* {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation {...currentContent}></ParamsCVOperation>} */}

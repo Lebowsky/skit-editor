@@ -3,7 +3,7 @@
 // import MainParamsOperation from "./MainParams/MainParamsOperation"
 
 import CommonParamsOperation from "./CommonParams/CommonParamsOperation";
-import ElementsList from "./ListsParams/ElementsList";
+import ElementsList from "../components/listsParams/ElementsList";
 
 export default function ParamsOperation() {
   return (

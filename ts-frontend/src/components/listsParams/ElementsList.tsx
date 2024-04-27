@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import { useState } from "react"
-import ListView from "../../components/ListView"
-import Button, { ButtonGroup } from "../../components/inputs/Button"
+import ListView from "../ListView"
+import Button, { ButtonGroup } from "../inputs/Button"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData, contextTypes } from "../../models/ContextConfiguration"
 

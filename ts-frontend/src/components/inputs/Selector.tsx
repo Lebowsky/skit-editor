@@ -7,15 +7,11 @@ export default function Selector({ title, name, options, value }: ISelector) {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
+      padding: 10
     }}>
       <label style={{
         cursor: 'pointer', 
-        marginRight: '10px', 
-        fontWeight: '600', 
-        width: '27%', 
-        marginBottom: '0px', 
-        paddingBottom: '0px', 
-        paddingRight: '10px'
+        width: '30%', 
       }}>
         {title}
       </label>
@@ -23,9 +19,8 @@ export default function Selector({ title, name, options, value }: ISelector) {
         defaultValue={value}
         name={name} 
         style={{ 
-          padding: '8px', 
+          padding: '10px', 
           width: '100%', 
-          marginTop: '10px', 
           borderWidth: '1px', 
           borderBlockColor: '#000', 
           borderRadius: '4px' 

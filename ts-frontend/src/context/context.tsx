@@ -81,6 +81,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
 
   function updateDetails(newDetails: IDetailsContent){
     setCurrentDetails(newDetails)
+    newDetails && configurationService.updateItemContent(newDetails)
   }
 
   return (

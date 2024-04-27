@@ -40,7 +40,7 @@ export default function TextView({
           name={name}
           style={{
             padding: '10px',
-            border: `${(required && !inputContent.trim().length) ? '1px solid red' : '1px #c7c7c7 solid'}`,
+            border: `${(required && !inputContent.trim().length) ? '1px solid red' : '1px black solid'}`,
             borderRadius: '5px',
             outline: 'none',
             width: '100%',
