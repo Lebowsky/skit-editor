@@ -1,5 +1,7 @@
 import { useSimpleUI } from "../context/context"
-import { IContextProviderData, contextTypes } from "../models/ContextConfiguration"
+import { IContextProviderData } from "../models/ContextConfiguration"
+import ParamsCVFrame from "../views/ParamsCVFrame"
+import ParamsCVOperation from "../views/ParamsCVOperation"
 import ParamsOperation from "../views/ParamsOperation"
 import ParamsProcess from "../views/ParamsProcess"
 import Tabs from "./Tabs"
@@ -14,10 +16,10 @@ export default function Content() {
     }}>
       <Tabs tabsData={tabs} currentTabId={currentTabId} />
       <ParamsWrapper>
-        {currentContent && currentContent.contextType === contextTypes.processes && <ParamsProcess/>}
-        {currentContent && currentContent.contextType === contextTypes.operations && <ParamsOperation/>}
-        {/* {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation {...currentContent}></ParamsCVOperation>} */}
-        {/* {currentContent && currentContent.content.type === 'CVFrame' && <ParamsCVFrame {...currentContent}></ParamsCVFrame>} */}
+        {currentContent && currentContent.content.type === 'Process' && <ParamsProcess/>}
+        {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation/>}
+        {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation/>}
+        {currentContent && currentContent.content.type === 'CVFrame' && <ParamsCVFrame/>}
       </ParamsWrapper>
     </div>
   )

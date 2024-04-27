@@ -16,10 +16,8 @@ const { sideMenu, currentContent } = useSimpleUI() as IContextProviderData
       display: 'flex'
     }}>
       <ModalView></ModalView>
-      {/* {currentDetails && <ParamsDetails data={currentDetails}></ParamsDetails>} */}
       {sideMenu && <SideMenu sideMenu={sideMenu} />}
       {currentContent && <Content key={currentContent.id}/>}
-      {/* <Content tabs={tabs} currentTab={currentTab} currentContent={currentContent}/> */}
     </div>
   )
 }
