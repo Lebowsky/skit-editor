@@ -1,1 +1,0 @@
-Simple-kit editor
