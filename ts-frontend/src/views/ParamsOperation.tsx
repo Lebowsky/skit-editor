@@ -1,16 +1,14 @@
-// import ElementsList from "./ParamsLists/ElementsList"
-// import HandlersList from "./ParamsLists/HandlersList"
-// import MainParamsOperation from "./MainParams/MainParamsOperation"
-
 import CommonParamsOperation from "./CommonParams/CommonParamsOperation";
 import ElementsList from "../components/listsParams/ElementsList";
+import HandlersList from "../components/listsParams/HandlersList";
 
 export default function ParamsOperation() {
   return (
     <>
       <CommonParamsOperation/>
       <ElementsList/>
+      <HandlersList/>
     </>
-    //   <HandlersList data={handlers}></HandlersList> */
+    //   
   )
 }

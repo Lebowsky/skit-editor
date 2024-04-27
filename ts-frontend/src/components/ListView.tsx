@@ -5,7 +5,7 @@ import { contextTypes } from "../models/ContextConfiguration";
 
 interface ListViewProps {
   listKeys: string[],
-  data: IListContent[],
+  data: IListContent[]
   children?: React.ReactNode,
   onClickItem(id: number): void,
   selectedItemId: number | null,

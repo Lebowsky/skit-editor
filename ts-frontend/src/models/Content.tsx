@@ -16,6 +16,15 @@ export interface IListContent {
   nestedElements: IListContent[]
 }
 
+export interface IHandlersItem {
+  event: string
+  listener?: string
+  action: string
+  type: string
+  method: string
+  postExecute?: string
+}
+
 export interface IDetailsContent {
   id: number
   contextType: contextTypes

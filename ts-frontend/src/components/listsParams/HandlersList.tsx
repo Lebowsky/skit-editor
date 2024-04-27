@@ -1,16 +1,12 @@
-// /* eslint-disable jsx-a11y/anchor-is-valid */
-
 import { useState } from "react"
-import ListView from "../ListView"
-import Button, { ButtonGroup } from "../inputs/Button"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData, contextTypes } from "../../models/ContextConfiguration"
+import ListView from "../ListView"
+import Button, { ButtonGroup } from "../inputs/Button"
 
-
-export default function ElementsList() {
+export default function HandlersList() {
   const [selectedItemId, setSelectedItemId] = useState<number|null>(null)
   const { currentContent, setDetails } = useSimpleUI() as IContextProviderData
-
   function onClickItem(id: number){
     setSelectedItemId(id)
   }
@@ -20,8 +16,8 @@ export default function ElementsList() {
 
   return (
     <ParamsBlockWrapper>
-      <ParamsBlockTitle>{'Elements'}</ParamsBlockTitle>
-      {currentContent && currentContent.elements && 
+    <ParamsBlockTitle>{'Handlers'}</ParamsBlockTitle>
+    {currentContent && currentContent.elements && 
       <ListView
         data={currentContent.elements}
         listKeys={['type', 'Variable', 'Value']}
@@ -53,7 +49,6 @@ function ParamsBlockWrapper({ children }: ParamsBlockWrapperProrps) {
     </div>
   )
 }
-
 interface ParamsBlockTitleProps{
   children: React.ReactNode
   onClick?(): void
@@ -77,5 +72,3 @@ function ParamsBlockTitle({ children, onClick }: ParamsBlockTitleProps) {
     </div>
   )
 }
-
-
