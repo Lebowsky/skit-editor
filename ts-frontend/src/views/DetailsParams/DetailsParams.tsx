@@ -1,11 +1,13 @@
 import { useSimpleUI } from "../../context/context"
-import { IContextProviderData } from "../../models/ContextConfiguration"
+import { IContextProviderData, contextTypes } from "../../models/ContextConfiguration"
 import ParamsBaseElement from "./OperationElements/ParamsBaseElement"
+import ParamsHandlers from "./OperationElements/ParamsHandlers"
 import ParamsLayoutElement from "./OperationElements/ParamsLayoutElement"
 import ParamsLinearLayout from "./OperationElements/ParamsLinearLayout"
 
 export default function DetailsParams() {
   const { currentDetails } = useSimpleUI() as IContextProviderData
+  
   const detailsElementsTypes = {
     layout: ['LinearLayout', 'Tiles'],
     baseElement: ['barcode', 'fab', 'ManuItem'],
@@ -13,7 +15,7 @@ export default function DetailsParams() {
 
   if (!currentDetails) return null
 
-  const detailsType = Object.entries(detailsElementsTypes).reduce((result, [key, types]) => {
+  const detailsType = currentDetails.contextType === contextTypes.handlers ? 'handlers' : Object.entries(detailsElementsTypes).reduce((result, [key, types]) => {
     if (types.includes(currentDetails.content.type)) result = key
     return result
   }, 'layoutElement')
@@ -24,6 +26,7 @@ export default function DetailsParams() {
       {detailsType === "layout" && <ParamsLinearLayout/>}
       {detailsType === "baseElement" && <ParamsBaseElement/>}
       {detailsType === "layoutElement" && <ParamsLayoutElement/>}
+      {detailsType === "handlers" && <ParamsHandlers/>}
     </Params>
   )
 }

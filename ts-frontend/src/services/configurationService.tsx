@@ -93,8 +93,9 @@ export class ConfigurationService {
     const itemContent = this.getContextItems(type).filter(item => item.id === id).map(item => ({...item}))?.[0]
     if (itemContent){
       itemContent.elements = getElements(id)
-      itemContent.handlers = this.handlers.filter(el => el.parentId === id)
+      itemContent.handlers = this.handlers.filter(el => el.parentId === id).map(el => ({...el, nestedElements: []}))
     } 
+    console.log(itemContent)
     return itemContent
   }
   public updateItemContent(itemData: IContent): void{

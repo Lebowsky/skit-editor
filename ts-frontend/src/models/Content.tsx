@@ -5,7 +5,7 @@ export interface IContent {
   contextType: contextTypes
   content: {type: string, [key: string]: string | boolean}
   elements?: IListContent[]
-  handlers?: IContent[]
+  handlers?: IListContent[]
 }
 
 export interface IListContent {

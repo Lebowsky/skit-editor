@@ -17,10 +17,10 @@ export default function HandlersList() {
   return (
     <ParamsBlockWrapper>
     <ParamsBlockTitle>{'Handlers'}</ParamsBlockTitle>
-    {currentContent && currentContent.elements && 
+    {currentContent && currentContent.handlers && 
       <ListView
-        data={currentContent.elements}
-        listKeys={['type', 'Variable', 'Value']}
+        data={currentContent.handlers}
+        listKeys={['event', 'method', 'action']}
         selectedItemId={selectedItemId}
         onClickItem={onClickItem}
         onDoubleClickItem={onDoubleClickItem}
