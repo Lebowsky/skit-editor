@@ -2,6 +2,14 @@ import platform
 
 import eel
 
+import dialogs
+
+
+@eel.expose
+def ask_file(file_type):
+    """ Ask the user to select a file """
+    return dialogs.ask_file(file_type)
+
 
 def start_eel(develop):
     if develop:
@@ -22,9 +30,11 @@ def start_eel(develop):
     )
 
     try:
+        print('eel started')
         eel.start(page, mode=app, **eel_kwargs)
     except EnvironmentError:
-        if sys.platform in ['win32', 'win64'] and int(platform.release()) >= 10:
+        if sys.platform in ['win32', 'win64'] and int(
+                platform.release()) >= 10:
             eel.start(page, mode='edge', **eel_kwargs)
         else:
             raise
@@ -33,4 +43,5 @@ def start_eel(develop):
 if __name__ == '__main__':
     import sys
 
-    start_eel(develop=len(sys.argv) == 2)
+    # start_eel(develop=len(sys.argv) == 2)
+    start_eel(True)

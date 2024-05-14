@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { ConfigurationService } from "../services/configurationService"
 import { ISideMenuItem, ITabData } from "./SideMenu"
 import { IContent, IDetailsContent } from "./Content"
+import { modals } from "./Modals"
 
 export interface IConfigurationContext {
   root: {}
@@ -54,6 +55,7 @@ export interface IOperations{
   noConfirmation: boolean
 }
 export interface IContextProviderData {
+  modal: modals
   loading: boolean;
   loadingError: string | unknown;
   sideMenu: ISideMenuItem[] | undefined;
