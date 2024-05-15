@@ -4,6 +4,7 @@ import { IContextProviderData } from "../models/ContextConfiguration"
 import { modals } from '../models/Modals'
 import { uuid } from '../utils'
 import DetailsParams from './DetailsParams/DetailsParams'
+import HandlersCodeEditor from './HandlersCodeEditor'
 import ErrorDialog from './dialogs/ErrorDialog'
 import StartScreen from './dialogs/StartScreen'
 
