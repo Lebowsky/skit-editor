@@ -12,7 +12,7 @@ interface ContextProps {
   children: React.ReactNode
 }
 
-let configurationService = new ConfigurationService({})
+export let configurationService = new ConfigurationService({})
 
 const SimpleUIContext = createContext<IContextProviderData | null>(null)
 
@@ -28,22 +28,17 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [modalError, setModalError] = useState<IModalError | null>(null)
 
   useEffect(() => {
-    async function preload() {
-      setLoading(true)
-      try {
-        const { ClientConfiguration: data }: {[key: string]: any} = await fetchConfiguration()
-        configurationService = new ConfigurationService(data)
-        const conf: IConfigurationContext = configurationService.getConfigurationContext()
-        setSideMenu(configurationService.getSideMenu(conf.processes, conf.operations))
-      } catch (e: unknown) {
-        console.log(e)
-        setLoadingError(e)
-        setLoading(false)
-      }
-      setLoading(false)
-    }
-    // preload()
+    updateSideMenu()
   }, [])
+
+  function updateConfigurationService(data: {[key: string]: any}){
+    configurationService = new ConfigurationService(data)
+  }
+
+  function updateSideMenu() {
+    const conf: IConfigurationContext = configurationService.getConfigurationContext()
+    setSideMenu(configurationService.getSideMenu(conf.processes, conf.operations))
+  }
 
   function addTab(newTab: ITabData): void {
     setTabs((prev) => {
@@ -108,7 +103,9 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         updateContent,
         currentDetails,
         setDetails,
-        updateDetails
+        updateDetails,
+        updateConfigurationService,
+        updateSideMenu,
       }}>
       {children}
     </SimpleUIContext.Provider>

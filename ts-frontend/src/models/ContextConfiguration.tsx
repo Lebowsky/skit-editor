@@ -73,5 +73,7 @@ export interface IContextProviderData {
   updateContent(newContent: IContent): void,
   currentDetails: IDetailsContent | null
   setDetails(id: number, contextType: contextTypes): void,
-  updateDetails(newDetails: IDetailsContent | null): void
+  updateDetails(newDetails: IDetailsContent | null): void,
+  updateConfigurationService(data: {[key: string]: any}): void,
+  updateSideMenu(): void
 }

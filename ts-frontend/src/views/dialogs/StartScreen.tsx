@@ -3,15 +3,16 @@ import { useSimpleUI } from "../../context/context";
 import { askFile, getJsonData } from "../../eelExpose";
 import { IContextProviderData } from "../../models/ContextConfiguration";
 import { modals } from "../../models/Modals";
+import { configurationService } from "../../context/context";
+import { ConfigurationService } from "../../services/configurationService";
 
 export default function StartScreen() {
-  const { setModal, setModalError } = useSimpleUI() as IContextProviderData
+  const { setModal, setModalError, updateConfigurationService, updateSideMenu } = useSimpleUI() as IContextProviderData
 
   async function fileOpenClick(){
     const filePath = await askFile('simple_ui')
     if (filePath){
       const result = await getJsonData(filePath)
-      console.log(result)
       if (result.error){
         setModal(modals.error)
         setModalError({
@@ -21,6 +22,10 @@ export default function StartScreen() {
             {text: 'OK', onClick: () => {setModal(modals.startScreen)}},
           ]
         })
+      } else if (result.data) {
+        updateConfigurationService(result.data.ClientConfiguration)
+        updateSideMenu()
+        setModal(null)
       }
     }
     
