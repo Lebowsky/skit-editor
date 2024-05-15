@@ -4,10 +4,11 @@ import { IContextProviderData } from "../models/ContextConfiguration"
 import { modals } from '../models/Modals'
 import { uuid } from '../utils'
 import DetailsParams from './DetailsParams/DetailsParams'
+import ErrorDialog from './dialogs/ErrorDialog'
 import StartScreen from './dialogs/StartScreen'
 
 export default function ModalView() {
-  const { modal, loading, loadingError, currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
+  const { modal, modalError, setModal, loading, loadingError, currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
   function canCloseDetails(): boolean {
     if (window.confirm("Dont save?")) {
       updateDetails(null)
@@ -18,6 +19,8 @@ export default function ModalView() {
   return (
     <>
       {modal === modals.startScreen && <Modal><StartScreen></StartScreen></Modal>}
+      {modal === modals.error && modalError && <Modal><ErrorDialog/></Modal>}
+        
       {/* {currentDetails && 
         <Modal 
           allowClose={canCloseDetails} 

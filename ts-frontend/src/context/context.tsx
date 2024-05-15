@@ -6,6 +6,7 @@ import { ISideMenuItem, ITabData } from "../models/SideMenu";
 import { IContextProviderData } from "../models/ContextConfiguration";
 import { IContent, IDetailsContent } from "../models/Content";
 import { modals } from "../models/Modals";
+import { IModalError } from "../models/Modal";
 
 interface ContextProps {
   children: React.ReactNode
@@ -23,7 +24,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [currentTabId, setCurrentTabId] = useState<number>(0)
   const [currentContent, setCurrentContent] = useState<IContent | null>(null)
   const [currentDetails, setCurrentDetails] = useState<IDetailsContent | null>(null)
-  const [modal, setModal] = useState<modals>(modals.startScreen)
+  const [modal, setModal] = useState<modals | null>(modals.startScreen)
+  const [modalError, setModalError] = useState<IModalError | null>(null)
 
   useEffect(() => {
     async function preload() {
@@ -90,6 +92,9 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
     <SimpleUIContext.Provider 
       value={{
         modal,
+        setModal,
+        modalError,
+        setModalError,
         loading, 
         loadingError, 
         sideMenu,

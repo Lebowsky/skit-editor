@@ -27,7 +27,8 @@ export interface ISelector{
 }
 
 export interface IButton {
-
+  text: string
+  onClick(): void
 }
 
 export interface ParamInputProps {

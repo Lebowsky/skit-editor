@@ -1,10 +1,10 @@
-interface ButtonParams {
+interface ButtonProps {
   children: React.ReactNode
   onClick?(): void
   btnType?: string
 }
 
-export default function Button({ children, onClick, btnType }: ButtonParams) {
+export default function Button({ children, onClick, btnType }: ButtonProps) {
   const style = {
     background: "linear-gradient(-45deg, #21B9E1, #E71F53, #FBAF2E)",
     border: "none",
@@ -23,10 +23,10 @@ export default function Button({ children, onClick, btnType }: ButtonParams) {
   )
 }
 
-interface ButtonGroupParams {
+interface ButtonGroupProps {
   children: React.ReactNode
 }
-export function ButtonGroup({ children }: ButtonGroupParams) {
+export function ButtonGroup({ children }: ButtonGroupProps) {
   return (
     <div style={{ marginBottom: '10px' }}>{children}</div>
   )

@@ -1,6 +1,7 @@
 import platform
 
 import eel
+import json
 
 import dialogs
 
@@ -9,6 +10,23 @@ import dialogs
 def ask_file(file_type):
     """ Ask the user to select a file """
     return dialogs.ask_file(file_type)
+
+
+@eel.expose
+def get_json_data(file_path: str):
+    with open(file_path, encoding='utf-8') as fp:
+        result = {}
+        try:
+            result['data'] = json.load(fp)
+        except json.JSONDecodeError as e:
+            result['error'] = f'JSONDecodeError'
+            result['description'] = str(e)
+
+    return result
+
+
+def get_base64_data(file_path: str):
+    pass
 
 
 def start_eel(develop):

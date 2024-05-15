@@ -3,6 +3,7 @@ import { ConfigurationService } from "../services/configurationService"
 import { ISideMenuItem, ITabData } from "./SideMenu"
 import { IContent, IDetailsContent } from "./Content"
 import { modals } from "./Modals"
+import { IModalError } from "./Modal"
 
 export interface IConfigurationContext {
   root: {}
@@ -55,7 +56,10 @@ export interface IOperations{
   noConfirmation: boolean
 }
 export interface IContextProviderData {
-  modal: modals
+  modal: modals | null
+  setModal(modal: modals | null): void
+  modalError: IModalError | null
+  setModalError(error: IModalError): void
   loading: boolean;
   loadingError: string | unknown;
   sideMenu: ISideMenuItem[] | undefined;

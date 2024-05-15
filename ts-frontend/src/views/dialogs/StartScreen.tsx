@@ -1,10 +1,29 @@
-import Button, { ButtonGroup } from "../../components/inputs/Button";
-import { askFile } from "../../eelExpose";
+import Button from "../../components/inputs/Button";
+import { useSimpleUI } from "../../context/context";
+import { askFile, getJsonData } from "../../eelExpose";
+import { IContextProviderData } from "../../models/ContextConfiguration";
+import { modals } from "../../models/Modals";
 
 export default function StartScreen() {
+  const { setModal, setModalError } = useSimpleUI() as IContextProviderData
+
   async function fileOpenClick(){
-    const result = await askFile('simple_ui')
-    console.log(result)
+    const filePath = await askFile('simple_ui')
+    if (filePath){
+      const result = await getJsonData(filePath)
+      console.log(result)
+      if (result.error){
+        setModal(modals.error)
+        setModalError({
+          title: result.error, 
+          description: result.description,
+          buttons: [
+            {text: 'OK', onClick: () => {setModal(modals.startScreen)}},
+          ]
+        })
+      }
+    }
+    
   }
 
   return (
