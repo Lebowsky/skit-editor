@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IConfigurationContext, contextTypes } from '../models/ContextConfiguration'
+import { IAppData, IConfigurationContext, contextTypes } from '../models/ContextConfiguration'
 import { fetchConfiguration } from '../api';
 import { ConfigurationService } from '../services/configurationService'
 import { ISideMenuItem, ITabData } from "../models/SideMenu";
@@ -26,6 +26,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [currentDetails, setCurrentDetails] = useState<IDetailsContent | null>(null)
   const [modal, setModal] = useState<modals | null>(modals.startScreen)
   const [modalError, setModalError] = useState<IModalError | null>(null)
+  const [appData, setAppData] = useState<IAppData | null>(null)
 
   useEffect(() => {
     updateSideMenu()
@@ -106,6 +107,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         updateDetails,
         updateConfigurationService,
         updateSideMenu,
+        appData,
+        setAppData
       }}>
       {children}
     </SimpleUIContext.Provider>

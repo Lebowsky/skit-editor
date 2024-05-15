@@ -20,8 +20,7 @@ export default function ModalView() {
     <>
       {modal === modals.startScreen && <Modal><StartScreen></StartScreen></Modal>}
       {modal === modals.error && modalError && <Modal><ErrorDialog/></Modal>}
-        
-      {/* {currentDetails && 
+      {currentDetails && 
         <Modal 
           allowClose={canCloseDetails} 
           key={uuid()}
@@ -29,7 +28,7 @@ export default function ModalView() {
           <DetailsParams/>
         </Modal>}
       {loading && <Modal><p>Loading...</p></Modal>}
-      {loadingError && <Modal><p>{`Loading error: ${loadingError}`}</p></Modal>} */}
+      {loadingError && <Modal><p>{`Loading error: ${loadingError}`}</p></Modal>}
     </>
   )
 }

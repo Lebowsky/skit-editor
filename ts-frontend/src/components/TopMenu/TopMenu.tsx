@@ -2,15 +2,16 @@
 import './TopMenu.css'
 import { useSimpleUI } from '../../context/context'
 import { IContextProviderData } from '../../models/ContextConfiguration'
-import { fetchPostConfiguration } from '../../api'
+import { saveFileContent } from '../../eelExpose'
 
 
 export default function TopMenu() {
-  const { configurationService } = useSimpleUI() as IContextProviderData
+  const { configurationService, appData } = useSimpleUI() as IContextProviderData
 
   async function saveConfiguration() {
-    const result = await fetchPostConfiguration(configurationService.getConfigurationJson())
-    console.log(result)
+    if (appData && appData.configurationFilePath){
+      await saveFileContent(appData.configurationFilePath, configurationService.getConfigurationJson())
+    }
   }
   return (
     <div className="top-menu">
@@ -21,6 +22,7 @@ export default function TopMenu() {
             <MenuItem title='New'></MenuItem>
             <MenuItem title='Open'></MenuItem>
             <MenuItem title='Save' onClick={saveConfiguration}></MenuItem>
+            <MenuItem title='Save as...'></MenuItem>
             <MenuItem title='Settings'></MenuItem>
           </MenuSection>
           <MenuSection title='Tools'>

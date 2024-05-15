@@ -29,6 +29,16 @@ def get_base64_data(file_path: str):
     pass
 
 
+@eel.expose
+def save_file_content(file_path, content):
+    with open(file_path, 'w', encoding='utf-8') as fp:
+        try:
+            json.dump(content, fp, ensure_ascii=False, indent=4)
+            return {'result': True}
+        except Exception as e:
+            return {'error': type(e), 'description': str(e)}
+
+
 def start_eel(develop):
     if develop:
         directory = 'ts-frontend/src'
