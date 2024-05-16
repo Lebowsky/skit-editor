@@ -63,7 +63,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
       const newTabs = prev.filter(el => el.id !== tabId)
       const currentTab = (newTabs.length && isActive) ? (newTabs[tabIdx - 1] || newTabs[newTabs.length - 1]) : undefined
       currentTab && setCurrentTab(currentTab.id, currentTab.contextType)
-      newTabs.length === 0 && setCurrentTabId(0)
+      newTabs.length === 0 && (() => {setCurrentTabId(0); setCurrentContent(null)})()
 
       return newTabs
     })

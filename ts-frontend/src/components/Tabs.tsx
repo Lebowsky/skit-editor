@@ -1,6 +1,6 @@
 import { useSimpleUI } from '../context/context'
 import { IContextProviderData, contextTypes } from '../models/ContextConfiguration'
-import { ITabData, ITabType } from '../models/SideMenu'
+import { ITabData } from '../models/SideMenu'
 
 interface TabsProps {
   tabsData: ITabData[]
@@ -21,7 +21,7 @@ export default function Tabs({ tabsData, currentTabId }: TabsProps) {
       }}
     >
       {tabsData.map(
-        item => (item.type === 'Operation' || item.type === 'Process')&&
+        item => 
         <Tab 
           isActive={currentTabId === item.id} 
           key={item.id} 

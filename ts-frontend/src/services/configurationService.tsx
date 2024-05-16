@@ -59,14 +59,14 @@ export class ConfigurationService {
   public getSideMenu (processes: IListItem[], operations: IListItem[]): ISideMenuItem[]{
     const nestedItems: ISideMenuItem[] = []
     const sideMenuData: ISideMenuItem[] = [
-      { type: 'MainMenu', title: 'Main menu', id: 0, contextType: contextTypes.mainMenu },
-      { type: 'StyleTemplates', title: 'Styles', id: 0, contextType: contextTypes.styleTemplates},
-      { type: 'StartScreen', title: 'Start screen', id: 0, contextType: contextTypes.startScreen },
-      { type: 'Processes', title: 'Processes', nestedItems: nestedItems, id: 0, contextType: contextTypes.processes},
-      { type: 'Shedulers', title: 'Shedulers', id: 0, contextType: contextTypes.shedulers },
-      { type: 'CommonHandlers', title: 'Common handlers', id: 0, contextType: contextTypes.commonHandlers },
-      { type: 'PyFiles', title: 'Python files', id: 0, contextType: contextTypes.pyFiles },
-      { type: 'Mediafile', title: 'Media files', id: 0, contextType: contextTypes.mediafiles },
+      { type: 'MainMenu', title: 'Main menu', id: 0, contextType: contextTypes.mainMenu, showInTabs: false },
+      { type: 'StyleTemplates', title: 'Styles', id: 0, contextType: contextTypes.styleTemplates, showInTabs: false},
+      { type: 'StartScreen', title: 'Start screen', id: 0, contextType: contextTypes.startScreen, showInTabs: false },
+      { type: 'Processes', title: 'Processes', nestedItems: nestedItems, id: 0, contextType: contextTypes.processes, showInTabs: false},
+      { type: 'Shedulers', title: 'Shedulers', id: 0, contextType: contextTypes.shedulers, showInTabs: false },
+      { type: 'CommonHandlers', title: 'Common handlers', id: 0, contextType: contextTypes.commonHandlers, showInTabs: false },
+      { type: 'PyFiles', title: 'Python files', id: 0, contextType: contextTypes.pyFiles, showInTabs: false },
+      { type: 'Mediafile', title: 'Media files', id: 0, contextType: contextTypes.mediafiles, showInTabs: false },
     ]
   
     processes.forEach(({ content: { ProcessName, CVOperationName, type }, id }) => {
@@ -77,8 +77,9 @@ export class ConfigurationService {
         id: id,
         nestedItems: operations
           .filter(el => el.parentId === id)
-          .map(({ content, id }) => ({ title: content.Name, type: content.type, id: id, contextType: contextTypes.operations })),
-        contextType: contextTypes.processes
+          .map(({ content, id }) => ({ title: content.Name, type: content.type, id: id, contextType: contextTypes.operations, showInTabs: true })),
+        contextType: contextTypes.processes,
+        showInTabs: true
       })
     })
     return sideMenuData

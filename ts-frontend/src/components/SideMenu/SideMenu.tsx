@@ -2,7 +2,7 @@
 import './SideMenu.css'
 import { useState } from 'react'
 import { useSimpleUI } from '../../context/context'
-import { ISideMenuItem, ITabType } from '../../models/SideMenu'
+import { ISideMenuItem } from '../../models/SideMenu'
 import { IContextProviderData } from '../../models/ContextConfiguration'
 
 const icons: { [key: string]: string } = {
@@ -40,7 +40,7 @@ function MenuItem(item: ISideMenuItem ) {
 
   function handleItem(item: ISideMenuItem) {
     setIsOpened((prev) => !prev)
-    addTab({...item})
+    item.showInTabs && addTab({...item})
   }
 
   const className = isOpened ? `${icons[item.type]} open` : `${icons[item.type]}`

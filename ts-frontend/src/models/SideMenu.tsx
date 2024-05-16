@@ -6,6 +6,7 @@ export interface ISideMenuItem {
   contextType: contextTypes
   title: string
   nestedItems?: ISideMenuItem[]
+  showInTabs: boolean
 }
 export interface ITabData{
   id: number
