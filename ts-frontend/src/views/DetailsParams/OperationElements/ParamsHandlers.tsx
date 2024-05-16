@@ -1,4 +1,4 @@
-import ModalParamsForm from "../../../components/forms/ModalParamsForm";
+import HandlersParamsForm from "../../../components/forms/HandlersParamsForm";
 import { useSimpleUI } from "../../../context/context";
 import { IContextProviderData } from "../../../models/ContextConfiguration";
 
@@ -68,7 +68,7 @@ export default function ParamsHandlers() {
   }
   return (
     currentDetails &&
-    <ModalParamsForm
+    <HandlersParamsForm
       fields={fields}
       onSubmit={handleSubmit}
       title={'Handler'}

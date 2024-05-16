@@ -4,7 +4,6 @@ import { IContextProviderData } from "../models/ContextConfiguration"
 import { modals } from '../models/Modals'
 import { uuid } from '../utils'
 import DetailsParams from './DetailsParams/DetailsParams'
-import HandlersCodeEditor from './HandlersCodeEditor'
 import ErrorDialog from './dialogs/ErrorDialog'
 import StartScreen from './dialogs/StartScreen'
 
@@ -22,10 +21,7 @@ export default function ModalView() {
       {modal === modals.startScreen && <Modal><StartScreen></StartScreen></Modal>}
       {modal === modals.error && modalError && <Modal><ErrorDialog/></Modal>}
       {currentDetails && 
-        <Modal 
-          allowClose={canCloseDetails} 
-          key={uuid()}
-        >
+        <Modal allowClose={canCloseDetails} key={uuid()}>
           <DetailsParams/>
         </Modal>}
       {loading && <Modal><p>Loading...</p></Modal>}

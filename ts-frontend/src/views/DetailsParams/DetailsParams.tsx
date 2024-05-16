@@ -15,10 +15,12 @@ export default function DetailsParams() {
 
   if (!currentDetails) return null
 
-  const detailsType = currentDetails.contextType === contextTypes.handlers ? 'handlers' : Object.entries(detailsElementsTypes).reduce((result, [key, types]) => {
-    if (types.includes(currentDetails.content.type)) result = key
-    return result
-  }, 'layoutElement')
+  const detailsType = currentDetails.contextType === contextTypes.handlers ? 
+    'handlers' : 
+    Object.entries(detailsElementsTypes).reduce((result, [key, types]) => {
+      if (types.includes(currentDetails.content.type)) result = key
+      return result
+    }, 'layoutElement')
 
 
   return (

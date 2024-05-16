@@ -10,13 +10,14 @@ export default function ParamInput({
   name, 
   title, 
   options, 
-  required=false 
+  required=false,
+  onChange 
 }: ParamInputProps) {
   return (
     <>
       {type === 'text' && <TextView value={value ? value.toString(): ''} name={name} title={title} required={required}></TextView>}
       {type === 'checkbox' && <CheckBox title={title} name={name} isChecked={Boolean(value)}></CheckBox>}
-      {type === 'select' && options && <Selector title={title} name={name} options={options} value={value ? value.toString(): ''}></Selector>}
+      {type === 'select' && options && <Selector title={title} name={name} options={options} value={value ? value.toString(): ''} onChange={onChange}></Selector>}
     </>
   )
 }

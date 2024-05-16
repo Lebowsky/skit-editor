@@ -13,6 +13,8 @@ export interface ITabData{
   type: string
   contextType: contextTypes
   title: string
+  onClick?(): void
+  onClose?(): void
 }
 
 export type ITabType = 'Process' | 'Operation' | 'CVOperation' | 'CVFrame'

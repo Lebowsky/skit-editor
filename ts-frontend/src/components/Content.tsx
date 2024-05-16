@@ -4,7 +4,7 @@ import ParamsCVFrame from "../views/ParamsCVFrame"
 import ParamsCVOperation from "../views/ParamsCVOperation"
 import ParamsOperation from "../views/ParamsOperation"
 import ParamsProcess from "../views/ParamsProcess"
-import Tabs from "./Tabs"
+import MainTabs from "./tabs/MainTabs"
 
 
 export default function Content() {
@@ -14,7 +14,7 @@ export default function Content() {
       width: '85%',
       overflow: 'auto'
     }}>
-      <Tabs tabsData={tabs} currentTabId={currentTabId} />
+      <MainTabs tabsData={tabs} currentTabId={currentTabId} />
       <ParamsWrapper>
         {currentContent && currentContent.content.type === 'Process' && <ParamsProcess/>}
         {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation/>}

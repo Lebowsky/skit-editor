@@ -1,12 +1,12 @@
-import { useSimpleUI } from '../context/context'
-import { IContextProviderData, contextTypes } from '../models/ContextConfiguration'
-import { ITabData } from '../models/SideMenu'
+import { useSimpleUI } from '../../context/context'
+import { IContextProviderData, contextTypes } from '../../models/ContextConfiguration'
+import { ITabData } from '../../models/SideMenu'
 
 interface TabsProps {
   tabsData: ITabData[]
   currentTabId: number
 }
-export default function Tabs({ tabsData, currentTabId }: TabsProps) {
+export default function MainTabs({ tabsData, currentTabId }: TabsProps) {
   return (
     <div
       style={{
@@ -38,9 +38,11 @@ interface TabProps{
   isActive: boolean
   type: string
   contextType: contextTypes
+  onClick?(): void
+  onClose?(): void
 }
 
-function Tab({ id, children, isActive, type, contextType }: TabProps){
+function Tab({ id, children, isActive, type, contextType, onClick, onClose }: TabProps){
   const { setCurrentTab, removeTab } = useSimpleUI() as IContextProviderData
 
   const tabStyle = {
@@ -71,14 +73,14 @@ function Tab({ id, children, isActive, type, contextType }: TabProps){
     <div style={isActive ? activeTabStyle : tabStyle}>
       <IconType iconType={type} />
       <span 
-        onClick={handleClick} 
+        onClick={onClick || handleClick} 
         style={{ 
           userSelect: 'none', 
           fontSize: '15px' 
         }}>
           {children}
         </span>
-      <IconClose onClick={handleClose} />
+        {<IconClose onClick={onClose || handleClose} />}
     </div>
   )
 }

@@ -24,6 +24,7 @@ export interface ISelector{
   name: string
   title: string
   options: {[key: string]: string | boolean}
+  onChange?(e: React.ChangeEvent<HTMLSelectElement>): void
 }
 
 export interface IButton {
@@ -38,4 +39,5 @@ export interface ParamInputProps {
   title: string
   options?: {}
   required?: boolean
+  onChange?(): void
 }
