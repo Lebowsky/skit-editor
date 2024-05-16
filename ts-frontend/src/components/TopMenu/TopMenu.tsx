@@ -2,17 +2,42 @@
 import './TopMenu.css'
 import { useSimpleUI } from '../../context/context'
 import { IContextProviderData } from '../../models/ContextConfiguration'
-import { saveFileContent } from '../../eelExpose'
+import { askFile, getJsonData, saveFileContent } from '../../eelExpose'
+import { modals } from '../../models/Modals'
 
 
 export default function TopMenu() {
-  const { configurationService, appData } = useSimpleUI() as IContextProviderData
+  const { configurationService, appData, setModal, setModalError, updateConfigurationService, updateSideMenu, setAppData } = useSimpleUI() as IContextProviderData
 
   async function saveConfiguration() {
     if (appData && appData.configurationFilePath){
       await saveFileContent(appData.configurationFilePath, configurationService.getConfigurationJson())
     }
   }
+
+  async function fileOpenClick(){
+    const filePath = await askFile('simple_ui')
+    if (filePath){
+      const result = await getJsonData(filePath)
+      if (result.error){
+        setModal(modals.error)
+        setModalError({
+          title: result.error, 
+          description: result.description,
+          buttons: [
+            {text: 'OK', onClick: () => {setModal(modals.startScreen)}},
+          ]
+        })
+      } else if (result.data) {
+        updateConfigurationService(result.data.ClientConfiguration)
+        updateSideMenu()
+        setModal(null)
+        setAppData({configurationFilePath: filePath})
+      }
+    }
+  }
+
+
   return (
     <div className="top-menu">
       <a href="#" className="logo">Simple UI</a>
@@ -20,7 +45,7 @@ export default function TopMenu() {
         <ul>
           <MenuSection title='File'>
             <MenuItem title='New'></MenuItem>
-            <MenuItem title='Open'></MenuItem>
+            <MenuItem title='Open' onClick={fileOpenClick}></MenuItem>
             <MenuItem title='Save' onClick={saveConfiguration}></MenuItem>
             <MenuItem title='Save as...'></MenuItem>
             <MenuItem title='Settings'></MenuItem>

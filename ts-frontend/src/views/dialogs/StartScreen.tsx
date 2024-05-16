@@ -27,7 +27,6 @@ export default function StartScreen() {
         setAppData({configurationFilePath: filePath})
       }
     }
-    
   }
 
   return (
