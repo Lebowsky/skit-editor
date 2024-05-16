@@ -46,10 +46,9 @@ export default function HandlersParamsForm({ fields, onSubmit, title }: Handlers
         {formContent === 'common' && fields.map((el, idx) => (
           <ParamInput {...el} value={currentDetails.content[el.name] || ''} key={idx} />
         ))}
-        {formContent === 'source' && <HandlersCodeEditor/>}
-        {formContent === 'postExecute' && <HandlersCodeEditor/>}
+        {formContent === 'source' && <HandlersCodeEditor language="python" content={decodeURIComponent(escape(atob(currentDetails.content?.method.toString())))}/>}
+        {formContent === 'postExecute' && <HandlersCodeEditor language="json" content=""/>}
       </>
-
     </ParamsFormWrapper>
   )
 }

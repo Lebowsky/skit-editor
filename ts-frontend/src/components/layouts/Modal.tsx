@@ -26,7 +26,6 @@ export default function Modal({ children, allowClose }: ModalProps) {
         alignItems: "center",
         justifyContent: "center",
         zIndex: 1,
-        overflow: 'scroll'
       }}
       onClick={closeModal}
     >
