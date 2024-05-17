@@ -5,17 +5,22 @@ import { useState } from 'react';
 interface HandlersCodeEditorProps {
   content: string
   language: string
+  onChange(value: string): void 
 }
 
-export default function HandlersCodeEditor({ content, language}: HandlersCodeEditorProps) {
-  const [code, setCode] = useState(
-    content
-  );
+export default function HandlersCodeEditor({ content, language, onChange}: HandlersCodeEditorProps) {
+  const [code, setCode] = useState(content);
+
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>){
+    const value = e.target.value
+    setCode(value)
+    onChange(value)
+  }
   return (
     <CodeEditor
       value={code}
       language={language}
-      onChange={(evn) => setCode(evn.target.value)}
+      onChange={(evn) => handleChange(evn)}
       padding={15}
       placeholder='press code here'
       style={{
