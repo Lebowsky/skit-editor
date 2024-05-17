@@ -28,7 +28,7 @@ export default function DetailsParams() {
       {detailsType === "layout" && <ParamsLinearLayout/>}
       {detailsType === "baseElement" && <ParamsBaseElement/>}
       {detailsType === "layoutElement" && <ParamsLayoutElement/>}
-      {detailsType === "handlers" && <ParamsHandlers initData={currentDetails}/>}
+      {detailsType === "handlers" && <ParamsHandlers/>}
     </Params>
   )
 }

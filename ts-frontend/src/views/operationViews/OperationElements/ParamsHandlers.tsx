@@ -1,7 +1,6 @@
 import HandlersParamsForm from "../../../components/forms/HandlersParamsForm";
 import { useSimpleUI } from "../../../context/context";
 import { IContextProviderData } from "../../../models/ContextConfiguration";
-import { IDetailsContent } from "../../../models/Content";
 import useParamsHandlers from "../../../hooks/paramsHandlers";
 
 export interface IFormData {
@@ -11,6 +10,7 @@ export interface IFormData {
   method: string
   listener: string
   postExecute: string
+  source: string
 }
 export interface ParamsFields {
   name: string
@@ -21,10 +21,7 @@ export interface ParamsFields {
   hidden?: boolean
 }
 
-interface ParamsHandlersProps {
-  initData: IDetailsContent
-}
-export default function ParamsHandlers({ initData }: ParamsHandlersProps) {
+export default function ParamsHandlers() {
   const { currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
   const { formData, setFormData } = useParamsHandlers()
 
@@ -74,6 +71,9 @@ export default function ParamsHandlers({ initData }: ParamsHandlersProps) {
       value: string
     }
     setFormData(prev => {
+      if (target.name === 'type' && prev.type === 'pythonscript'){
+        return { ...prev, [target.name]: target.value, 'method': ''}  
+      }
       return { ...prev, [target.name]: target.value }
     })
   }
@@ -83,8 +83,13 @@ export default function ParamsHandlers({ initData }: ParamsHandlersProps) {
   }
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    console.log(formData.postExecute)
-    currentDetails && updateDetails({ ...currentDetails, content: { ...currentDetails.content, ...formData } })
+
+    const {source, ...dataToSave} = formData
+    if (dataToSave.type === 'pythonscript'){
+      dataToSave.method = source
+    }
+
+    currentDetails && updateDetails({ ...currentDetails, content: { ...currentDetails.content, ...dataToSave } })
     updateDetails(null)
   }
   return (

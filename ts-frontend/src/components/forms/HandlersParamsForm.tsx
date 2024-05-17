@@ -32,7 +32,7 @@ export default function HandlersParamsForm({ fields, onSubmit, title, formData, 
   }
 
   function onChangeCode(value: string) {
-    setFormData('method', encode(value))
+    setFormData('source', encode(value))
   }
 
   function onChangePostExecute(value: string) {
@@ -67,7 +67,7 @@ export default function HandlersParamsForm({ fields, onSubmit, title, formData, 
         {formContent === 'source' &&
           <HandlersCodeEditor
             language="python"
-            content={decode(formData.method.toString())}
+            content={decode(formData.source.toString())}
             onChange={onChangeCode}
           />
         }
