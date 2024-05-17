@@ -11,6 +11,7 @@ export interface ITextView{
   name: string
   required?: boolean
   title: string
+  onChange?(e: React.FormEvent<HTMLInputElement>): void
 }
 
 export interface ICheckBox{
@@ -39,5 +40,5 @@ export interface ParamInputProps {
   title: string
   options?: {}
   required?: boolean
-  onChange?(): void
+  onChange?(e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>): void
 }

@@ -7,10 +7,15 @@ export default function TextView({
   variable = '', 
   title, 
   name, 
-  required = true 
+  required = true,
+  onChange 
 }: ITextView) {
   
   const [inputContent, setContent] = useState(value)
+  function updateContent(e: React.FormEvent<HTMLInputElement>){
+    setContent(e.currentTarget.value)
+    onChange && onChange(e)
+  }
   return (
     <div style={{
       display: 'flex',
@@ -47,7 +52,7 @@ export default function TextView({
           }}
           title={title}
           onChange={(e) => {
-            setContent(e.target.value)
+            updateContent(e)
           }}
         />
       </label>

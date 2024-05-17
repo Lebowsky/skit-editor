@@ -1,16 +1,45 @@
+import { useState } from "react";
 import HandlersParamsForm from "../../../components/forms/HandlersParamsForm";
 import { useSimpleUI } from "../../../context/context";
 import { IContextProviderData } from "../../../models/ContextConfiguration";
+import { IDetailsContent } from "../../../models/Content";
 
-export default function ParamsHandlers() {
+export interface IFormData {
+  event: string
+  action: string
+  type: string
+  method: string
+  listener: string
+  postExecue: string
+}
+interface ParamsFields {
+  name: string
+  type: string
+  title: string
+  options?: { [key: string]: string | boolean }
+  onChange?(e: React.FormEvent<HTMLInputElement>): void
+}
+
+interface ParamsHandlersProps {
+  initData: IDetailsContent
+}
+export default function ParamsHandlers( {initData} : ParamsHandlersProps ) {
   const { currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
-  interface ParamsFields {
-    name: string
-    type: string
-    title: string
-    options?: { [key: string]: string | boolean }
+  const [formData, setFormData] = useState<IFormData>({
+    event: '',
+    action: '',
+    method: '',
+    listener: '',
+    postExecue: '',
+    ...initData.content
+  })
+  function onChangeInput(e: React.FormEvent<HTMLInputElement>){
+    const target = e.target as typeof e.target & {
+      name: string,
+      value: string
+    }
+    setFormData(prev=> ({...prev, [target.name]: target.value}))
   }
-
   const fields: ParamsFields[] = [
     {
       name: 'event', type: 'select', title: 'Event', options: {
@@ -38,11 +67,10 @@ export default function ParamsHandlers() {
         set: 'set',
       }
     },
-    { name: 'method', type: 'text', title: 'Method' },
-    { name: 'listener', type: 'text', title: 'Listener' },
+    { name: 'method', type: 'text', title: 'Method', onChange: onChangeInput },
+    { name: 'listener', type: 'text', title: 'Listener', onChange: onChangeInput },
     { name: 'postExecute', type: 'text', title: 'Post execute' },
   ]
-
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
@@ -67,11 +95,11 @@ export default function ParamsHandlers() {
     updateDetails(null)
   }
   return (
-    currentDetails &&
     <HandlersParamsForm
       fields={fields}
       onSubmit={handleSubmit}
       title={'Handler'}
+      formData={formData}
     />
   )
 }

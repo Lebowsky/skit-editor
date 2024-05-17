@@ -1,12 +1,11 @@
 import { decode } from 'js-base64'
 
 import { useState } from "react"
-import { useSimpleUI } from "../../context/context"
-import { IContextProviderData } from "../../models/ContextConfiguration"
 import ModalTabs from "../tabs/ModalTabs"
 import Button, { ButtonGroup } from "../inputs/Button"
 import ParamInput from "../inputs/ParamInput"
 import HandlersCodeEditor from "../../views/HandlersCodeEditor"
+import { IFormData } from '../../views/DetailsParams/OperationElements/ParamsHandlers'
 
 interface ParamsFields {
   name: string
@@ -14,10 +13,14 @@ interface ParamsFields {
   title: string
   options?: { [key: string]: string | boolean }
 }
+
+type IFormDataKeys = keyof IFormData
+
 interface HandlersParamsFormProps {
   fields: ParamsFields[],
   onSubmit(e: React.FormEvent): void
   title: string
+  formData: IFormData
 }
 export enum tabContentType{
   common='common',
@@ -25,8 +28,7 @@ export enum tabContentType{
   postExecute='postExecute'
 }
 
-export default function HandlersParamsForm({ fields, onSubmit, title }: HandlersParamsFormProps) {
-  const { currentDetails } = useSimpleUI() as IContextProviderData
+export default function HandlersParamsForm({ fields, onSubmit, title, formData }: HandlersParamsFormProps) {
   const [currentTabId, setCurrentTabId] = useState<number>(0)
   const [formContent, setFormContent] = useState<tabContentType>(tabContentType.common)
 
@@ -42,13 +44,13 @@ export default function HandlersParamsForm({ fields, onSubmit, title }: Handlers
   ]
 
   return (
-    currentDetails && <ParamsFormWrapper onSubmit={onSubmit}>
+    <ParamsFormWrapper onSubmit={onSubmit}>
       <ParamsBlockTitle tabsData={tabsData} currentTabId={currentTabId}>{title}</ParamsBlockTitle>
       <>
         {formContent === 'common' && fields.map((el, idx) => (
-          <ParamInput {...el} value={currentDetails.content[el.name] || ''} key={idx} />
+          <ParamInput {...el} value={formData[el.name as IFormDataKeys] || ''} key={idx} />
         ))}
-        {formContent === 'source' && <HandlersCodeEditor language="python" content={decode(currentDetails.content?.method.toString())}/>}
+        {formContent === 'source' && <HandlersCodeEditor language="python" content={decode(formData.method.toString())}/>}
         {formContent === 'postExecute' && <HandlersCodeEditor language="json" content=""/>}
       </>
     </ParamsFormWrapper>
