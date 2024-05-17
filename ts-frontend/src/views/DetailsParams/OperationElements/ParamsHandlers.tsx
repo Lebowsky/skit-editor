@@ -12,12 +12,13 @@ export interface IFormData {
   listener: string
   postExecue: string
 }
-interface ParamsFields {
+export interface ParamsFields {
   name: string
   type: string
   title: string
   options?: { [key: string]: string | boolean }
-  onChange?(e: React.FormEvent<HTMLInputElement>): void
+  onChange?(e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>): void
+  hidden?: boolean
 }
 
 interface ParamsHandlersProps {
@@ -33,29 +34,23 @@ export default function ParamsHandlers( {initData} : ParamsHandlersProps ) {
     postExecue: '',
     ...initData.content
   })
-  function onChangeInput(e: React.FormEvent<HTMLInputElement>){
-    const target = e.target as typeof e.target & {
-      name: string,
-      value: string
-    }
-    setFormData(prev=> ({...prev, [target.name]: target.value}))
-  }
-  const fields: ParamsFields[] = [
-    {
+  
+  let fields: {[key: string]: ParamsFields} = {
+    event: {
       name: 'event', type: 'select', title: 'Event', options: {
         OnStart: 'OnStart',
         OnInput: 'OnInput',
       }
     },
-    {
+    action: {
       name: 'action', type: 'select', title: 'Action', options: {
         run: 'run',
         runasync: 'run async',
         runprogress: 'run progress',
       }
     },
-    {
-      name: 'type', type: 'select', title: 'Type', options: {
+    type: {
+      name: 'type', type: 'select', title: 'Type', onChange: onChangeSelect, options: {
         python: 'python',
         pythonscript: 'pythonscript',
         pythonargs: 'pythonargs',
@@ -67,31 +62,34 @@ export default function ParamsHandlers( {initData} : ParamsHandlersProps ) {
         set: 'set',
       }
     },
-    { name: 'method', type: 'text', title: 'Method', onChange: onChangeInput },
-    { name: 'listener', type: 'text', title: 'Listener', onChange: onChangeInput },
-    { name: 'postExecute', type: 'text', title: 'Post execute' },
-  ]
+    method: { name: 'method', type: 'text', title: 'Method', onChange: onChangeInput, hidden: formData.type === 'pythonscript' },
+    listener: { name: 'listener', type: 'text', title: 'Listener', onChange: onChangeInput },
+    postExecute: { name: 'postExecute', type: 'text', title: 'Post execute' },
+  }
+
+  
+
+  function onChangeInput(e: React.FormEvent<HTMLInputElement>){
+    const target = e.target as typeof e.target & {
+      name: string,
+      value: string
+    }
+    setFormData(prev=> ({...prev, [target.name]: target.value}))
+  }
+
+  function onChangeSelect(e: React.FormEvent<HTMLSelectElement>){
+    const target = e.target as typeof e.target & {
+      name: string,
+      value: string
+    }
+    setFormData(prev=> {
+      return {...prev, [target.name]: target.value}
+    })
+  }
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const target = e.target as typeof e.target & {
-      event: { value: string }
-      action: { value: string }
-      type: { value: string }
-      method: { value: string }
-      listener: { value: string }
-      postExecute: { value: string }
-    }
-
-    const newContent = {
-      event: target.event.value,
-      action: target.action.value,
-      type: target.type.value,
-      method: target.method.value,
-      listener: target.listener.value,
-      postExecute: target.postExecute.value,
-    }
-    currentDetails && updateDetails({ ...currentDetails, content: { ...currentDetails.content, ...newContent } })
+    currentDetails && updateDetails({ ...currentDetails, content: { ...currentDetails.content, ...formData } })
     updateDetails(null)
   }
   return (

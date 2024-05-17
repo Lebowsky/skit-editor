@@ -5,19 +5,12 @@ import ModalTabs from "../tabs/ModalTabs"
 import Button, { ButtonGroup } from "../inputs/Button"
 import ParamInput from "../inputs/ParamInput"
 import HandlersCodeEditor from "../../views/HandlersCodeEditor"
-import { IFormData } from '../../views/DetailsParams/OperationElements/ParamsHandlers'
-
-interface ParamsFields {
-  name: string
-  type: string
-  title: string
-  options?: { [key: string]: string | boolean }
-}
+import { IFormData, ParamsFields } from '../../views/DetailsParams/OperationElements/ParamsHandlers'
 
 type IFormDataKeys = keyof IFormData
 
 interface HandlersParamsFormProps {
-  fields: ParamsFields[],
+  fields: {[key: string]: ParamsFields},
   onSubmit(e: React.FormEvent): void
   title: string
   formData: IFormData
@@ -47,7 +40,7 @@ export default function HandlersParamsForm({ fields, onSubmit, title, formData }
     <ParamsFormWrapper onSubmit={onSubmit}>
       <ParamsBlockTitle tabsData={tabsData} currentTabId={currentTabId}>{title}</ParamsBlockTitle>
       <>
-        {formContent === 'common' && fields.map((el, idx) => (
+        {formContent === 'common' && Object.values(fields).map((el, idx) => (!el.hidden && 
           <ParamInput {...el} value={formData[el.name as IFormDataKeys] || ''} key={idx} />
         ))}
         {formContent === 'source' && <HandlersCodeEditor language="python" content={decode(formData.method.toString())}/>}
