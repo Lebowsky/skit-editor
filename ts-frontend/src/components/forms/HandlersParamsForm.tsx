@@ -1,3 +1,5 @@
+import { decode } from 'js-base64'
+
 import { useState } from "react"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData } from "../../models/ContextConfiguration"
@@ -46,7 +48,7 @@ export default function HandlersParamsForm({ fields, onSubmit, title }: Handlers
         {formContent === 'common' && fields.map((el, idx) => (
           <ParamInput {...el} value={currentDetails.content[el.name] || ''} key={idx} />
         ))}
-        {formContent === 'source' && <HandlersCodeEditor language="python" content={decodeURIComponent(escape(atob(currentDetails.content?.method.toString())))}/>}
+        {formContent === 'source' && <HandlersCodeEditor language="python" content={decode(currentDetails.content?.method.toString())}/>}
         {formContent === 'postExecute' && <HandlersCodeEditor language="json" content=""/>}
       </>
     </ParamsFormWrapper>
