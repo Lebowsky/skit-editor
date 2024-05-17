@@ -1,9 +1,9 @@
 import { useSimpleUI } from "../context/context"
 import { IContextProviderData } from "../models/ContextConfiguration"
-import ParamsCVFrame from "../views/ParamsCVFrame"
-import ParamsCVOperation from "../views/ParamsCVOperation"
-import ParamsOperation from "../views/ParamsOperation"
-import ParamsProcess from "../views/ParamsProcess"
+import ParamsCVFrame from "../views/cvFrameViews/ParamsCVFrame"
+import ParamsCVOperation from "../views/cvOperationViews/ParamsCVOperation"
+import ParamsOperation from "../views/operationViews/ParamsOperation"
+import ParamsProcess from "../views/processViews/ParamsProcess"
 import MainTabs from "./tabs/MainTabs"
 
 

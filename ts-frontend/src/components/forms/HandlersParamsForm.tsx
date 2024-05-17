@@ -5,7 +5,7 @@ import ModalTabs from "../tabs/ModalTabs"
 import Button, { ButtonGroup } from "../inputs/Button"
 import ParamInput from "../inputs/ParamInput"
 import HandlersCodeEditor from "../../views/HandlersCodeEditor"
-import { IFormData, ParamsFields } from '../../views/DetailsParams/OperationElements/ParamsHandlers'
+import { IFormData, ParamsFields } from '../../views/operationViews/OperationElements/ParamsHandlers'
 
 type IFormDataKeys = keyof IFormData
 

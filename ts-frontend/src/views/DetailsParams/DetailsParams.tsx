@@ -1,9 +1,9 @@
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData, contextTypes } from "../../models/ContextConfiguration"
-import ParamsBaseElement from "./OperationElements/ParamsBaseElement"
-import ParamsHandlers from "./OperationElements/ParamsHandlers"
-import ParamsLayoutElement from "./OperationElements/ParamsLayoutElement"
-import ParamsLinearLayout from "./OperationElements/ParamsLinearLayout"
+import ParamsBaseElement from "../operationViews/OperationElements/ParamsBaseElement"
+import ParamsHandlers from "../operationViews/OperationElements/ParamsHandlers"
+import ParamsLayoutElement from "../operationViews/OperationElements/ParamsLayoutElement"
+import ParamsLinearLayout from "../operationViews/OperationElements/ParamsLinearLayout"
 
 export default function DetailsParams() {
   const { currentDetails } = useSimpleUI() as IContextProviderData

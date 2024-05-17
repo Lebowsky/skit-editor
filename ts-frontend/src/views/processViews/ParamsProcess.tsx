@@ -1,4 +1,4 @@
-import CommonParamsProcess from "./CommonParams/CommonParamsProcess";
+import CommonParamsProcess from "./CommonParamsProcess";
 
 export default function ParamsProcess() {
   return (
