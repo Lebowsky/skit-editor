@@ -33,11 +33,9 @@ export default function Modal({ children, allowClose }: ModalProps) {
         style={{
           background: "white",
           margin: "auto",
-          padding: "2%",
           border: "2px solid #000",
           borderRadius: "10px",
           boxShadow: "2px solid black",
-          // width: '35%'
         }}
         onClick={e => {e.stopPropagation()}}
       >

@@ -5,6 +5,7 @@ import { modals } from '../models/Modals'
 import { uuid } from '../utils'
 import DetailsParams from './DetailsParams/DetailsParams'
 import ErrorDialog from './dialogs/ErrorDialog'
+import OpenFileDialog from './dialogs/OpenFileDialog'
 import StartScreen from './dialogs/StartScreen'
 
 export default function ModalView() {
@@ -18,6 +19,7 @@ export default function ModalView() {
   }
   return (
     <>
+      {modal === modals.openFileProject && <Modal><OpenFileDialog></OpenFileDialog></Modal>}
       {modal === modals.startScreen && <Modal><StartScreen></StartScreen></Modal>}
       {modal === modals.error && modalError && <Modal><ErrorDialog/></Modal>}
       {currentDetails && 

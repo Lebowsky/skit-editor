@@ -1,5 +1,6 @@
 export enum modals{
     loading='loading',
     error='error',
-    startScreen='startScreen'
+    startScreen='startScreen',
+    openFileProject='openFileProject'
   }
