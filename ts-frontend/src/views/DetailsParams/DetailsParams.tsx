@@ -1,13 +1,15 @@
+import Modal from "../../components/layouts/Modal"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData, contextTypes } from "../../models/ContextConfiguration"
+import { uuid } from "../../utils"
 import ParamsBaseElement from "../operationViews/OperationElements/ParamsBaseElement"
 import ParamsHandlers from "../operationViews/OperationElements/ParamsHandlers"
 import ParamsLayoutElement from "../operationViews/OperationElements/ParamsLayoutElement"
 import ParamsLinearLayout from "../operationViews/OperationElements/ParamsLinearLayout"
 
 export default function DetailsParams() {
-  const { currentDetails } = useSimpleUI() as IContextProviderData
-  
+  const { currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
+
   const detailsElementsTypes = {
     layout: ['LinearLayout', 'Tiles'],
     baseElement: ['barcode', 'fab', 'ManuItem'],
@@ -15,21 +17,30 @@ export default function DetailsParams() {
 
   if (!currentDetails) return null
 
-  const detailsType = currentDetails.contextType === contextTypes.handlers ? 
-    'handlers' : 
+  const detailsType = currentDetails.contextType === contextTypes.handlers ?
+    'handlers' :
     Object.entries(detailsElementsTypes).reduce((result, [key, types]) => {
       if (types.includes(currentDetails.content.type)) result = key
       return result
     }, 'layoutElement')
 
+  function canCloseDetails(): boolean {
+    if (window.confirm("Dont save?")) {
+      updateDetails(null)
+      return true
+    }
+    return false
+  }
 
   return (
-    <Params>
-      {detailsType === "layout" && <ParamsLinearLayout/>}
-      {detailsType === "baseElement" && <ParamsBaseElement/>}
-      {detailsType === "layoutElement" && <ParamsLayoutElement/>}
-      {detailsType === "handlers" && <ParamsHandlers/>}
-    </Params>
+    <Modal allowClose={canCloseDetails} key={uuid()}>
+      <Params>
+        {detailsType === "layout" && <ParamsLinearLayout />}
+        {detailsType === "baseElement" && <ParamsBaseElement />}
+        {detailsType === "layoutElement" && <ParamsLayoutElement />}
+        {detailsType === "handlers" && <ParamsHandlers />}
+      </Params>
+    </Modal>
   )
 }
 

@@ -1,4 +1,5 @@
 import Button, { ButtonGroup } from "../../components/inputs/Button"
+import Modal from "../../components/layouts/Modal"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData } from "../../models/ContextConfiguration"
 
@@ -8,7 +9,7 @@ export default function ErrorDialog() {
   if (!modalError) return null
 
   return (
-    <>
+    <Modal>
       <h2 
         style={{ 
           textAlign: 'center',
@@ -30,7 +31,6 @@ export default function ErrorDialog() {
           <Button onClick={onClick} key={idx}>{text}</Button>
         ))}
       </div>
-
-    </>
+    </Modal>
   )
 }

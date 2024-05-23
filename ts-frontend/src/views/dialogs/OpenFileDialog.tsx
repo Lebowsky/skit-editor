@@ -5,6 +5,7 @@ import { askFile, getProjectPathsData } from "../../eelExpose";
 import { IContextProviderData } from "../../models/ContextConfiguration";
 import { DataResponce, ErrorResponce, ProjectPathsData } from "../../models/apiResponces";
 import { useState } from "react";
+import Modal from "../../components/layouts/Modal";
 
 interface OpenFileDialogFormData {
   uiPath: string
@@ -61,28 +62,30 @@ export default function OpenFileDialog() {
   }
 
   return (
-    <div style={{
-      width: '600px',
-      padding: '3%',
-    }}>
+    <Modal>
       <div style={{
-        display: 'flex',
-        borderBottom: '5px #c7c7c7 solid',
-        marginBottom: '15px',
-        paddingBottom: 15,
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-        paddingLeft: 20,
-        paddingRight: 10
+        width: '600px',
+        padding: '3%',
       }}>
-        <h2>Open file</h2>
-        <Button>Apply</Button>
+        <div style={{
+          display: 'flex',
+          borderBottom: '5px #c7c7c7 solid',
+          marginBottom: '15px',
+          paddingBottom: 15,
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+          paddingLeft: 20,
+          paddingRight: 10
+        }}>
+          <h2>Open file</h2>
+          <Button>Apply</Button>
 
+        </div>
+        <SelectFileBlock title={'UI file'} value={formData.uiPath} onClick={uiFileOpenClick}></SelectFileBlock>
+        <SelectFileBlock title={'Working directory'} value={formData.workingDirPath}></SelectFileBlock>
+        <SelectFileBlock title={'Project config'} value={formData.projectConfigPath}></SelectFileBlock>
       </div>
-      <SelectFileBlock title={'UI file'} value={formData.uiPath} onClick={uiFileOpenClick}></SelectFileBlock>
-      <SelectFileBlock title={'Working directory'} value={formData.workingDirPath}></SelectFileBlock>
-      <SelectFileBlock title={'Project config'} value={formData.projectConfigPath}></SelectFileBlock>
-    </div>
+    </Modal>
   )
 }
 
