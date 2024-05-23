@@ -7,7 +7,7 @@ interface ModalProps {
 
 export default function Modal({ children, allowClose }: ModalProps) {
   const [isOpen, setIsOpen] = useState(true)
-  function closeModal(){
+  function closeModal() {
     allowClose && allowClose() && setIsOpen(false)
   }
 
@@ -37,10 +37,42 @@ export default function Modal({ children, allowClose }: ModalProps) {
           borderRadius: "10px",
           boxShadow: "2px solid black",
         }}
-        onClick={e => {e.stopPropagation()}}
+        onClick={e => { e.stopPropagation() }}
       >
+        {allowClose && <CloseModalIcon onClick={closeModal} />}
         {children}
       </div>
     </div>
   );
 };
+
+interface CloseModalIconProps {
+  onClick?(): void
+}
+function CloseModalIcon({ onClick }: CloseModalIconProps) {
+  return (
+    <i
+      className="tab-icon fa fa-times"
+      aria-hidden="true"
+      onClick={() => onClick} 
+      style={{
+        fontSize: 16,
+        cursor: 'pointer',
+        position: 'relative',
+        top: -10,
+        right: -10,
+        background: 'white',
+        padding: '4px 5px 5px 5px',
+        borderRadius: '50%',
+        width: 15,
+        height: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxSizing: 'content-box',
+        boxShadow: '0 0 7px #0000007a',
+        float: 'right'
+      }}
+    />
+  )
+}

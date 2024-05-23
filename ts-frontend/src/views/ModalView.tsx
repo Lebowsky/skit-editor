@@ -9,7 +9,7 @@ import OpenFileDialog from './dialogs/OpenFileDialog'
 import StartScreen from './dialogs/StartScreen'
 
 export default function ModalView() {
-  const { modal, modalError, setModal, loading, loadingError, currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
+  const { modal, modalError, loading, loadingError, currentDetails, updateDetails } = useSimpleUI() as IContextProviderData
   function canCloseDetails(): boolean {
     if (window.confirm("Dont save?")) {
       updateDetails(null)
@@ -19,8 +19,8 @@ export default function ModalView() {
   }
   return (
     <>
-      {modal === modals.openFileProject && <Modal><OpenFileDialog></OpenFileDialog></Modal>}
       {modal === modals.startScreen && <Modal><StartScreen></StartScreen></Modal>}
+      {modal === modals.openFileProject && <Modal><OpenFileDialog></OpenFileDialog></Modal>}
       {modal === modals.error && modalError && <Modal><ErrorDialog/></Modal>}
       {currentDetails && 
         <Modal allowClose={canCloseDetails} key={uuid()}>

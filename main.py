@@ -3,7 +3,8 @@ import platform
 import eel
 import json
 
-import dialogs
+from services import ui_service, dialogs
+from models.api_responces import ErrorResponce, DataResponce, UIFileOpenResponse
 
 
 @eel.expose
@@ -13,16 +14,33 @@ def ask_file(file_type):
 
 
 @eel.expose
-def get_json_data(file_path: str):
-    with open(file_path, encoding='utf-8') as fp:
-        result = {}
-        try:
-            result['data'] = json.load(fp)
-        except json.JSONDecodeError as e:
-            result['error'] = f'JSONDecodeError'
-            result['description'] = str(e)
+def get_project_paths_data():
+    data = ui_service.get_project_paths_data()
+    if data:
+        return UIFileOpenResponse(data=data).dict()
 
-    return result
+
+@eel.expose
+def get_json_data(file_path: str) -> dict:
+    with open(file_path, encoding='utf-8') as fp:
+        data = {}
+        error = None
+        try:
+            data = json.load(fp)
+        except json.JSONDecodeError as e:
+            error = ErrorResponce(
+                type=str(type(e)),
+                title='Error decode json data',
+                detail=str(e)
+            ).dict()
+        except Exception as e:
+            error = ErrorResponce(
+                type=str(type(e)),
+                title='Unknown error',
+                detail=str(e)
+            ).dict()
+
+        return DataResponce(data=data, error=error).dict(exclude_none=True)
 
 
 def get_base64_data(file_path: str):

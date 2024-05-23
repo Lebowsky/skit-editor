@@ -9,25 +9,6 @@ export default function StartScreen() {
 
   async function fileOpenClick(){
     setModal(modals.openFileProject)
-    // const filePath = await askFile('simple_ui')
-    // if (filePath){
-    //   const result = await getJsonData(filePath)
-    //   if (result.error){
-    //     setModal(modals.error)
-    //     setModalError({
-    //       title: result.error, 
-    //       description: result.description,
-    //       buttons: [
-    //         {text: 'OK', onClick: () => {setModal(modals.startScreen)}},
-    //       ]
-    //     })
-    //   } else if (result.data) {
-    //     updateConfigurationService(result.data.ClientConfiguration)
-    //     updateSideMenu()
-    //     setModal(null)
-    //     setAppData({configurationFilePath: filePath})
-    //   }
-    // }
   }
 
   return (

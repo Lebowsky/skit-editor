@@ -3,8 +3,10 @@ import platform
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename, askdirectory
 
+from models.file_types import FileType
 
-def ask_file(file_type):
+
+def ask_file(file_type: FileType) -> str:
     """ Ask the user to select a file """
     root = Tk()
     root.withdraw()
