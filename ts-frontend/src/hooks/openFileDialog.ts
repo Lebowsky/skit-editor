@@ -13,7 +13,7 @@ interface OpenFileDialogFormData {
 
 export default function useOpenFileDialog() {
   const defaultTitle = '<Not selected>'
-  const { setModal, setModalError } = useSimpleUI() as IContextProviderData
+  const { setModal, setModalError, updateConfigurationService, updateSideMenu, setAppData } = useSimpleUI() as IContextProviderData
   const [formData, setFormData] = useState<OpenFileDialogFormData>({
     uiPath: defaultTitle,
     workingDirPath: defaultTitle,
@@ -67,13 +67,11 @@ export default function useOpenFileDialog() {
       }
 
       const result = await getJsonData(reqData)
-      console.log(result)
-//     updateConfigurationService(result.data.ClientConfiguration)
-//     updateSideMenu()
-//     setModal(null)
-//     setAppData({configurationFilePath: filePath})
+      updateConfigurationService(result.data.ClientConfiguration)
+      updateSideMenu()
+      setModal(null)
+      setAppData({configurationFilePath: uiPath})
     }
-
   }
   
 

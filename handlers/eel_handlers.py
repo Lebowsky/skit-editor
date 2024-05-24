@@ -2,12 +2,7 @@ import json
 
 import eel
 
-from models.api_responces import (
-    FileOpenResponse,
-    ErrorResponce,
-    DataResponceCommon,
-    ProjectPathsData
-)
+from models.api_responces import FileOpenResponse
 from services import dialogs, ui_service
 
 
@@ -39,28 +34,8 @@ def get_project_config_path():
 
 
 @eel.expose
-def get_json_data(data: dict) -> dict:
-    paths = ProjectPathsData(**data)
-    if paths.ui_path:
-        with open(paths.ui_path, encoding='utf-8') as fp:
-            data = {}
-            error = None
-            try:
-                data = json.load(fp)
-            except json.JSONDecodeError as e:
-                error = ErrorResponce(
-                    type=str(type(e)),
-                    title='Error decode json data',
-                    detail=str(e)
-                ).dict()
-            except Exception as e:
-                error = ErrorResponce(
-                    type=str(type(e)),
-                    title='Unknown error',
-                    detail=str(e)
-                ).dict()
-
-            return DataResponceCommon(data=data, error=error).dict(exclude_none=True)
+def get_configuration_from_file(data: dict) -> dict:
+    return ui_service.get_configuration_from_file(data).dict()
 
 
 @eel.expose

@@ -6,7 +6,7 @@ export async function askFile(fileType: string): Promise <IDataResponceCommon> {
 }
 
 export async function getJsonData(data: IProjectPathsData) {
-  return eel.get_json_data(data)();
+  return eel.get_configuration_from_file(data)();
 }
 
 export async function saveFileContent(filePath: string, content: {[key: string]: any}){
