@@ -37,5 +37,4 @@ def start_eel(develop):
 if __name__ == '__main__':
     import sys
 
-    # start_eel(develop=len(sys.argv) == 2)
-    start_eel(True)
+    start_eel(develop=len(sys.argv) == 2)
