@@ -7,16 +7,16 @@ class ErrorResponce(BaseModel):
     detail: str
 
 
-class DataResponce(BaseModel):
+class DataResponceCommon(BaseModel):
     data: dict | None = None
     error: ErrorResponce | None = None
 
 
 class ProjectPathsData(BaseModel):
-    ui_path: str
-    working_dir_path: str
-    project_config_path: str
+    ui_path: str | None = None
+    working_dir_path: str | None = None
+    project_config_path: str | None = None
 
 
-class UIFileOpenResponse(DataResponce):
-    data: ProjectPathsData | None = None
+class FileOpenResponse(DataResponceCommon):
+    data: ProjectPathsData

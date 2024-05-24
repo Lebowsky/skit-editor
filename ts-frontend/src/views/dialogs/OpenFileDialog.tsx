@@ -1,64 +1,29 @@
-import { error } from "console";
 import Button from "../../components/inputs/Button";
-import { useSimpleUI } from "../../context/context";
-import { askFile, getProjectPathsData } from "../../eelExpose";
-import { IContextProviderData } from "../../models/ContextConfiguration";
-import { DataResponce, ErrorResponce, ProjectPathsData } from "../../models/apiResponces";
-import { useState } from "react";
+import { getProjectPathsData, getWorkingDirPath, projectConfigPath } from "../../eelExpose";
 import Modal from "../../components/layouts/Modal";
+import useOpenFileDialog from "../../hooks/openFileDialog";
 
-interface OpenFileDialogFormData {
-  uiPath: string
-  workingDirPath: string
-  projectConfigPath: string
-}
 
 export default function OpenFileDialog() {
-  const { setModal } = useSimpleUI() as IContextProviderData
-  const defaultTitle = '<Not selected>'
-  const [formData, setFormData] = useState<OpenFileDialogFormData>({
-    uiPath: defaultTitle,
-    workingDirPath: defaultTitle,
-    projectConfigPath: defaultTitle
-  })
+  const {formData, updateFormData, loadUiConfig} = useOpenFileDialog()
 
   async function uiFileOpenClick() {
     const result = await getProjectPathsData()
-    console.log(result)
-    if (!result) return null
-    const { data, error } = result
+    updateFormData(result)
+  }
 
-    if (error) {
-      console.log(error)
-    } else if (data) {
-      setFormData(prev => ({
-        ...prev, ...{
-          uiPath: data.ui_path || defaultTitle,
-          workingDirPath: data.working_dir_path || defaultTitle,
-          projectConfigPath: data.project_config_path || defaultTitle
-        }
-      }))
-    } else {
-      console.log(result)
-    }
-    // if (filePath){
-    //   const result = await getJsonData(filePath)
-    //   if (result.error){
-    //     setModal(modals.error)
-    //     setModalError({
-    //       title: result.error, 
-    //       description: result.description,
-    //       buttons: [
-    //         {text: 'OK', onClick: () => {setModal(modals.startScreen)}},
-    //       ]
-    //     })
-    //   } else if (result.data) {
-    //     updateConfigurationService(result.data.ClientConfiguration)
-    //     updateSideMenu()
-    //     setModal(null)
-    //     setAppData({configurationFilePath: filePath})
-    //   }
-    // }
+  async function workingDirOpenClick() {
+    const result = await getWorkingDirPath()
+    updateFormData(result)
+  }
+
+  async function projectConfigOpenClick() {
+    const result = await projectConfigPath()
+    updateFormData(result)
+  }
+
+  async function applyOnClick() {
+      await loadUiConfig()
   }
 
   return (
@@ -78,12 +43,12 @@ export default function OpenFileDialog() {
           paddingRight: 10
         }}>
           <h2>Open file</h2>
-          <Button>Apply</Button>
+          <Button onClick={applyOnClick}>Apply</Button>
 
         </div>
         <SelectFileBlock title={'UI file'} value={formData.uiPath} onClick={uiFileOpenClick}></SelectFileBlock>
-        <SelectFileBlock title={'Working directory'} value={formData.workingDirPath}></SelectFileBlock>
-        <SelectFileBlock title={'Project config'} value={formData.projectConfigPath}></SelectFileBlock>
+        <SelectFileBlock title={'Working directory'} value={formData.workingDirPath} onClick={workingDirOpenClick}></SelectFileBlock>
+        <SelectFileBlock title={'Project config'} value={formData.projectConfigPath} onClick={projectConfigOpenClick}></SelectFileBlock>
       </div>
     </Modal>
   )

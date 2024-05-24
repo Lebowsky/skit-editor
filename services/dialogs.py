@@ -11,15 +11,20 @@ def ask_file(file_type: FileType) -> str:
     root = Tk()
     root.withdraw()
     root.wm_attributes('-topmost', 1)
+
+    match file_type:
+        case 'simple_ui':
+            file_types = [('Simple UI files', '*.ui')]
+        case 'python':
+            file_types = [('Python files', '*.py')]
+        case 'json':
+            file_types = [('Json files', '*.json')]
+        case _:
+            file_types = ('All files', '*')
+
     if (file_type is None) or (platform.system() == "Darwin"):
         file_path = askopenfilename(parent=root)
     else:
-        if file_type == 'simple_ui':
-            file_types = [('Simple UI files', '*.ui')]
-        elif file_type == 'python':
-            file_types = [('Python files', '*.py')]
-        else:
-            file_types = [('All files', '*')]
         file_path = askopenfilename(parent=root, filetypes=file_types)
     root.update()
 
@@ -40,7 +45,7 @@ def ask_save_file(file_type='simple_ui'):
     return file_path
 
 
-def ask_dir():
+def ask_dir() -> str:
     root = Tk()
     root.withdraw()
     root.wm_attributes('-topmost', 1)

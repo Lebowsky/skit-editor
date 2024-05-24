@@ -1,19 +1,28 @@
 import { eel } from "./App";
-import { DataResponce, UIFileOpenResponse } from "./models/apiResponces";
+import { IDataResponceCommon, IFileOpenResponse, IProjectPathsData } from "./models/apiResponces";
 
-export async function askFile(fileType: string): Promise <DataResponce> {
+export async function askFile(fileType: string): Promise <IDataResponceCommon> {
   return eel.ask_file(fileType)();
-};
+}
 
-export async function getJsonData(filePath: string) {
-  return eel.get_json_data(filePath)();
-};
+export async function getJsonData(data: IProjectPathsData) {
+  return eel.get_json_data(data)();
+}
 
 export async function saveFileContent(filePath: string, content: {[key: string]: any}){
   return eel.save_file_content(filePath, content)();
 }
 
-export async function getProjectPathsData(): Promise <UIFileOpenResponse> {
+export async function getProjectPathsData(): Promise <IFileOpenResponse> {
   return eel.get_project_paths_data()();
-};
+}
+
+export async function getWorkingDirPath(): Promise <IFileOpenResponse> {
+  return eel.get_working_dir_path()();
+}
+
+export async function projectConfigPath(): Promise <IFileOpenResponse> {
+  return eel.get_project_config_path()();
+}
+
 
