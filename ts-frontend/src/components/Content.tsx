@@ -1,10 +1,17 @@
 import { useSimpleUI } from "../context/context"
-import { IContextProviderData } from "../models/ContextConfiguration"
+import { IContextProviderData, contextTypes } from "../models/ContextConfiguration"
+import MainMenu from "../views/contentViews/MainMenu"
+import StyleTemplates from "../views/contentViews/StyleTemplates"
 import ParamsCVFrame from "../views/cvFrameViews/ParamsCVFrame"
 import ParamsCVOperation from "../views/cvOperationViews/ParamsCVOperation"
+import StartScreen from "../views/contentViews/StartScreen"
 import ParamsOperation from "../views/operationViews/ParamsOperation"
 import ParamsProcess from "../views/processViews/ParamsProcess"
 import MainTabs from "./tabs/MainTabs"
+import Shedulers from "../views/contentViews/Shedulers"
+import CommonHandlers from "../views/contentViews/CommonHandlers"
+import PythonFiles from "../views/contentViews/PythonFiles"
+import MediaFiles from "../views/contentViews/MediaFiles"
 
 
 export default function Content() {
@@ -20,6 +27,13 @@ export default function Content() {
         {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation/>}
         {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation/>}
         {currentContent && currentContent.content.type === 'CVFrame' && <ParamsCVFrame/>}
+        <MainMenu/>
+        <StyleTemplates/>
+        <StartScreen/>
+        <Shedulers/>
+        <CommonHandlers/>
+        <PythonFiles/>
+        <MediaFiles/>
       </ParamsWrapper>
     </div>
   )

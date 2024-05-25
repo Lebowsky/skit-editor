@@ -12,6 +12,7 @@ export class ConfigurationService {
   private operations: IListItem[] = []
   private handlers: IListItem[] = []
   private elements: IListItem[] = []
+  private mainMenu: IListItem[] = []
 
   constructor(raw_data: {[key: string]: any}) {
     this.raw_data = raw_data
@@ -29,7 +30,9 @@ export class ConfigurationService {
     } = this.raw_data
 
     this.parseProcesses(Processes)
+    this.parseMainMenu(MainMenu)
     this.root = root
+
   }
   public getConfigurationContext(): IConfigurationContext {
     return {
@@ -59,7 +62,7 @@ export class ConfigurationService {
   public getSideMenu (processes: IListItem[], operations: IListItem[]): ISideMenuItem[]{
     const nestedItems: ISideMenuItem[] = []
     const sideMenuData: ISideMenuItem[] = [
-      { type: 'MainMenu', title: 'Main menu', id: 0, contextType: contextTypes.mainMenu, showInTabs: false },
+      { type: 'MainMenu', title: 'Main menu', id: 0, contextType: contextTypes.mainMenu, showInTabs: true },
       { type: 'StyleTemplates', title: 'Styles', id: 0, contextType: contextTypes.styleTemplates, showInTabs: false},
       { type: 'StartScreen', title: 'Start screen', id: 0, contextType: contextTypes.startScreen, showInTabs: false },
       { type: 'Processes', title: 'Processes', nestedItems: nestedItems, id: 0, contextType: contextTypes.processes, showInTabs: false},
@@ -90,7 +93,6 @@ export class ConfigurationService {
         .filter(el => el.parentId === parentId)
         .map(el => ({ ...el, nestedElements: getElements(el.id) }))
     }
-
     const itemContent = this.getContextItems(type).filter(item => item.id === id).map(item => ({...item}))?.[0]
     if (itemContent){
       itemContent.elements = getElements(id)
@@ -111,7 +113,7 @@ export class ConfigurationService {
       [contextTypes.operations]: this.operations,
       [contextTypes.elements]: this.elements,
       [contextTypes.handlers]: this.handlers,
-      [contextTypes.mainMenu]: this.processes,
+      [contextTypes.mainMenu]: this.mainMenu,
       [contextTypes.styleTemplates]: this.processes,
       [contextTypes.startScreen]: this.processes,
       [contextTypes.shedulers]: this.processes,
@@ -223,6 +225,17 @@ export class ConfigurationService {
         content: item 
       })
     })
+  }
+  private parseMainMenu (MainMenu: JsonItem[]): void {
+    MainMenu && MainMenu.forEach(({ ...item }) => {
+      const id = this.getId()
+      this.mainMenu.push({
+        id: id,
+        parentId: 0,
+        contextType: contextTypes.mainMenu,
+        content: item
+      })
+    });
   }
   private getId(): number {
     return ++this.id

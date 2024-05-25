@@ -23,6 +23,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   const [tabs, setTabs] = useState<ITabData[]>([])
   const [currentTabId, setCurrentTabId] = useState<number>(0)
   const [currentContent, setCurrentContent] = useState<IContent | null>(null)
+  const [currentContextType, setCurrentContextType] = useState<contextTypes | null>(null)
   const [currentDetails, setCurrentDetails] = useState<IDetailsContent | null>(null)
   const [modal, setModal] = useState<modals | null>(modals.startScreen)
   const [modalError, setModalError] = useState<IModalError | null>(null)
@@ -53,7 +54,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   function setCurrentTab(tabId: number, type: contextTypes): void {
     setCurrentTabId(tabId)
     const content = configurationService.getItemContent(tabId, type)
-    content && setCurrentContent(content)
+    setCurrentContent(content)
   }
 
   function removeTab(tabId: number) {
@@ -101,6 +102,8 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
         setCurrentTab, 
         configurationService,
         currentContent,
+        currentContextType,
+        setCurrentContextType,
         updateContent,
         currentDetails,
         setDetails,

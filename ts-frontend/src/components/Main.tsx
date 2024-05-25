@@ -20,7 +20,7 @@ export default function Main() {
     }}>
       {modal && <ModalView></ModalView>}
       {sideMenu && <SideMenu sideMenu={sideMenu} />}
-      {currentContent && <Content key={currentContent.id} />}
+      {<Content key={currentContent?.id} />}
       <ToastContainer 
         position={'bottom-center'}
         autoClose={1000}

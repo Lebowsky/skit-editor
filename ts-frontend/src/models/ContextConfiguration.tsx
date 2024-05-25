@@ -74,6 +74,8 @@ export interface IContextProviderData {
   removeTab(tabId: number): void
   tabs: ITabData[]
   currentTabId: number
+  currentContextType: contextTypes | null
+  setCurrentContextType(contextType: contextTypes | null): void
   currentContent: IContent | null
   updateContent(newContent: IContent): void
   currentDetails: IDetailsContent | null
