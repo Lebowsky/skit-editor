@@ -1,18 +1,24 @@
-import { toast } from "react-toastify";
 import Button from "../../components/inputs/Button";
 import Modal from "../../components/layouts/Modal";
 import { useSimpleUI } from "../../context/context";
 import { IContextProviderData } from "../../models/ContextConfiguration";
 import { modals } from "../../models/Modals";
+import { getNewConfiguration } from "../../eelExpose";
 
 
 export default function StartScreen() {
-  const { setModal } = useSimpleUI() as IContextProviderData
+  const { setModal, updateConfigurationService, updateSideMenu } = useSimpleUI() as IContextProviderData
 
   async function fileOpenClick() {
     setModal(modals.openFileProject)
   }
-  
+
+  async function newProjectOnClick() {
+    const result = await getNewConfiguration()
+    updateConfigurationService(result.data.ClientConfiguration)
+    updateSideMenu()
+    setModal(null)
+  }
 
   return (
     <Modal>
@@ -31,7 +37,7 @@ export default function StartScreen() {
           </h1>
         </div>
         <div style={{ padding: 15, display: 'flex', justifyContent: 'space-around' }}>
-          <Button onClick={() => toast.warning('TODO')}>New project</Button>
+          <Button onClick={newProjectOnClick}>New project</Button>
           <Button onClick={fileOpenClick}>Open</Button>
         </div>
       </div>

@@ -3,11 +3,17 @@ import './TopMenu.css'
 import { useSimpleUI } from '../../context/context'
 import { IContextProviderData } from '../../models/ContextConfiguration'
 import { modals } from '../../models/Modals'
-import { saveFileContent } from '../../eelExpose'
+import { getNewConfiguration, saveFileContent } from '../../eelExpose'
 
 
 export default function TopMenu() {
-  const { configurationService, appData, setModal } = useSimpleUI() as IContextProviderData
+  const { 
+    configurationService, 
+    appData, 
+    setModal,
+    updateConfigurationService,
+    updateSideMenu 
+  } = useSimpleUI() as IContextProviderData
 
   async function saveConfiguration() {
     if (appData && appData.configurationFilePath){
@@ -19,13 +25,20 @@ export default function TopMenu() {
     setModal(modals.openFileProject)
   }
 
+  async function newProjectOnClick() {
+    const result = await getNewConfiguration()
+    updateConfigurationService(result.data.ClientConfiguration)
+    updateSideMenu()
+    setModal(null)
+  }
+
   return (
     <div className="top-menu">
       <a href="#" className="logo">Simple UI</a>
       <nav>
         <ul>
           <MenuSection title='File'>
-            <MenuItem title='New'></MenuItem>
+            <MenuItem title='New' onClick={newProjectOnClick}></MenuItem>
             <MenuItem title='Open' onClick={fileOpenClick}></MenuItem>
             <MenuItem title='Save' onClick={saveConfiguration}></MenuItem>
             <MenuItem title='Save as...'></MenuItem>

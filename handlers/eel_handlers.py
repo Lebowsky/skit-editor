@@ -7,27 +7,27 @@ from services import dialogs, ui_service
 
 
 @eel.expose
-def ask_file(file_type):
+def ask_file(file_type) -> str:
     """ Ask the user to select a file """
     return dialogs.ask_file(file_type)
 
 
 @eel.expose
-def get_project_paths_data():
+def get_project_paths_data() -> dict:
     data = ui_service.get_project_paths_data()
     if data:
         return FileOpenResponse(data=data).dict()
 
 
 @eel.expose
-def get_working_dir_path():
+def get_working_dir_path() -> dict:
     data = ui_service.get_working_dir_path()
     if data:
         return FileOpenResponse(data=data).dict()
 
 
 @eel.expose
-def get_project_config_path():
+def get_project_config_path() -> dict:
     data = ui_service.get_project_config_path()
     if data:
         return FileOpenResponse(data=data).dict()
@@ -39,8 +39,8 @@ def get_configuration_from_file(data: dict) -> dict:
 
 
 @eel.expose
-def get_new_configuration():
-    return ui_service.get_new_configuration()
+def get_new_configuration() -> dict:
+    return ui_service.get_new_configuration().dict()
 
 
 @eel.expose
@@ -51,7 +51,3 @@ def save_file_content(file_path, content):
             return {'result': True}
         except Exception as e:
             return {'error': type(e), 'description': str(e)}
-
-
-if __name__ == '__main__':
-    print(get_new_configuration())

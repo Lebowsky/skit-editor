@@ -5,6 +5,10 @@ export async function askFile(fileType: string): Promise <IDataResponceCommon> {
   return eel.ask_file(fileType)();
 }
 
+export async function getNewConfiguration() {
+  return eel.get_new_configuration()();
+}
+
 export async function getJsonData(data: IProjectPathsData) {
   return eel.get_configuration_from_file(data)();
 }

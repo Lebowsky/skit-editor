@@ -57,9 +57,8 @@ def get_configuration_from_file(paths_data, convert_version=False) -> DataRespon
     return DataResponceCommon(data=data, error=error)
 
 
-def get_new_configuration() -> dict:
-    return RootConfigModel().dict(by_alias=True, exclude_none=True)
+def get_new_configuration() -> DataResponceCommon:
+    return DataResponceCommon(
+        data=RootConfigModel().dict(by_alias=True, exclude_none=True)
+    )
 
-
-if __name__ == '__main__':
-    print(get_project_paths_data())
