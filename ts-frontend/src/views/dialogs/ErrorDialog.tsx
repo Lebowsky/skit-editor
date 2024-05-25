@@ -1,4 +1,4 @@
-import Button, { ButtonGroup } from "../../components/inputs/Button"
+import Button from "../../components/inputs/Button"
 import Modal from "../../components/layouts/Modal"
 import { useSimpleUI } from "../../context/context"
 import { IContextProviderData } from "../../models/ContextConfiguration"

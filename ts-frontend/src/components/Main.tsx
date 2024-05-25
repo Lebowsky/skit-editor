@@ -1,4 +1,4 @@
-import { ToastContainer, toast as t, Slide } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useSimpleUI } from '../context/context'

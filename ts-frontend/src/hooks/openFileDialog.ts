@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSimpleUI } from "../context/context";
 import { IContextProviderData } from "../models/ContextConfiguration";
 import { modals } from "../models/Modals";
-import { IFileOpenResponse, IErrorResponce, IConfigDataRequest, IProjectPathsData } from "../models/apiResponces";
+import { IFileOpenResponse, IErrorResponce, IProjectPathsData } from "../models/apiResponces";
 import { getJsonData } from "../services/eelExpose";
 import { toast } from "react-toastify";
 

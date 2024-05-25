@@ -102,11 +102,6 @@ interface ListItemProps {
   data: string[]
 }
 function ListItem({ data }: ListItemProps) {
-  const baseStyle = {
-    userSelect: 'none',
-    overflow: "hidden",
-    textOverflow: 'ellipsis'
-  }
   const styles: CSS.Properties[] = [
     {
       width: '30%',
