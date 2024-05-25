@@ -39,6 +39,11 @@ def get_configuration_from_file(data: dict) -> dict:
 
 
 @eel.expose
+def get_new_configuration():
+    return ui_service.get_new_configuration()
+
+
+@eel.expose
 def save_file_content(file_path, content):
     with open(file_path, 'w', encoding='utf-8') as fp:
         try:
@@ -46,3 +51,7 @@ def save_file_content(file_path, content):
             return {'result': True}
         except Exception as e:
             return {'error': type(e), 'description': str(e)}
+
+
+if __name__ == '__main__':
+    print(get_new_configuration())

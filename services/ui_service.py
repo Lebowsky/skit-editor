@@ -4,6 +4,7 @@ import services.dialogs
 from exceptions import InitUiConfigError
 from models.api_responces import ProjectPathsData, DataResponceCommon, ErrorResponce
 from models.file_types import FileType
+from models.ui_config_models import RootConfigModel
 from services.dialogs import ask_file, ask_dir
 from services.ui_config_service import UiConfigManager
 
@@ -54,6 +55,10 @@ def get_configuration_from_file(paths_data, convert_version=False) -> DataRespon
         )
 
     return DataResponceCommon(data=data, error=error)
+
+
+def get_new_configuration() -> dict:
+    return RootConfigModel().dict(by_alias=True, exclude_none=True)
 
 
 if __name__ == '__main__':
