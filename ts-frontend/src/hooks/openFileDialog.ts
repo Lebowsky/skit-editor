@@ -4,6 +4,7 @@ import { IContextProviderData } from "../models/ContextConfiguration";
 import { modals } from "../models/Modals";
 import { IFileOpenResponse, IErrorResponce, IConfigDataRequest, IProjectPathsData } from "../models/apiResponces";
 import { getJsonData } from "../eelExpose";
+import { toast } from "react-toastify";
 
 interface OpenFileDialogFormData {
   uiPath: string
@@ -71,6 +72,8 @@ export default function useOpenFileDialog() {
       updateSideMenu()
       setModal(null)
       setAppData({configurationFilePath: uiPath})
+    } else {
+      toast.info('Pleast select UI file')
     }
   }
   

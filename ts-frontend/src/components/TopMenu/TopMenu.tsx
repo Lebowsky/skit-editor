@@ -2,12 +2,12 @@
 import './TopMenu.css'
 import { useSimpleUI } from '../../context/context'
 import { IContextProviderData } from '../../models/ContextConfiguration'
-import { askFile, getJsonData, saveFileContent } from '../../eelExpose'
 import { modals } from '../../models/Modals'
+import { saveFileContent } from '../../eelExpose'
 
 
 export default function TopMenu() {
-  const { configurationService, appData, setModal, setModalError, updateConfigurationService, updateSideMenu, setAppData } = useSimpleUI() as IContextProviderData
+  const { configurationService, appData, setModal } = useSimpleUI() as IContextProviderData
 
   async function saveConfiguration() {
     if (appData && appData.configurationFilePath){
@@ -16,27 +16,8 @@ export default function TopMenu() {
   }
 
   async function fileOpenClick(){
-    // const filePath = await askFile('simple_ui')
-    // if (filePath){
-    //   const result = await getJsonData(filePath)
-    //   if (result.error){
-    //     setModal(modals.error)
-    //     setModalError({
-    //       title: result.error, 
-    //       description: result.description,
-    //       buttons: [
-    //         {text: 'OK', onClick: () => {setModal(modals.startScreen)}},
-    //       ]
-    //     })
-    //   } else if (result.data) {
-    //     updateConfigurationService(result.data.ClientConfiguration)
-    //     updateSideMenu()
-    //     setModal(null)
-    //     setAppData({configurationFilePath: filePath})
-    //   }
-    // }
+    setModal(modals.openFileProject)
   }
-
 
   return (
     <div className="top-menu">

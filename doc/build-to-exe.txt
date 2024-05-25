@@ -1,2 +1,2 @@
 npm run build
-python -m eel main.py build --onefile
+python -m eel main.py ts-frontend/build --onefile

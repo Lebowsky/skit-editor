@@ -1,13 +1,16 @@
+import { ToastContainer, toast as t, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useSimpleUI } from '../context/context'
 import { IContextProviderData } from '../models/ContextConfiguration'
 import ModalView from '../views/ModalView'
 import Content from './Content'
 import SideMenu from './SideMenu/SideMenu'
-// import ParamsDetails from '../../views/ParamsDetails/ParamsDetails.jsx'
 
 
 export default function Main() {
   const { modal, sideMenu, currentContent } = useSimpleUI() as IContextProviderData
+  
   return (
     <div style={{
       marginTop: 50,
@@ -18,6 +21,16 @@ export default function Main() {
       {modal && <ModalView></ModalView>}
       {sideMenu && <SideMenu sideMenu={sideMenu} />}
       {currentContent && <Content key={currentContent.id} />}
+      <ToastContainer 
+        position={'bottom-center'}
+        autoClose={1000}
+        hideProgressBar={true}
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={false}
+        theme={"light"}
+        transition={Slide}
+      />
     </div>
   )
 }

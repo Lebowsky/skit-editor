@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSimpleUI } from "../../context/context";
+import { IContextProviderData } from "../../models/ContextConfiguration";
 
 interface ModalProps {
   children: React.ReactNode
@@ -7,8 +9,11 @@ interface ModalProps {
 
 export default function Modal({ children, allowClose }: ModalProps) {
   const [isOpen, setIsOpen] = useState(true)
+  const { setModal } = useSimpleUI() as IContextProviderData
+
   function closeModal() {
     allowClose && allowClose() && setIsOpen(false)
+    setModal(null)
   }
 
   if (!isOpen) return null;
@@ -54,7 +59,7 @@ function CloseModalIcon({ onClick }: CloseModalIconProps) {
     <i
       className="tab-icon fa fa-times"
       aria-hidden="true"
-      onClick={() => onClick} 
+      onClick={onClick} 
       style={{
         fontSize: 16,
         cursor: 'pointer',

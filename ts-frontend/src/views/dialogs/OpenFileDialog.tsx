@@ -23,11 +23,11 @@ export default function OpenFileDialog() {
   }
 
   async function applyOnClick() {
-      await loadUiConfig()
+    await loadUiConfig()
   }
 
   return (
-    <Modal>
+    <Modal allowClose={()=> (true)}>
       <div style={{
         width: '600px',
         padding: '3%',
