@@ -7,6 +7,10 @@ class ErrorResponce(BaseModel):
     detail: str
 
 
+class PathData(BaseModel):
+    path: str
+
+
 class DataResponceCommon(BaseModel):
     data: dict | None = None
     error: ErrorResponce | None = None

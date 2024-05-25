@@ -3,7 +3,7 @@ import Modal from "../../components/layouts/Modal";
 import { useSimpleUI } from "../../context/context";
 import { IContextProviderData } from "../../models/ContextConfiguration";
 import { modals } from "../../models/Modals";
-import { getNewConfiguration } from "../../eelExpose";
+import { getNewConfiguration } from "../../services/eelExpose";
 
 
 export default function StartScreen() {

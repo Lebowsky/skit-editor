@@ -3,7 +3,7 @@ import { useSimpleUI } from "../context/context";
 import { IContextProviderData } from "../models/ContextConfiguration";
 import { modals } from "../models/Modals";
 import { IFileOpenResponse, IErrorResponce, IConfigDataRequest, IProjectPathsData } from "../models/apiResponces";
-import { getJsonData } from "../eelExpose";
+import { getJsonData } from "../services/eelExpose";
 import { toast } from "react-toastify";
 
 interface OpenFileDialogFormData {
@@ -71,7 +71,7 @@ export default function useOpenFileDialog() {
       updateConfigurationService(result.data.ClientConfiguration)
       updateSideMenu()
       setModal(null)
-      setAppData({configurationFilePath: uiPath})
+      setAppData({uiPath: uiPath, workingDirPath: workingDirPath, projectConfigPath: projectConfigPath})
     } else {
       toast.info('Pleast select UI file')
     }

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { IAppData, IConfigurationContext, contextTypes } from '../models/ContextConfiguration'
-import { fetchConfiguration } from '../api';
+import { fetchConfiguration } from '../services/api';
 import { ConfigurationService } from '../services/configurationService'
 import { ISideMenuItem, ITabData } from "../models/SideMenu";
 import { IContextProviderData } from "../models/ContextConfiguration";

@@ -11,7 +11,7 @@ logger.setLevel(logging.DEBUG)
 class UiConfigManager:
     def __init__(self, file_path):
         self.file_path = str(Path(file_path))
-        self.config_data = {}
+        self.config_data: dict = {}
         self.error = {}
         self.unsupported_version = False
 
@@ -20,17 +20,19 @@ class UiConfigManager:
         self._check_config()
         if self.error:
             logger.error(f'Init config error as cause: {self.error}')
-            raise InitUiConfigError(json.dumps(dict(**{'file_path': self.file_path}, **self.error)))
+            raise InitUiConfigError(
+                json.dumps(dict(**{'file_path': self.file_path}, **self.error))
+            )
 
     def get_config_data(self, convert_version=False):
         if convert_version and self._is_unsupported_version_config():
             self._convert_config_version()
         return self.config_data
 
-    def set_config_data(self, config_data):
+    def set_config_data(self, config_data: dict):
         self.config_data = config_data
 
-    def save_configuration(self, config_data):
+    def save_configuration(self, config_data: dict):
         self.set_config_data(config_data)
         if self.save_config_to_file():
             return {'result': 'success'}

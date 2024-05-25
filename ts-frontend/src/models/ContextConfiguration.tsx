@@ -56,8 +56,8 @@ export interface IOperations{
 }
 
 export interface IAppData {
-  configurationFilePath: string
-  workDir?: string
+  uiPath: string
+  workingDirPath?: string
   projectConfigPath?: string
 }
 export interface IContextProviderData {

@@ -1,4 +1,4 @@
-import { getUrl } from "./utils"
+import { getUrl } from "../utils"
 
 export const fakeFetchConfiguration = async () => {
   return new Promise((resolve) => {

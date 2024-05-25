@@ -3,21 +3,29 @@ import './TopMenu.css'
 import { useSimpleUI } from '../../context/context'
 import { IContextProviderData } from '../../models/ContextConfiguration'
 import { modals } from '../../models/Modals'
-import { getNewConfiguration, saveFileContent } from '../../eelExpose'
+import { askSaveFile, getNewConfiguration, saveFileContent } from '../../services/eelExpose'
 
 
 export default function TopMenu() {
   const { 
     configurationService, 
     appData, 
+    setAppData,
     setModal,
     updateConfigurationService,
     updateSideMenu 
   } = useSimpleUI() as IContextProviderData
 
   async function saveConfiguration() {
-    if (appData && appData.configurationFilePath){
-      await saveFileContent(appData.configurationFilePath, configurationService.getConfigurationJson())
+    if (appData && appData.uiPath){
+      await saveFileContent(appData.uiPath, configurationService.getConfigurationJson())
+    } else {
+      const result = await askSaveFile()
+      if (result && result.data){
+        const uiPath = result.data.path
+        setAppData({uiPath: uiPath})
+        await saveFileContent(uiPath, configurationService.getConfigurationJson())
+      }
     }
   }
 

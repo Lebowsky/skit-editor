@@ -1,5 +1,5 @@
 import Button from "../../components/inputs/Button";
-import { getProjectPathsData, getWorkingDirPath, projectConfigPath } from "../../eelExpose";
+import { getProjectPathsData, getWorkingDirPath, projectConfigPath } from "../../services/eelExpose";
 import Modal from "../../components/layouts/Modal";
 import useOpenFileDialog from "../../hooks/openFileDialog";
 

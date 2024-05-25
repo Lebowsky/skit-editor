@@ -1,8 +1,16 @@
-import { eel } from "./App";
-import { IDataResponceCommon, IFileOpenResponse, IProjectPathsData } from "./models/apiResponces";
+import { eel } from "../App";
+import { IDataResponceCommon, IFileOpenResponse, IProjectPathsData } from "../models/apiResponces";
 
 export async function askFile(fileType: string): Promise <IDataResponceCommon> {
   return eel.ask_file(fileType)();
+}
+
+export async function askDir(): Promise <IDataResponceCommon> {
+  return eel.ask_dir()();
+}
+
+export async function askSaveFile(): Promise <IDataResponceCommon> {
+  return eel.ask_save_file()();
 }
 
 export async function getNewConfiguration() {
