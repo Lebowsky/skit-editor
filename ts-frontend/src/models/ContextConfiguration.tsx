@@ -27,6 +27,7 @@ export interface IListItem {
 }
 
 export enum contextTypes{
+  common='common',
   processes='processes',
   operations='operations',
   handlers='handlers',

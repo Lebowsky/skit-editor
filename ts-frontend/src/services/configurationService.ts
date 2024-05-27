@@ -13,6 +13,7 @@ export class ConfigurationService {
   private handlers: IListItem[] = []
   private elements: IListItem[] = []
   private mainMenu: IListItem[] = []
+  private common: IListItem[] = [{id: 0, parentId: 0, contextType: contextTypes.common, content: {type: 'common'}}]
 
   constructor(raw_data: {[key: string]: any}) {
     this.raw_data = raw_data
@@ -31,6 +32,7 @@ export class ConfigurationService {
 
     this.parseProcesses(Processes)
     this.parseMainMenu(MainMenu)
+    this.parseCommon(root)
     this.root = root
 
   }
@@ -62,6 +64,7 @@ export class ConfigurationService {
   public getSideMenu (processes: IListItem[], operations: IListItem[]): ISideMenuItem[]{
     const nestedItems: ISideMenuItem[] = []
     const sideMenuData: ISideMenuItem[] = [
+      { type: 'Common', title: 'Common', id: 0, contextType: contextTypes.common, showInTabs: true },
       { type: 'MainMenu', title: 'Main menu', id: 0, contextType: contextTypes.mainMenu, showInTabs: true },
       { type: 'StyleTemplates', title: 'Styles', id: 0, contextType: contextTypes.styleTemplates, showInTabs: false},
       { type: 'StartScreen', title: 'Start screen', id: 0, contextType: contextTypes.startScreen, showInTabs: false },
@@ -114,6 +117,7 @@ export class ConfigurationService {
       [contextTypes.elements]: this.elements,
       [contextTypes.handlers]: this.handlers,
       [contextTypes.mainMenu]: this.mainMenu,
+      [contextTypes.common]: this.common,
       [contextTypes.styleTemplates]: this.processes,
       [contextTypes.startScreen]: this.processes,
       [contextTypes.shedulers]: this.processes,
@@ -236,6 +240,20 @@ export class ConfigurationService {
         content: item
       })
     });
+  }
+  private parseCommon (common: {[key: string]: any}): void{
+    this.common = [{
+      id: this.getId(),
+      parentId: 0,
+      contextType: contextTypes.common,
+      content: {
+        type: 'common', 
+        ConfigurationName: common.ConfigurationName,
+        ConfigurationDescription: common.ConfigurationDescription,
+        ConfigurationVersion: common.ConfigurationVersion,
+        ConfigurationTags: common.ConfigurationTags,
+      }
+    }]
   }
   private getId(): number {
     return ++this.id

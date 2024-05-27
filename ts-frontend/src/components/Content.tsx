@@ -12,6 +12,7 @@ import Shedulers from "../views/contentViews/Shedulers"
 import CommonHandlers from "../views/contentViews/CommonHandlers"
 import PythonFiles from "../views/contentViews/PythonFiles"
 import MediaFiles from "../views/contentViews/MediaFiles"
+import Common from "../views/contentViews/Common"
 
 
 export default function Content() {
@@ -27,6 +28,7 @@ export default function Content() {
         {currentContent && currentContent.content.type === 'Operation' && <ParamsOperation/>}
         {currentContent && currentContent.content.type === 'CVOperation' && <ParamsCVOperation/>}
         {currentContent && currentContent.content.type === 'CVFrame' && <ParamsCVFrame/>}
+        <Common/>
         <MainMenu/>
         <StyleTemplates/>
         <StartScreen/>
