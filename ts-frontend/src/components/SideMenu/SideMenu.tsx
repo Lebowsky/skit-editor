@@ -6,6 +6,7 @@ import { ISideMenuItem } from '../../models/SideMenu'
 import { IContextProviderData } from '../../models/ContextConfiguration'
 
 const icons: { [key: string]: string } = {
+  'Common': 'icon common',
   'MainMenu': 'icon main-menu',
   'StyleTemplates': 'icon styles',
   'StartScreen': 'icon start-screen',

@@ -32,8 +32,11 @@ ul.side-menu-nested li {
     width: 15px;
     font-size: 10pt;
 }
-.icon.main-menu:before {
+.icon.common:before {
     content: "\f015";
+}
+.icon.main-menu:before {
+    content: "\f0c9";
 }
 .icon.styles:before {
     content: "\f1fc";

@@ -91,6 +91,7 @@ export class ConfigurationService {
     return sideMenuData
   }
   public getItemContent(id: number, type: contextTypes): IContent{
+    
     const getElements = (parentId: number): IListContent[] => {
       return this.elements
         .filter(el => el.parentId === parentId)
@@ -234,7 +235,7 @@ export class ConfigurationService {
     MainMenu && MainMenu.forEach(({ ...item }) => {
       const id = this.getId()
       this.mainMenu.push({
-        id: id,
+        id: 0,
         parentId: 0,
         contextType: contextTypes.mainMenu,
         content: item
@@ -243,7 +244,7 @@ export class ConfigurationService {
   }
   private parseCommon (common: {[key: string]: any}): void{
     this.common = [{
-      id: this.getId(),
+      id: 0,
       parentId: 0,
       contextType: contextTypes.common,
       content: {

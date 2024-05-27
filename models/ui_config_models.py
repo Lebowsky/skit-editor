@@ -56,7 +56,7 @@ class ConfigurationSettingsModel(BaseConfigModel):
 
 
 class ClientConfigurationModel(BaseConfigModel):
-    name: str = Field(default='New confiluration', alias='ConfigurationName')
+    name: str = Field(default='New configuration', alias='ConfigurationName')
     description: str | None = Field(default='', alias='ConfigurationDescription')
     version: str = Field(default='0.0.1', alias='ConfigurationVersion')
     processes: list = Field(
