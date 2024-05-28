@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IAppData, IConfigurationContext, contextTypes } from '../models/ContextConfiguration'
-import { fetchConfiguration } from '../services/api';
+import { IAppData, contextTypes } from '../models/ContextConfiguration'
 import { ConfigurationService } from '../services/configurationService'
 import { ISideMenuItem, ITabData } from "../models/SideMenu";
 import { IContextProviderData } from "../models/ContextConfiguration";
@@ -38,8 +37,7 @@ export function SimpleUIContextProvider({ children }: ContextProps) {
   }
 
   function updateSideMenu() {
-    const conf: IConfigurationContext = configurationService.getConfigurationContext()
-    setSideMenu(configurationService.getSideMenu(conf.processes, conf.operations))
+    setSideMenu(configurationService.getSideMenu())
   }
 
   function addTab(newTab: ITabData): void {

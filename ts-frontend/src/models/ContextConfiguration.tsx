@@ -4,20 +4,6 @@ import { IContent, IDetailsContent } from "./Content"
 import { modals } from "./Modals"
 import { IModalError } from "./Modal"
 
-export interface IConfigurationContext {
-  root: {}
-  processes: IListItem[]
-  operations: IListItem[]
-  elements: IListItem[]
-  handlers: IListItem[]
-  // pyFiles: []
-  // timers: []
-  // commonHandlers: []
-  // mediaFiles: []
-  // mainMenu: []
-  // styleTemplates: []
-  // configurationSettings: {}
-}
 
 export interface IListItem {
   id: number
