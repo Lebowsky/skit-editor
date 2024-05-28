@@ -77,7 +77,7 @@ export default function ParamsLinearLayout() {
     <ModalParamsForm
       fields={fields}
       onSubmit={handleSubmit}
-      title={currentDetails.content.type}
+      title={currentDetails.content.type.toString()}
     />
   )
 }

@@ -9,7 +9,7 @@ export interface IListItem {
   id: number
   parentId: number
   contextType: contextTypes
-  content: {type: string, [key: string]: string }
+  content: {[key: string]: string }
 }
 
 export enum contextTypes{

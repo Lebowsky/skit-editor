@@ -3,7 +3,7 @@ import { contextTypes } from "./ContextConfiguration"
 export interface IContent {
   id: number
   contextType: contextTypes
-  content: {type: string, [key: string]: string | boolean}
+  content: {[key: string]: string | boolean}
   elements?: IListContent[]
   handlers?: IListContent[]
 }
@@ -12,7 +12,7 @@ export interface IListContent {
   id: number
   parentId: number
   contextType: contextTypes
-  content: {type: string, [key: string]: string | boolean}
+  content: {[key: string]: string | boolean}
   nestedElements: IListContent[]
 }
 
@@ -28,5 +28,5 @@ export interface IHandlersItem {
 export interface IDetailsContent {
   id: number
   contextType: contextTypes
-  content: {type: string, [key: string]: string | boolean}
+  content: {[key: string]: string | boolean}
 }

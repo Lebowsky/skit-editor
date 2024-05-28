@@ -89,7 +89,7 @@ export default function ParamsLayoutElement(){
     <ModalParamsForm
       fields={fields}
       onSubmit={handleSubmit}
-      title={currentDetails.content.type}
+      title={currentDetails.content.type.toString()}
     />
   )
 }

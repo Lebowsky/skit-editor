@@ -36,7 +36,7 @@ export default function ParamsBaseElement() {
     <ModalParamsForm
       fields={fields}
       onSubmit={handleSubmit}
-      title={currentDetails.content.type}
+      title={currentDetails.content.type.toString()}
     />
   )
 }

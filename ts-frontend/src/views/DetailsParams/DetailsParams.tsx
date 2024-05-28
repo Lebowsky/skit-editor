@@ -20,7 +20,7 @@ export default function DetailsParams() {
   const detailsType = currentDetails.contextType === contextTypes.handlers ?
     'handlers' :
     Object.entries(detailsElementsTypes).reduce((result, [key, types]) => {
-      if (types.includes(currentDetails.content.type)) result = key
+      if (currentDetails.content.type && types.includes(currentDetails.content.type.toString())) result = key
       return result
     }, 'layoutElement')
 
